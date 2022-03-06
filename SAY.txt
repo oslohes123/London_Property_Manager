@@ -1,8 +1,3 @@
 SAY 
-<<<<<<< HEAD
 Shaheer,Ashley,Yousef
 - My name is spelt Shaheer
-=======
-Shareef,Ashley, Altaher, Yousef
-
->>>>>>> f14820997366e58df9450f4ad454f1eb72371946
