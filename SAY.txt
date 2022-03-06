@@ -1,8 +1,5 @@
 SAY 
-<<<<<<< HEAD
 Ashley
 
 
-=======
 Yousef Altaher
->>>>>>> 7b4201371200b30222a2292299a65f7bc7672830
