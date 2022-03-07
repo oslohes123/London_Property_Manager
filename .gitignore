@@ -14,6 +14,7 @@
 
 # Package Files #
 *.jar
+!/London_Property_Marketplace/London_Property_Market/src/main/resources/lib/*.jar
 *.war
 *.nar
 *.ear
