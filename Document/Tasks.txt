@@ -1,0 +1,18 @@
+Base Tasks
+
+Creating the basic window
+------------
+
+Application Window
+
+BorderPane
+Top contains from selection
+Middle contains some pane with additional data
+Bottom contains some buttons
+
+
+------------
+The welcome
+The map window
+The statistics window
+
