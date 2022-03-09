@@ -56,6 +56,7 @@ public class MainViewer extends Application {
         launch();
     }
 
+    //https://stackoverflow.com/questions/28977308/read-all-lines-with-bufferedreader
     private void mouse(MouseEvent mouseEvent) {
         Point2D point = new Point2D(mouseEvent.getX(), mouseEvent.getY());
         Point mapPoint = mapView.screenToLocation(point);

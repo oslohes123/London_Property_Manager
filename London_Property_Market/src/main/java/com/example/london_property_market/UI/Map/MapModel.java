@@ -7,12 +7,9 @@ import com.google.gson.JsonParser;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.Arrays;
 import java.util.stream.Collectors;
 
 public class MapModel {
@@ -20,8 +17,6 @@ public class MapModel {
     private final String API_URL = "http://api.postcodes.io/postcodes";
     private final String LONG_PREFIX = "lon";
     private final String LATIT_PREFIX = "lat";
-    // Get borough from coordinates
-    // API : https://findthatpostcode.uk/
 
     public String getBoroughID(double longitude, double latitude){
         String url = API_URL + "?" + LONG_PREFIX + "=" + longitude + "&" + LATIT_PREFIX + "=" + latitude;
@@ -30,7 +25,7 @@ public class MapModel {
         try {
             URLConnection urlConnection = new URL(url).openConnection();
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-
+            //https://stackoverflow.com/questions/28977308/read-all-lines-with-bufferedreader
             JsonObject jsonObject = JsonParser.parseString(bufferedReader.lines().collect(Collectors.joining())).getAsJsonObject();
 
             if (!isValidAddress(jsonObject))
