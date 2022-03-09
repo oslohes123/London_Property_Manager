@@ -23,8 +23,6 @@ public class MainViewer extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
-        ArcGISRuntimeEnvironment.setInstallDirectory("src/main/path/");
-
         ArcGISRuntimeEnvironment.setApiKey("AAPKc555c6c3e07d4271a12ea786c0965414qrGdevhwwXl16CIE4TsMZFaF4cWqrF3CPKVPZYuqul9SCtFrtWFVEgFeqNF-2Mpg");
 
         mapView = new MapView();
