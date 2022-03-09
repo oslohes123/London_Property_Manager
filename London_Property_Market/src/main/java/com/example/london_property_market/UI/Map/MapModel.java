@@ -3,6 +3,7 @@ package com.example.london_property_market.UI.Map;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -20,6 +21,8 @@ public class MapModel {
         String url = API_URL + "?" + LONG_PREFIX + "=" + longitude + LATIT_PREFIX + "=" + latitude;
         try {
             URLConnection urlConnection = new URL(url).openConnection();
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+            System.out.println(bufferedReader.readLine());
         } catch (IOException e) {
             e.printStackTrace();
         }
