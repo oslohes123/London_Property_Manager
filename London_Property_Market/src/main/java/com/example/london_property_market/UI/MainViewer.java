@@ -7,6 +7,7 @@ import com.esri.arcgisruntime.geometry.SpatialReferences;
 import com.esri.arcgisruntime.mapping.ArcGISMap;
 import com.esri.arcgisruntime.mapping.*;
 import com.esri.arcgisruntime.mapping.view.MapView;
+import com.example.london_property_market.UI.Map.MapModel;
 import javafx.application.Application;
 import javafx.geometry.Point2D;
 import javafx.scene.Scene;
@@ -60,6 +61,8 @@ public class MainViewer extends Application {
         Point mapPoint = mapView.screenToLocation(point);
         Point projectedPoint = (Point) GeometryEngine.project(mapPoint, SpatialReferences.getWgs84()) ;
         System.out.println(projectedPoint.getX() + " " + projectedPoint.getY());
+        MapModel mapModel = new MapModel();
+        mapModel.getBoroughID(projectedPoint.getX(), projectedPoint.getY());
     }
 
     /**

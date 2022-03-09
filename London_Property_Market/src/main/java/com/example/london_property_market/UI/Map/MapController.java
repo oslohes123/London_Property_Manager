@@ -5,7 +5,7 @@ public class MapController {
 
     //TODO arraylist to store selected boroughs
 
-    // TODO MouseClick map selection GIS
+    // DONE MouseClick map selection GIS
 
     // TODO btn view action listener
 
