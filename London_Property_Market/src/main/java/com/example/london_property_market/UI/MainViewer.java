@@ -4,9 +4,11 @@ import com.esri.arcgisruntime.ArcGISRuntimeEnvironment;
 import com.esri.arcgisruntime.geometry.GeometryEngine;
 import com.esri.arcgisruntime.geometry.Point;
 import com.esri.arcgisruntime.geometry.SpatialReferences;
+import com.esri.arcgisruntime.layers.KmlLayer;
 import com.esri.arcgisruntime.mapping.ArcGISMap;
 import com.esri.arcgisruntime.mapping.*;
 import com.esri.arcgisruntime.mapping.view.MapView;
+import com.esri.arcgisruntime.ogc.kml.KmlDataset;
 import com.example.london_property_market.UI.Map.MapModel;
 import javafx.application.Application;
 import javafx.geometry.Point2D;
@@ -21,7 +23,7 @@ public class MainViewer extends Application {
 
     private final double LONDON_LONGITUDE = -0.14130290092735798;
     private final double LONDON_LATITUDE = 51.493866432732425;
-    private final double MAP_SCALE = 472223.819286;
+    private final double MAP_SCALE = 372223.819286;
 
     private MapView mapView;
 
@@ -42,6 +44,10 @@ public class MainViewer extends Application {
         mapView.setEnableTouchPan(false);
         mapView.setEnableTouchRotate(false);
         mapView.setEnableTouchZoom(false);
+
+        //https://www.google.com/maps/d/viewer?ptab=2&ie=UTF8&oe=UTF8&msa=0&mid=1t4G7Q0brBWa2_kKwYyEtoxmCd60&ll=51.54916761414271%2C-0.3551975488280934&z=9
+        KmlLayer kmlLayer = new KmlLayer(new KmlDataset("src/main/resources/map/LondonBoroughs.kmz.kmz"));
+        map.getOperationalLayers().add(kmlLayer);
 
         mapView.setViewpoint(new Viewpoint(LONDON_LATITUDE, LONDON_LONGITUDE, MAP_SCALE));
         mapView.setOnMouseClicked(this::mouse);
