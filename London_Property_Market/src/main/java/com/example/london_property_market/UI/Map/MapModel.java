@@ -1,5 +1,10 @@
 package com.example.london_property_market.UI.Map;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonNull;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,6 +13,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public class MapModel {
 
@@ -17,17 +23,32 @@ public class MapModel {
     // Get borough from coordinates
     // API : https://findthatpostcode.uk/
 
-    public String getBoroughID(double latitude, double longitude){
-        String url = API_URL + "?" + LONG_PREFIX + "=" + longitude + LATIT_PREFIX + "=" + latitude;
+    public String getBoroughID(double longitude, double latitude){
+        String url = API_URL + "?" + LONG_PREFIX + "=" + longitude + "&" + LATIT_PREFIX + "=" + latitude;
+        String borough = "";
+
         try {
             URLConnection urlConnection = new URL(url).openConnection();
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-            System.out.println(bufferedReader.readLine());
+
+            JsonObject jsonObject = JsonParser.parseString(bufferedReader.lines().collect(Collectors.joining())).getAsJsonObject();
+
+            if (!isValidAddress(jsonObject))
+                return null;
+
+
+            JsonArray jsonArray = jsonObject.getAsJsonArray("result");
+            borough = jsonArray.get(0).getAsJsonObject().get("admin_district").getAsString();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return "";
+        return borough;
+    }
+
+    private boolean isValidAddress(JsonObject jsonObject){
+        return jsonObject.get("result") != JsonNull.INSTANCE && jsonObject.getAsJsonArray("result").get(0).getAsJsonObject().get("region").getAsString().equals("London");
     }
 
 }

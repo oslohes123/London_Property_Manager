@@ -60,7 +60,7 @@ public class MainViewer extends Application {
         Point2D point = new Point2D(mouseEvent.getX(), mouseEvent.getY());
         Point mapPoint = mapView.screenToLocation(point);
         Point projectedPoint = (Point) GeometryEngine.project(mapPoint, SpatialReferences.getWgs84()) ;
-        System.out.println(projectedPoint.getX() + " " + projectedPoint.getY());
+
         MapModel mapModel = new MapModel();
         mapModel.getBoroughID(projectedPoint.getX(), projectedPoint.getY());
     }
