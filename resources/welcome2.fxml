@@ -92,12 +92,10 @@
             </VBox>
             <VBox style="-fx-padding: 10;">
                <children>
-                  <Label />
-                  <ImageView fitHeight="290.0" fitWidth="295.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="255.0" fitWidth="385.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@emptyImage.png" />
-                     </image>
-                  </ImageView>
+                        <Image url="@Presentation.gif" />
+                     </image></ImageView>
                </children>
             </VBox>
          </children>
