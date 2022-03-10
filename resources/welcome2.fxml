@@ -72,7 +72,7 @@
    <bottom>
       <BorderPane style="-fx-background-color: grey; -fx-padding: 8;" BorderPane.alignment="CENTER">
          <center>
-            <Button mnemonicParsing="false" text="Next -&gt;" BorderPane.alignment="CENTER">
+            <Button mnemonicParsing="false" text="Open Map" BorderPane.alignment="CENTER">
                <font>
                   <Font size="15.0" />
                </font>
@@ -83,17 +83,19 @@
    <center>
       <HBox style="-fx-alignment: center; -fx-spacing: 10; -fx-padding: 10;" BorderPane.alignment="CENTER">
          <children>
-            <VBox style="-fx-font-size: 12; -fx-alignment: center; -fx-padding: 20; -fx-background-color: #dee0e3;">
+            <VBox style="-fx-font-size: 12; -fx-alignment: center; -fx-padding: 20; -fx-background-color: #dee0e3; -fx-spacing: 5; -fx-font-size: 13;">
                <children>
-                  <Label text="This is how the app works \nThere is more information about how it works \nThere is even more information about how it works \nThere is even more informatoin about how it works" wrapText="true" />
+                  <Label text="Welcome to Airbnb property detail viewer.  " textAlignment="CENTER" wrapText="true" />
+                  <Label text="In this application you can find the right property for you in each borough of London." textAlignment="CENTER" wrapText="true" />
+                  <Label text="Click open map to select a borough." textAlignment="CENTER" wrapText="true" />
                </children>
             </VBox>
             <VBox style="-fx-padding: 10;">
                <children>
                   <Label />
-                  <ImageView fitHeight="293.0" fitWidth="295.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="290.0" fitWidth="295.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@TemporaryImage.gif" />
+                        <Image url="@emptyImage.png" />
                      </image>
                   </ImageView>
                </children>
