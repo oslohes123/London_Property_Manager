@@ -1,14 +1,20 @@
 package com.example.london_property_market.UI;
 
 import com.esri.arcgisruntime.ArcGISRuntimeEnvironment;
-import com.esri.arcgisruntime.geometry.GeometryEngine;
-import com.esri.arcgisruntime.geometry.Point;
-import com.esri.arcgisruntime.geometry.SpatialReferences;
+import com.esri.arcgisruntime.arcgisservices.LabelDefinition;
+import com.esri.arcgisruntime.geometry.*;
+import com.esri.arcgisruntime.layers.FeatureLayer;
 import com.esri.arcgisruntime.layers.KmlLayer;
 import com.esri.arcgisruntime.mapping.ArcGISMap;
 import com.esri.arcgisruntime.mapping.*;
+import com.esri.arcgisruntime.mapping.labeling.LabelExpression;
+import com.esri.arcgisruntime.mapping.labeling.SimpleLabelExpression;
+import com.esri.arcgisruntime.mapping.view.Graphic;
+import com.esri.arcgisruntime.mapping.view.GraphicsOverlay;
 import com.esri.arcgisruntime.mapping.view.MapView;
 import com.esri.arcgisruntime.ogc.kml.KmlDataset;
+import com.esri.arcgisruntime.symbology.SimpleFillSymbol;
+import com.esri.arcgisruntime.symbology.SimpleLineSymbol;
 import com.example.london_property_market.UI.Map.MapModel;
 import javafx.application.Application;
 import javafx.geometry.Point2D;
@@ -45,6 +51,23 @@ public class MainViewer extends Application {
         mapView.setEnableTouchRotate(false);
         mapView.setEnableTouchZoom(false);
 
+        /*
+        GraphicsOverlay graphicsOverlay = new GraphicsOverlay();
+        mapView.getGraphicsOverlays().add(graphicsOverlay);
+
+        PointCollection corners = new PointCollection(SpatialReferences.getWgs84());
+        corners.add(-0.1457901341605265,51.52527195126727);
+        corners.add(-0.1451731770685712,51.52399603012169);
+        corners.add(-0.1441294260346192,51.5239975036809);
+        corners.add(-0.147170379208596,51.5250429344078);
+
+
+        Polygon polyline = new Polygon(corners);
+        Graphic polygonGraphic = new Graphic(polyline, new SimpleLineSymbol(SimpleLineSymbol.Style.SOLID,0xFF00FF00, 3));
+
+        graphicsOverlay.getGraphics().add(polygonGraphic);
+        */
+        
         //https://www.google.com/maps/d/viewer?ptab=2&ie=UTF8&oe=UTF8&msa=0&mid=1t4G7Q0brBWa2_kKwYyEtoxmCd60&ll=51.54916761414271%2C-0.3551975488280934&z=9
         KmlLayer kmlLayer = new KmlLayer(new KmlDataset("src/main/resources/map/LondonBoroughs.kmz.kmz"));
         map.getOperationalLayers().add(kmlLayer);
@@ -66,10 +89,12 @@ public class MainViewer extends Application {
     private void mouse(MouseEvent mouseEvent) {
         Point2D point = new Point2D(mouseEvent.getX(), mouseEvent.getY());
         Point mapPoint = mapView.screenToLocation(point);
-        Point projectedPoint = (Point) GeometryEngine.project(mapPoint, SpatialReferences.getWgs84()) ;
-
-        MapModel mapModel = new MapModel();
-        mapModel.getBoroughID(projectedPoint.getX(), projectedPoint.getY());
+        // Important as the user may click on the map before it completely loads
+        if (mapPoint != null) {
+            Point projectedPoint = (Point) GeometryEngine.project(mapPoint, SpatialReferences.getWgs84());
+            MapModel mapModel = new MapModel();
+            mapModel.getBoroughID(projectedPoint.getX(), projectedPoint.getY());
+        }
     }
 
     /**
