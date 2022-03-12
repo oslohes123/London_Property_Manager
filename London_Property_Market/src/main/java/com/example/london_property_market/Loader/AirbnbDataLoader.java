@@ -8,6 +8,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvValidationException;
+
 import java.net.URISyntaxException;
 
 public class AirbnbDataLoader {
@@ -50,6 +52,8 @@ public class AirbnbDataLoader {
             }
         } catch(IOException | URISyntaxException e){
             System.out.println("Failure! Something went wrong");
+            e.printStackTrace();
+        } catch (CsvValidationException e) {
             e.printStackTrace();
         }
         System.out.println("Success! Number of loaded records: " + listings.size());

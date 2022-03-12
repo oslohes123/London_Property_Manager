@@ -6,6 +6,8 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+
+import java.io.File;
 import java.net.URL;
 
 import java.io.IOException;
@@ -13,10 +15,9 @@ import java.io.IOException;
 public class MainViewer extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-
-        URL url = getClass().getResource("/London_Property_Marketplace/resources/welcome2.fxml");
+        File file = new File("resources/welcome2.fxml");
+        URL url = file.toURI().toURL();
         Pane root = FXMLLoader.load(url);
-
         Scene scene = new Scene(root);
         stage.setTitle("Hello!");
         stage.setScene(scene);
