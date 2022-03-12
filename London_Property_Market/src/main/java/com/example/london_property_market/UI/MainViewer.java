@@ -41,12 +41,12 @@ public class MainViewer extends Application {
         ArcGISMap map = new ArcGISMap(BasemapStyle.ARCGIS_NAVIGATION);
 
         mapView.setMap(map);
-//        mapView.setEnableMousePan(false);
-//        mapView.setEnableMouseZoom(false);
-//        mapView.setEnableKeyboardNavigation(false);
-//        mapView.setEnableTouchPan(false);
-//        mapView.setEnableTouchRotate(false);
-//        mapView.setEnableTouchZoom(false);
+        mapView.setEnableMousePan(false);
+        mapView.setEnableMouseZoom(false);
+        mapView.setEnableKeyboardNavigation(false);
+        mapView.setEnableTouchPan(false);
+        mapView.setEnableTouchRotate(false);
+        mapView.setEnableTouchZoom(false);
 
         drawBoroughsBoundariesFromFolder();
 
