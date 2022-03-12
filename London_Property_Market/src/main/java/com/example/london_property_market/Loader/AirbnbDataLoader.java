@@ -8,11 +8,12 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvValidationException;
 import java.net.URISyntaxException;
 
 public class AirbnbDataLoader {
- 
-    /** 
+
+    /**
      * Return an ArrayList containing the rows in the AirBnB London data set csv file.
      */
     public ArrayList<AirbnbListing> load() {
