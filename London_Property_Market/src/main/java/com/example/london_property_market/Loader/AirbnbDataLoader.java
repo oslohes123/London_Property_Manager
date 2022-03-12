@@ -13,7 +13,7 @@ public class AirbnbDataLoader {
 
     private final String CSV_FILE_PATH = "src/main/resources/propertyData/airbnb-london.csv";
 
-    public List<AirbnbListing> ListDataLoader() {
+    public List<AirbnbListing> listDataLoader() {
 
         //https://stackoverflow.com/questions/33026193/supercsv-unable-to-find-method-exception Author: Jeronimo Backes Date: Oct 10, 2015
         BeanListProcessor<AirbnbListing> beanListProcessor = new BeanListProcessor<>(AirbnbListing.class);
