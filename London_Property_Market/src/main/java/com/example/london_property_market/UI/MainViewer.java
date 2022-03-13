@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Random;
 
 public class MainViewer extends Application {
@@ -29,6 +30,7 @@ public class MainViewer extends Application {
     private final String GEO_JSON_FOLDER_PATH = "src/main/resources/map/geoJson/";
 
     private MapView mapView;
+    private HashMap<String, Polygon> polygons;
 
 
     @Override
@@ -36,6 +38,7 @@ public class MainViewer extends Application {
 
         ArcGISRuntimeEnvironment.setApiKey("AAPKc555c6c3e07d4271a12ea786c0965414qrGdevhwwXl16CIE4TsMZFaF4cWqrF3CPKVPZYuqul9SCtFrtWFVEgFeqNF-2Mpg");
 
+        polygons = new HashMap<>();
         mapView = new MapView();
 
         ArcGISMap map = new ArcGISMap(BasemapStyle.ARCGIS_NAVIGATION);
@@ -72,11 +75,12 @@ public class MainViewer extends Application {
             Random rand = new Random();
             int rand_num = 0xff000000 + rand.nextInt(0xffffff + 1);
 
-            for (PointCollection subPolygon : GeoJsonCoordinatesParser.getPointCollectionFromGeoJsonCoordinates("src/main/resources/map/geoJson/" + fileName)) {
-                Polygon polyline = new Polygon(subPolygon);
-                Graphic polygonGraphic = new Graphic(polyline, new SimpleLineSymbol(SimpleLineSymbol.Style.SOLID, rand_num, 3));
-                graphicsOverlay.getGraphics().add(polygonGraphic);
-            }
+
+            PolygonBuilder polygon = new PolygonBuilder(GeoJsonCoordinatesParser.getPointCollectionFromGeoJsonCoordinates("src/main/resources/map/geoJson/" + fileName));
+            Graphic polygonGraphic = new Graphic(polygon.toGeometry(), new SimpleLineSymbol(SimpleLineSymbol.Style.SOLID, rand_num, 3));
+            graphicsOverlay.getGraphics().add(polygonGraphic);
+            polygons.put(GEO_JSON_FOLDER_PATH+fileName, polygon.toGeometry());
+            
         }
 
     }
@@ -89,7 +93,7 @@ public class MainViewer extends Application {
         if (mapPoint != null) {
             Point projectedPoint = (Point) GeometryEngine.project(mapPoint, SpatialReferences.getWgs84());
             MapModel mapModel = new MapModel();
-            mapModel.getBoroughID(projectedPoint.getX(), projectedPoint.getY());
+            System.out.println(mapModel.getBoroughName(projectedPoint.getX(), projectedPoint.getY(), polygons));
         }
     }
 

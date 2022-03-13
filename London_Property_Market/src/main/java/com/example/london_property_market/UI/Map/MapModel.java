@@ -1,49 +1,38 @@
 package com.example.london_property_market.UI.Map;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonNull;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.esri.arcgisruntime.geometry.Point;
+import com.esri.arcgisruntime.geometry.Polygon;
+import com.sun.javafx.geom.Line2D;
+import java.util.HashMap;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.stream.Collectors;
 
 public class MapModel {
 
-    private final String API_URL = "http://api.postcodes.io/postcodes";
-    private final String LONG_PREFIX = "lon";
-    private final String LATIT_PREFIX = "lat";
-
-    public String getBoroughID(double longitude, double latitude){
-        String url = API_URL + "?" + LONG_PREFIX + "=" + longitude + "&" + LATIT_PREFIX + "=" + latitude;
-        String borough = "";
-
-        try {
-            URLConnection urlConnection = new URL(url).openConnection();
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-            //https://stackoverflow.com/questions/28977308/read-all-lines-with-bufferedreader
-            JsonObject jsonObject = JsonParser.parseString(bufferedReader.lines().collect(Collectors.joining())).getAsJsonObject();
-
-            if (!isValidAddress(jsonObject))
-                return null;
-
-
-            JsonArray jsonArray = jsonObject.getAsJsonArray("result");
-            borough = jsonArray.get(0).getAsJsonObject().get("admin_district").getAsString();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        System.out.println(borough);
-        return borough;
+    public String getBoroughName(double longitude, double latitude, HashMap<String, Polygon> identifier){
+        return GeoJsonCoordinatesParser.getBoroughNameFromFile(getBoroughFileName(longitude, latitude, identifier));
     }
 
-    private boolean isValidAddress(JsonObject jsonObject){
-        return jsonObject.get("result") != JsonNull.INSTANCE && jsonObject.getAsJsonArray("result").get(0).getAsJsonObject().get("region").getAsString().equals("London");
+    private String getBoroughFileName(double longitude, double latitude, HashMap<String, Polygon> identifier){
+
+        for (String fileName: identifier.keySet()) {
+            boolean insidePolygon = false;
+
+            for (int i = 0; i < identifier.get(fileName).getParts().size(); i++)
+                for (int j = 0; j < identifier.get(fileName).getParts().get(i).size(); j++)
+                    if (intersects(identifier.get(fileName).getParts().get(i).get(j).getStartPoint(), identifier.get(fileName).getParts().get(i).get(j).getEndPoint(), new Point(longitude, latitude)))
+                        insidePolygon = !insidePolygon;
+
+            if (insidePolygon)
+                return fileName;
+        }
+
+        return null;
+    }
+
+    private boolean intersects(Point a, Point b, Point target){
+        Line2D border = new Line2D((float) a.getX(), (float) a.getY(), (float) b.getX(), (float) b.getY());
+        Line2D rayCasted = new Line2D((float) target.getX(), (float) target.getY(), (float) target.getX(), 200);
+        return rayCasted.intersectsLine(border);
     }
 
 }
