@@ -7,15 +7,18 @@ import com.esri.arcgisruntime.mapping.*;
 import com.esri.arcgisruntime.mapping.view.Graphic;
 import com.esri.arcgisruntime.mapping.view.GraphicsOverlay;
 import com.esri.arcgisruntime.mapping.view.MapView;
+import com.esri.arcgisruntime.symbology.SimpleFillSymbol;
 import com.esri.arcgisruntime.symbology.SimpleLineSymbol;
 import com.example.london_property_market.UI.Map.GeoJsonCoordinatesParser;
 import com.example.london_property_market.UI.Map.MapModel;
+import com.google.gson.JsonParser;
 import javafx.application.Application;
 import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,7 +33,7 @@ public class MainViewer extends Application {
     private final String GEO_JSON_FOLDER_PATH = "src/main/resources/map/geoJson/";
 
     private MapView mapView;
-    private HashMap<String, Polygon> polygons;
+    private HashMap<String, Graphic> polygons;
 
 
     @Override
@@ -75,11 +78,10 @@ public class MainViewer extends Application {
             Random rand = new Random();
             int rand_num = 0xff000000 + rand.nextInt(0xffffff + 1);
 
-
             PolygonBuilder polygon = new PolygonBuilder(GeoJsonCoordinatesParser.getPointCollectionFromGeoJsonCoordinates("src/main/resources/map/geoJson/" + fileName));
             Graphic polygonGraphic = new Graphic(polygon.toGeometry(), new SimpleLineSymbol(SimpleLineSymbol.Style.SOLID, rand_num, 3));
             graphicsOverlay.getGraphics().add(polygonGraphic);
-            polygons.put(GEO_JSON_FOLDER_PATH+fileName, polygon.toGeometry());
+            polygons.put(GEO_JSON_FOLDER_PATH+fileName, polygonGraphic);
             
         }
 
@@ -89,11 +91,24 @@ public class MainViewer extends Application {
     private void mouse(MouseEvent mouseEvent) {
         Point2D point = new Point2D(mouseEvent.getX(), mouseEvent.getY());
         Point mapPoint = mapView.screenToLocation(point);
+
         // Important as the user may click on the map before it completely loads
         if (mapPoint != null) {
             Point projectedPoint = (Point) GeometryEngine.project(mapPoint, SpatialReferences.getWgs84());
             MapModel mapModel = new MapModel();
-            System.out.println(mapModel.getBoroughName(projectedPoint.getX(), projectedPoint.getY(), polygons));
+
+            Pair<String, String> boroughInfo = mapModel.getBoroughName(projectedPoint.getX(), projectedPoint.getY(), polygons);
+
+            if (boroughInfo.getLeft() != null && boroughInfo.getRight() != null) {
+                // change fill when clicked
+                Random rand = new Random();
+
+                if (JsonParser.parseString(polygons.get(boroughInfo.getLeft()).getSymbol().toJson()).getAsJsonObject().get("type").getAsString().equals("esriSLS"))
+                    polygons.get(boroughInfo.getLeft()).setSymbol(new SimpleFillSymbol(SimpleFillSymbol.Style.SOLID, 0xff000000 + rand.nextInt(0xffffff + 1), new SimpleLineSymbol(SimpleLineSymbol.Style.SOLID, 0xff000000 + rand.nextInt(0xffffff + 1), 2)));
+                else
+                    polygons.get(boroughInfo.getLeft()).setSymbol(new SimpleLineSymbol(SimpleLineSymbol.Style.SOLID, 0xff000000 + rand.nextInt(0xffffff + 1), 3));
+
+            }
         }
     }
 
