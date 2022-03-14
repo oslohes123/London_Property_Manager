@@ -9,8 +9,10 @@ import com.esri.arcgisruntime.mapping.view.GraphicsOverlay;
 import com.esri.arcgisruntime.mapping.view.MapView;
 import com.esri.arcgisruntime.symbology.SimpleFillSymbol;
 import com.esri.arcgisruntime.symbology.SimpleLineSymbol;
+import com.esri.arcgisruntime.symbology.TextSymbol;
 import com.example.london_property_market.UI.Map.GeoJsonCoordinatesParser;
 import com.example.london_property_market.UI.Map.MapModel;
+import com.example.london_property_market.UI.Map.Opacity;
 import com.google.gson.JsonParser;
 import javafx.application.Application;
 import javafx.geometry.Point2D;
@@ -30,10 +32,13 @@ public class MainViewer extends Application {
     private final double LONDON_LONGITUDE = -0.14130290092735798;
     private final double LONDON_LATITUDE = 51.493866432732425;
     private final double MAP_SCALE = 372223.819286;
+    private final int DEFAULT_OPACITY = 0x33000000;
+
     private final String GEO_JSON_FOLDER_PATH = "src/main/resources/map/geoJson/";
 
     private MapView mapView;
     private HashMap<String, Graphic> polygons;
+    private HashMap<Opacity, Integer> opacityMap;
 
 
     @Override
@@ -42,7 +47,9 @@ public class MainViewer extends Application {
         ArcGISRuntimeEnvironment.setApiKey("AAPKc555c6c3e07d4271a12ea786c0965414qrGdevhwwXl16CIE4TsMZFaF4cWqrF3CPKVPZYuqul9SCtFrtWFVEgFeqNF-2Mpg");
 
         polygons = new HashMap<>();
+        opacityMap = new HashMap<>();
         mapView = new MapView();
+        fillOpacityMap();
 
         ArcGISMap map = new ArcGISMap(BasemapStyle.ARCGIS_NAVIGATION);
 
@@ -75,16 +82,19 @@ public class MainViewer extends Application {
         mapView.getGraphicsOverlays().add(graphicsOverlay);
 
         for (String fileName : getAllGeoJsonResources()) {
-            Random rand = new Random();
-            int rand_num = 0xff000000 + rand.nextInt(0xffffff + 1);
 
             PolygonBuilder polygon = new PolygonBuilder(GeoJsonCoordinatesParser.getPointCollectionFromGeoJsonCoordinates("src/main/resources/map/geoJson/" + fileName));
-            Graphic polygonGraphic = new Graphic(polygon.toGeometry(), new SimpleLineSymbol(SimpleLineSymbol.Style.SOLID, rand_num, 3));
+            Graphic polygonGraphic = new Graphic(polygon.toGeometry(), new SimpleLineSymbol(SimpleLineSymbol.Style.SOLID, generateRandomHexWithOpacity(Opacity.ZERO_OPACITY), 3));
             graphicsOverlay.getGraphics().add(polygonGraphic);
             polygons.put(GEO_JSON_FOLDER_PATH+fileName, polygonGraphic);
             
         }
 
+    }
+
+    private void fillOpacityMap(){
+        opacityMap.put(Opacity.ZERO_OPACITY, 0xff000000);
+        opacityMap.put(Opacity.DEFAULT_FILL_OPACITY, 0x33000000);
     }
 
     //https://stackoverflow.com/questions/28977308/read-all-lines-with-bufferedreader
@@ -101,16 +111,21 @@ public class MainViewer extends Application {
 
             if (boroughInfo.getLeft() != null && boroughInfo.getRight() != null) {
                 // change fill when clicked
-                Random rand = new Random();
 
                 if (JsonParser.parseString(polygons.get(boroughInfo.getLeft()).getSymbol().toJson()).getAsJsonObject().get("type").getAsString().equals("esriSLS"))
-                    polygons.get(boroughInfo.getLeft()).setSymbol(new SimpleFillSymbol(SimpleFillSymbol.Style.SOLID, 0xff000000 + rand.nextInt(0xffffff + 1), new SimpleLineSymbol(SimpleLineSymbol.Style.SOLID, 0xff000000 + rand.nextInt(0xffffff + 1), 2)));
+                    polygons.get(boroughInfo.getLeft()).setSymbol(new SimpleFillSymbol(SimpleFillSymbol.Style.SOLID, generateRandomHexWithOpacity(Opacity.DEFAULT_FILL_OPACITY), new SimpleLineSymbol(SimpleLineSymbol.Style.SOLID, generateRandomHexWithOpacity(Opacity.ZERO_OPACITY), 2)));
                 else
-                    polygons.get(boroughInfo.getLeft()).setSymbol(new SimpleLineSymbol(SimpleLineSymbol.Style.SOLID, 0xff000000 + rand.nextInt(0xffffff + 1), 3));
+                    polygons.get(boroughInfo.getLeft()).setSymbol(new SimpleLineSymbol(SimpleLineSymbol.Style.SOLID, generateRandomHexWithOpacity(Opacity.ZERO_OPACITY), 3));
 
             }
         }
     }
+
+    private int generateRandomHexWithOpacity(Opacity opacity){
+        Random rand = new Random();
+        return opacityMap.get(opacity) + rand.nextInt(0xffffff + 1);
+    }
+
 
     public static void main(String[] args) {
         launch();
