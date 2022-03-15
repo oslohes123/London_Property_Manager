@@ -1,12 +1,24 @@
 package com.example.london_property_market.UI;
 
 import com.esri.arcgisruntime.ArcGISRuntimeEnvironment;
+import com.esri.arcgisruntime.arcgisservices.LabelDefinition;
+import com.esri.arcgisruntime.arcgisservices.LabelingPlacement;
+import com.esri.arcgisruntime.data.Feature;
+import com.esri.arcgisruntime.data.FeatureTable;
+import com.esri.arcgisruntime.data.ServiceFeatureTable;
 import com.esri.arcgisruntime.geometry.*;
+import com.esri.arcgisruntime.layers.FeatureLayer;
+import com.esri.arcgisruntime.loadable.LoadStatus;
 import com.esri.arcgisruntime.mapping.ArcGISMap;
 import com.esri.arcgisruntime.mapping.*;
+import com.esri.arcgisruntime.mapping.labeling.ArcadeLabelExpression;
+import com.esri.arcgisruntime.mapping.labeling.LabelExpression;
+import com.esri.arcgisruntime.mapping.labeling.LabelOverlapStrategy;
+import com.esri.arcgisruntime.mapping.labeling.SimpleLabelExpression;
 import com.esri.arcgisruntime.mapping.view.Graphic;
 import com.esri.arcgisruntime.mapping.view.GraphicsOverlay;
 import com.esri.arcgisruntime.mapping.view.MapView;
+import com.esri.arcgisruntime.symbology.ColorUtil;
 import com.esri.arcgisruntime.symbology.SimpleFillSymbol;
 import com.esri.arcgisruntime.symbology.SimpleLineSymbol;
 import com.esri.arcgisruntime.symbology.TextSymbol;
@@ -17,13 +29,15 @@ import com.google.gson.JsonParser;
 import javafx.application.Application;
 import javafx.geometry.Point2D;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.tuple.Pair;
-
+import javafx.scene.paint.Color;
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -32,7 +46,6 @@ public class MainViewer extends Application {
     private final double LONDON_LONGITUDE = -0.14130290092735798;
     private final double LONDON_LATITUDE = 51.493866432732425;
     private final double MAP_SCALE = 372223.819286;
-    private final int DEFAULT_OPACITY = 0x33000000;
 
     private final String GEO_JSON_FOLDER_PATH = "src/main/resources/map/geoJson/";
 
@@ -54,12 +67,6 @@ public class MainViewer extends Application {
         ArcGISMap map = new ArcGISMap(BasemapStyle.ARCGIS_NAVIGATION);
 
         mapView.setMap(map);
-        mapView.setEnableMousePan(false);
-        mapView.setEnableMouseZoom(false);
-        mapView.setEnableKeyboardNavigation(false);
-        mapView.setEnableTouchPan(false);
-        mapView.setEnableTouchRotate(false);
-        mapView.setEnableTouchZoom(false);
 
         drawBoroughsBoundariesFromFolder();
 
@@ -83,13 +90,29 @@ public class MainViewer extends Application {
 
         for (String fileName : getAllGeoJsonResources()) {
 
-            PolygonBuilder polygon = new PolygonBuilder(GeoJsonCoordinatesParser.getPointCollectionFromGeoJsonCoordinates("src/main/resources/map/geoJson/" + fileName));
+            PolygonBuilder polygon = new PolygonBuilder(GeoJsonCoordinatesParser.getPointCollectionFromGeoJsonCoordinates(GEO_JSON_FOLDER_PATH + fileName));
             Graphic polygonGraphic = new Graphic(polygon.toGeometry(), new SimpleLineSymbol(SimpleLineSymbol.Style.SOLID, generateRandomHexWithOpacity(Opacity.ZERO_OPACITY), 3));
+            polygonGraphic.getAttributes().put("Name", GeoJsonCoordinatesParser.getBoroughNameFromFile(GEO_JSON_FOLDER_PATH+fileName));
             graphicsOverlay.getGraphics().add(polygonGraphic);
             polygons.put(GEO_JSON_FOLDER_PATH+fileName, polygonGraphic);
-            
+
         }
 
+        addBoroughsLabels(graphicsOverlay);
+
+    }
+
+    private void addBoroughsLabels(GraphicsOverlay graphicsOverlay){
+        LabelExpression lblExpression = new SimpleLabelExpression("[Name]");
+        TextSymbol labelSymbol = new TextSymbol();
+        labelSymbol.setColor(0xff5528f9);
+        labelSymbol.setSize(12);
+        LabelDefinition lbl = new LabelDefinition(lblExpression, labelSymbol);
+        lbl.setPlacement(LabelingPlacement.POINT_ABOVE_CENTER);
+        lbl.setMinScale(1372223.819286);
+        lbl.setMaxScale(0);
+        graphicsOverlay.setLabelsEnabled(true);
+        graphicsOverlay.getLabelDefinitions().add(lbl);
     }
 
     private void fillOpacityMap(){

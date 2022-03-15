@@ -51,7 +51,7 @@ public class GeoJsonCoordinatesParser {
         try {
 
             BufferedReader coordinatesFileReader = new BufferedReader(new FileReader(fileName));
-            return JsonParser.parseString(coordinatesFileReader.lines().collect(Collectors.joining())).getAsJsonObject().get("features").getAsJsonArray().get(0).getAsJsonObject().get("properties").getAsJsonObject().get("name").toString();
+            return JsonParser.parseString(coordinatesFileReader.lines().collect(Collectors.joining())).getAsJsonObject().get("features").getAsJsonArray().get(0).getAsJsonObject().get("properties").getAsJsonObject().get("name").toString().replaceAll("\"","");
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
