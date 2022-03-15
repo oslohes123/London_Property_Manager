@@ -44,7 +44,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.london_property_market.UI.MainViewer">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.london_property_market.UI.MainViewer">
    <top>
       <HBox alignment="TOP_RIGHT" style="-fx-background-color: Grey; -fx-padding: 2;" BorderPane.alignment="CENTER">
          <children>
@@ -71,13 +71,20 @@
    </top>
    <bottom>
       <BorderPane style="-fx-background-color: grey; -fx-padding: 8;" BorderPane.alignment="CENTER">
-         <center>
-            <Button fx:id="goMapButton" mnemonicParsing="false" text="Open Map" BorderPane.alignment="CENTER">
+         <right>
+            <Button fx:id="goMapButton" mnemonicParsing="false" text="&gt;" BorderPane.alignment="CENTER">
                <font>
                   <Font size="15.0" />
                </font>
             </Button>
-         </center>
+         </right>
+         <left>
+            <Button fx:id="goMapButton1" mnemonicParsing="false" text="&lt;" BorderPane.alignment="CENTER">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+         </left>
       </BorderPane>
    </bottom>
    <center>
