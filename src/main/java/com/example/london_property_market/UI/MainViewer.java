@@ -44,31 +44,31 @@ public class MainViewer extends Application {
         URL url = file.toURI().toURL();
         Pane root = FXMLLoader.load(url);
         scene = new Scene(root);
-        setComboBox();
+//        setComboBox();
 
         stage.setTitle("London Property Viewer");
         stage.setScene(scene);
         stage.show();
     }
 
-    private int comboBoxMaxValue()
-    {
-        return propertyData.stream()
-                .map(AirbnbListing::getPrice)
-                .max((price1, price2) -> price1 - price2)
-                .get();
-    }
-
-    private void setComboBox()
-    {
-        List<String> values = new ArrayList<>();
-        int maxPrice = comboBoxMaxValue();
-        for(int i = maxPrice / 10; i <= maxPrice; i += maxPrice/10)
-        {
-            values.add("" + i);
-        };
-
-        minComboBox.getItems().addAll(values);
-        maxComboBox.getItems().addAll(values);
-    }
+//    private int comboBoxMaxValue()
+//    {
+//        return propertyData.stream()
+//                .map(AirbnbListing::getPrice)
+//                .max((price1, price2) -> price1 - price2)
+//                .get();
+//    }
+//
+//    private void setComboBox()
+//    {
+//        List<String> values = new ArrayList<>();
+//        int maxPrice = comboBoxMaxValue();
+//        for(int i = maxPrice / 10; i <= maxPrice; i += maxPrice/10)
+//        {
+//            values.add("" + i);
+//        };
+//
+//        minComboBox.getItems().addAll(values);
+//        maxComboBox.getItems().addAll(values);
+//    }
 }
