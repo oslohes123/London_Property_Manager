@@ -1,66 +1,89 @@
 package com.example.london_property_market.Loader;
+
+import com.univocity.parsers.annotations.Parsed;
+
+import java.lang.reflect.Field;
+import java.util.Arrays;
+
 /**
  * Represents one listing of a property for rental on Airbnb.
  * This is essentially one row in the data table. Each column
  * has a corresponding field.
- */ 
+ */
 
 public class AirbnbListing {
     /**
      * The id and name of the individual property
      */
+    @Parsed(index=0)
     private String id;
+    @Parsed(index=1)
     private String name;
     /**
      * The id and name of the host for this listing.
      * Each listing has only one host, but one host may
      * list many properties.
      */
+    @Parsed(index=2)
     private String host_id;
+    @Parsed(index=3)
     private String host_name;
 
     /**
      * The grouped location to where the listed property is situated.
      * For this data set, it is a london borough.
      */
+    @Parsed(index=4)
     private String neighbourhood;
 
     /**
      * The location on a map where the property is situated.
      */
+    @Parsed(index=5)
     private double latitude;
+    @Parsed(index=6)
     private double longitude;
 
     /**
      * The type of property, either "Private room" or "Entire Home/apt".
      */
+    @Parsed(index=7)
     private String room_type;
 
     /**
      * The price per night's stay
      */
+    @Parsed(index=8)
     private int price;
 
     /**
      * The minimum number of nights the listed property must be booked for.
      */
+    @Parsed(index=9)
     private int minimumNights;
+    @Parsed(index=10)
     private int numberOfReviews;
 
     /**
      * The date of the last review, but as a String
      */
+    @Parsed(index=11)
     private String lastReview;
+    @Parsed(index=12)
     private double reviewsPerMonth;
 
     /**
      * The total number of listings the host holds across AirBnB
      */
+    @Parsed(index=13)
     private int calculatedHostListingsCount;
     /**
      * The total number of days in the year that the property is available for
      */
+    @Parsed(index=14)
     private int availability365;
+
+    public AirbnbListing(){}
 
     public AirbnbListing(String id, String name, String host_id,
                          String host_name, String neighbourhood, double latitude,
@@ -142,6 +165,10 @@ public class AirbnbListing {
 
     public int getAvailability365() {
         return availability365;
+    }
+
+    protected static String[] getDateNames(){
+        return Arrays.stream(AirbnbListing.class.getDeclaredFields()).map(Field::getName).toArray(String[]::new);
     }
 
     @Override

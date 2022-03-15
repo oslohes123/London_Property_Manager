@@ -33,14 +33,14 @@ public class MainViewer extends Application {
 //    }
     public MainViewer ()
     {
-        propertyData = dataLoader.load();
+        propertyData = dataLoader.listDataLoader();
 
     }
 
     @Override
     public void start(Stage stage) throws IOException {
 
-        File file = new File("resources/welcome2.fxml");
+        File file = new File("src/main/resources/welcome2.fxml");
         URL url = file.toURI().toURL();
         Pane root = FXMLLoader.load(url);
         scene = new Scene(root);
