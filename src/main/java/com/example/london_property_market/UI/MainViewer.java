@@ -2,6 +2,7 @@ package com.example.london_property_market.UI;
 
 import com.example.london_property_market.Loader.AirbnbDataLoader;
 import com.example.london_property_market.Loader.AirbnbListing;
+import com.example.london_property_market.Core.Functionality;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,8 +23,9 @@ public class MainViewer extends Application {
     private static AirbnbDataLoader dataLoader = new AirbnbDataLoader();
     private List<AirbnbListing> propertyData;
     //private MapViewer mapPage;
-    @FXML private ComboBox minComboBox;
-    @FXML private ComboBox maxComboBox;
+    @FXML private ComboBox<String> minComboBox = new ComboBox<>();
+    @FXML private ComboBox<String> maxComboBox = new ComboBox<>();
+    private Functionality core;
 
 //    @FXML
 //    public void goMap(ActionEvent event)
@@ -44,31 +46,14 @@ public class MainViewer extends Application {
         URL url = file.toURI().toURL();
         Pane root = FXMLLoader.load(url);
         scene = new Scene(root);
-//        setComboBox();
-
+        core = new Functionality(propertyData);
+        core.comboboxValues();
+//        minComboBox.getItems().addAll(core.values);
+//        maxComboBox.getItems().addAll(core.values);
         stage.setTitle("London Property Viewer");
         stage.setScene(scene);
         stage.show();
     }
 
-//    private int comboBoxMaxValue()
-//    {
-//        return propertyData.stream()
-//                .map(AirbnbListing::getPrice)
-//                .max((price1, price2) -> price1 - price2)
-//                .get();
-//    }
-//
-//    private void setComboBox()
-//    {
-//        List<String> values = new ArrayList<>();
-//        int maxPrice = comboBoxMaxValue();
-//        for(int i = maxPrice / 10; i <= maxPrice; i += maxPrice/10)
-//        {
-//            values.add("" + i);
-//        };
-//
-//        minComboBox.getItems().addAll(values);
-//        maxComboBox.getItems().addAll(values);
-//    }
+
 }
