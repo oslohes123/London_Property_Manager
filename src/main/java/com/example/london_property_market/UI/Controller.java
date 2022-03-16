@@ -1,25 +1,25 @@
 package com.example.london_property_market.UI;
 
-import com.example.london_property_market.Core.Functionality;
+import com.example.london_property_market.Core.MainModel;
 import com.example.london_property_market.Loader.AirbnbDataLoader;
 import com.example.london_property_market.Loader.AirbnbListing;
-import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.event.ActionEvent;
+
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
 
-public class Controller implements Initializable{
+public class Controller implements Initializable {
 
     private static AirbnbDataLoader dataLoader = new AirbnbDataLoader();
     private List<AirbnbListing> propertyData;
-    private static final String COMBO_BOX = "combo" ;
+    private static final String COMBO_BOX = "combo";
     @FXML
     private ComboBox<String> minComboBox;
     @FXML
@@ -29,16 +29,16 @@ public class Controller implements Initializable{
     @FXML
     private Button goMapButton;
 
-    private Functionality core;
+    private MainModel core;
 
-    public Controller(){
+    public Controller() {
     }
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         propertyData = dataLoader.listDataLoader();
-        core = new Functionality(propertyData);
+        core = new MainModel(propertyData);
         minComboBox.getItems().addAll(core.values);
         maxComboBox.getItems().addAll(core.values);
         minComboBox.getStyleClass().add(COMBO_BOX);
@@ -46,7 +46,6 @@ public class Controller implements Initializable{
         minComboBox.setValue("0");
         maxComboBox.setValue("MAX");
     }
-
 
 
     @FXML
@@ -61,12 +60,12 @@ public class Controller implements Initializable{
         setColors();
     }
 
-    private void setColors(){
-        if (!core.checkValidValues()){
+    private void setColors() {
+        if (!core.checkValidValues()) {
             minComboBox.setStyle("-fx-background-color:#ff1100");
             maxComboBox.setStyle("-fx-background-color: #ff1100");
 
-        }else{
+        } else {
             minComboBox.setStyle("-fx-background-color:#dbdbdb");
             maxComboBox.setStyle("-fx-background-color: #dbdbdb");
         }
@@ -76,14 +75,19 @@ public class Controller implements Initializable{
     public void backwardsClick(ActionEvent actionEvent) {
         // Currently, not implemented
     }
+
     @FXML
     public void forwardsClick(ActionEvent actionEvent) {
-    if (!core.checkValidValues()){
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("The minimum price is currently greater than the maximum price");
-        alert.setHeaderText("Min: " + core.getMinAmount() + " Max: " + core.getMaxAmount());
-        alert.setContentText("Invalid please select a minimum price that is less than the maximum price");
-        alert.show();
-    }
+        if (!core.checkValidValues()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("The minimum price is currently greater than the maximum price");
+            alert.setHeaderText("Min: " + core.getMinAmount() + " Max: " + core.getMaxAmount());
+            alert.setContentText("Invalid please select a minimum price that is less than the maximum price");
+            alert.show();
+        } else {
+
+
+
+        }
     }
 }

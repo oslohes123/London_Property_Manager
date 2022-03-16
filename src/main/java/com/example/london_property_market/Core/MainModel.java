@@ -5,14 +5,14 @@ import java.util.List;
 
 import com.example.london_property_market.Loader.AirbnbListing;
 
-public class Functionality {
+public class MainModel {
 
     public List<AirbnbListing> PropertyData;
     public List<String> values;
     private Integer minAmount;
     private Integer maxAmount;
 
-    public Functionality(List<AirbnbListing> propertyData) {
+    public MainModel(List<AirbnbListing> propertyData) {
         this.PropertyData = propertyData;
         comboboxValues();
         minAmount = 0;
