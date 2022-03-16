@@ -1,29 +1,33 @@
-package com.example.london_property_market.Core;
+package com.example.london_property_market.UI.Welcome;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.example.london_property_market.Loader.AirbnbListing;
 
-public class Functionality {
+public class MainModel {
 
-    public List<AirbnbListing> PropertyData;
-    public List<String> values;
-    private Integer minAmount;
-    private Integer maxAmount;
+    private List<AirbnbListing> PropertyData;
+    private List<String> values;
+    private int minAmount;
+    private int maxAmount;
 
-    public Functionality(List<AirbnbListing> propertyData) {
+    public MainModel(List<AirbnbListing> propertyData) {
         this.PropertyData = propertyData;
-        comboboxValues();
+        comboBoxValues();
         minAmount = 0;
         maxAmount = comboBoxMaxValue();
+    }
+
+    public List<String> getCombValues() {
+        return values;
     }
 
     /**
      * A function to generate a price range that can be chosen by the user.
      * @return Returns a list of strings which represent the price range
      */
-    public void comboboxValues() {
+    public void comboBoxValues() {
         List<String> values = new ArrayList<>();
         int maxPrice = comboBoxMaxValue();
         for (int i = maxPrice / 10; i <= maxPrice-1; i += maxPrice / 10) {
@@ -48,8 +52,6 @@ public class Functionality {
 
     public void setMaxAmount(String maxAmount) {
      this.maxAmount = getAmounts(maxAmount);
-
-
     }
 
     public void setMinAmount(String minAmount){
@@ -57,15 +59,15 @@ public class Functionality {
     }
 
     private int getAmounts(String input){
-        if (input == "MAX"){
+        if (input.equals("MAX"))
             return comboBoxMaxValue();
-        }else{
-            return Integer.valueOf(maxAmount);
-        }
+        else
+            return Integer.parseInt(input);
+
     }
 
-    public boolean checkValidValues(){
-        return maxAmount > minAmount;
+    public boolean isValidValues(){
+        return maxAmount >= minAmount;
     }
 
 }

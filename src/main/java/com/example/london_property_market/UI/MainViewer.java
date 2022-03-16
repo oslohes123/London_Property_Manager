@@ -1,47 +1,51 @@
 package com.example.london_property_market.UI;
 
-import com.example.london_property_market.Loader.AirbnbDataLoader;
-import com.example.london_property_market.Loader.AirbnbListing;
-import com.example.london_property_market.UI.Controller;
 import javafx.application.Application;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainViewer extends Application {
 
+    private final static String[] VIEWS_NAMES_FXML = {"WelcomeView.fxml"};
+    private static int VIEW_POINTER = 0;
+
     private Scene scene;
-
-    Controller cont;
-
-    public MainViewer() {
-    }
-
-    //  -valid: #55524b;
-    //    -invalid:#ed0000;
+    private static BorderPane mainPane;
 
     @Override
     public void start(Stage stage) throws IOException {
 
-        File file = new File("src/main/resources/welcome2.fxml");
-        URL url = file.toURI().toURL();
-        Pane root = FXMLLoader.load(url);
-        scene = new Scene(root);
-        file = new File("src/main/resources/styles.css");
-        scene.getStylesheets().add(file.toURI().toURL().toExternalForm());
+        FXMLLoader root = new FXMLLoader(getClass().getClassLoader().getResource("views/MainView.fxml"));
+        mainPane = root.load();
+
+        mainPane.setCenter(new FXMLLoader(getClass().getClassLoader().getResource("views/WelcomeView.fxml")).load());
+        mainPane.getStylesheets().add(MainViewer.class.getClassLoader().getResource("Styles/combo/validCombo.css").toExternalForm());
+
+        scene = new Scene(mainPane);
+
         stage.setTitle("London Property Viewer");
         stage.setScene(scene);
         stage.show();
     }
 
+    public static void setCenterLayout(int direction){
+        try {
+            mainPane.setCenter((new FXMLLoader(MainViewer.class.getClassLoader().getResource("views/"+VIEWS_NAMES_FXML[VIEW_POINTER+direction])).load()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
+    public static void setMainStyleSheet(String styleSheetName){
+        mainPane.getStylesheets().clear();
+        mainPane.getStylesheets().add(MainViewer.class.getClassLoader().getResource("Styles/"+styleSheetName).toExternalForm());
+    }
+
+    public static boolean isNextPointerChangeValid(int direction){
+        return VIEW_POINTER + direction > VIEWS_NAMES_FXML.length && VIEW_POINTER + direction > 0;
+    }
 }

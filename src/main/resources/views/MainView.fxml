@@ -36,15 +36,12 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.london_property_market.UI.Controller">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.london_property_market.UI.Welcome.WelcomeController">
    <top>
       <HBox alignment="TOP_RIGHT" style="-fx-background-color: Grey; -fx-padding: 2;" BorderPane.alignment="CENTER">
          <children>
@@ -72,14 +69,14 @@
    <bottom>
       <BorderPane style="-fx-background-color: grey; -fx-padding: 8;" BorderPane.alignment="CENTER">
          <right>
-            <Button fx:id="goMapButton" mnemonicParsing="false" text="&gt;" BorderPane.alignment="CENTER">
+            <Button fx:id="goMapButton" mnemonicParsing="false" onAction="#nextBtnOnAction" text="&gt;" BorderPane.alignment="CENTER">
                <font>
                   <Font size="15.0" />
                </font>
             </Button>
          </right>
          <left>
-            <Button fx:id="goMapButton1" mnemonicParsing="false" text="&lt;" BorderPane.alignment="CENTER">
+            <Button fx:id="goMapButton1" disable="true" mnemonicParsing="false" onAction="#previousBtnOnAction" text="&lt;" BorderPane.alignment="CENTER">
                <font>
                   <Font size="15.0" />
                </font>
@@ -87,25 +84,4 @@
          </left>
       </BorderPane>
    </bottom>
-   <center>
-      <HBox style="-fx-alignment: center; -fx-spacing: 10; -fx-padding: 10;" BorderPane.alignment="CENTER">
-         <children>
-            <VBox style="-fx-font-size: 12; -fx-alignment: center; -fx-padding: 20; -fx-background-color: #dee0e3; -fx-spacing: 5; -fx-font-size: 13;">
-               <children>
-                  <Label text="Welcome to Airbnb property detail viewer.  " textAlignment="CENTER" wrapText="true" />
-                  <Label text="In this application you can find the right property for you in each borough of London." textAlignment="CENTER" wrapText="true" />
-                  <Label text="Click open map to select a borough." textAlignment="CENTER" wrapText="true" />
-               </children>
-            </VBox>
-            <VBox style="-fx-padding: 10;">
-               <children>
-                  <ImageView fitHeight="255.0" fitWidth="385.0" pickOnBounds="true" preserveRatio="true" translateY="30.0">
-                     <image>
-                        <Image url="@Explanation.gif" />
-                     </image></ImageView>
-               </children>
-            </VBox>
-         </children>
-      </HBox>
-   </center>
 </BorderPane>
