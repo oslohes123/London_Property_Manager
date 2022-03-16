@@ -60,7 +60,7 @@ public class Functionality {
         if (input == "MAX"){
             return comboBoxMaxValue();
         }else{
-            return Integer.valueOf(maxAmount);
+            return Integer.valueOf(input);
         }
     }
 

@@ -62,12 +62,12 @@ public class Controller implements Initializable{
 
     private void setColors(){
         if (!core.checkValidValues()){
-            minComboBox.setStyle("-mycolor:\"red\"");
-            maxComboBox.setStyle("-mycolor:\"red\"");
+            minComboBox.setStyle("-fx-background-color: \"red\"");
+            maxComboBox.setStyle("-fx-background-color: \"red\"");
 
         }else{
-            minComboBox.setStyle("-mycolor:\"grey\"");
-            maxComboBox.setStyle("-mycolor:\"grey\"");
+            minComboBox.setStyle("-fx-background-color: \"grey\"");
+            maxComboBox.setStyle("-fx-background-color: \"grey\"");
         }
     }
 }
