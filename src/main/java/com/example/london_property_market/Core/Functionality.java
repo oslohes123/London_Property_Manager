@@ -47,17 +47,21 @@ public class Functionality {
     }
 
     public void setMaxAmount(String maxAmount) {
-        if (maxAmount == "MAX"){
-            this.maxAmount = comboBoxMaxValue();
-        }else{
-            this.maxAmount = Integer.valueOf(maxAmount);
-        }
+     this.maxAmount = getAmounts(maxAmount);
 
 
     }
 
     public void setMinAmount(String minAmount){
-        this.minAmount = Integer.valueOf(minAmount);
+        this.minAmount = getAmounts(minAmount);
+    }
+
+    private int getAmounts(String input){
+        if (input == "MAX"){
+            return comboBoxMaxValue();
+        }else{
+            return Integer.valueOf(maxAmount);
+        }
     }
 
     public boolean checkValidValues(){
