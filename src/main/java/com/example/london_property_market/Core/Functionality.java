@@ -68,4 +68,12 @@ public class Functionality {
         return maxAmount >= minAmount;
     }
 
+    public Integer getMinAmount(){
+        return minAmount;
+    }
+
+    public Integer getMaxAmount(){
+        return maxAmount;
+    }
+
 }

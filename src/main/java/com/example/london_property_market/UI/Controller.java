@@ -6,6 +6,7 @@ import com.example.london_property_market.Loader.AirbnbListing;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.event.ActionEvent;
@@ -62,12 +63,27 @@ public class Controller implements Initializable{
 
     private void setColors(){
         if (!core.checkValidValues()){
-            minComboBox.setStyle("-fx-background-color: \"red\"");
-            maxComboBox.setStyle("-fx-background-color: \"red\"");
+            minComboBox.setStyle("-fx-background-color:#ff1100");
+            maxComboBox.setStyle("-fx-background-color: #ff1100");
 
         }else{
-            minComboBox.setStyle("-fx-background-color: \"grey\"");
-            maxComboBox.setStyle("-fx-background-color: \"grey\"");
+            minComboBox.setStyle("-fx-background-color:#dbdbdb");
+            maxComboBox.setStyle("-fx-background-color: #dbdbdb");
         }
+    }
+
+    @FXML
+    public void backwardsClick(ActionEvent actionEvent) {
+        // Currently, not implemented
+    }
+    @FXML
+    public void forwardsClick(ActionEvent actionEvent) {
+    if (!core.checkValidValues()){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("The minimum price is currently greater than the maximum price");
+        alert.setHeaderText("Min: " + core.getMinAmount() + " Max: " + core.getMaxAmount());
+        alert.setContentText("Invalid please select a minimum price that is less than the maximum price");
+        alert.show();
+    }
     }
 }
