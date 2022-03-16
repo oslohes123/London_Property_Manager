@@ -65,7 +65,7 @@ public class Functionality {
     }
 
     public boolean checkValidValues(){
-        return maxAmount > minAmount;
+        return maxAmount >= minAmount;
     }
 
 }
