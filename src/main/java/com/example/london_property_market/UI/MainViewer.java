@@ -1,5 +1,6 @@
 package com.example.london_property_market.UI;
 
+import com.example.london_property_market.UI.Map.MapController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -10,7 +11,7 @@ import java.io.IOException;
 
 public class MainViewer extends Application {
 
-    private final static String[] VIEWS_NAMES_FXML = {"WelcomeView.fxml"};
+    private final static String[] VIEWS_NAMES_FXML = {"WelcomeView.fxml", "map.fxml"};
     private static int VIEW_POINTER = 0;
 
     private Scene scene;
@@ -33,11 +34,19 @@ public class MainViewer extends Application {
     }
 
     public static void setCenterLayout(int direction){
-        try {
-            mainPane.setCenter((new FXMLLoader(MainViewer.class.getClassLoader().getResource("views/"+VIEWS_NAMES_FXML[VIEW_POINTER+direction])).load()));
-        } catch (IOException e) {
-            e.printStackTrace();
+
+        if (VIEW_POINTER+direction != 1) {
+            try {
+                mainPane.setCenter((new FXMLLoader(MainViewer.class.getClassLoader().getResource("views/"+VIEWS_NAMES_FXML[VIEW_POINTER+direction])).load()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+        else
+            mainPane.setCenter(new MapController().initialize());
+
+        VIEW_POINTER += direction;
+
     }
 
     public static void setMainStyleSheet(String styleSheetName){
@@ -46,6 +55,6 @@ public class MainViewer extends Application {
     }
 
     public static boolean isNextPointerChangeValid(int direction){
-        return VIEW_POINTER + direction > VIEWS_NAMES_FXML.length && VIEW_POINTER + direction > 0;
+        return VIEW_POINTER + direction < VIEWS_NAMES_FXML.length && VIEW_POINTER + direction >= 0;
     }
 }

@@ -1,4 +1,4 @@
-package com.example.london_property_market.UI;
+package com.example.london_property_market.UI.Map;
 
 import com.esri.arcgisruntime.ArcGISRuntimeEnvironment;
 import com.esri.arcgisruntime.arcgisservices.LabelDefinition;
@@ -21,16 +21,13 @@ import com.google.gson.JsonParser;
 import javafx.application.Application;
 import javafx.geometry.Point2D;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Random;
 
