@@ -70,4 +70,10 @@ public class MainModel {
         return maxAmount >= minAmount;
     }
 
+    public int getMinAmount(){
+        return minAmount;
+    }
+    public int getMaxAmount(){
+        return maxAmount;
+    }
 }

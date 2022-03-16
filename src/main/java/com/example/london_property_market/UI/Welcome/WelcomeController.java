@@ -6,6 +6,7 @@ import com.example.london_property_market.Loader.AirbnbDataLoader;
 import com.example.london_property_market.Loader.AirbnbListing;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.event.ActionEvent;
@@ -55,18 +56,25 @@ public class WelcomeController implements Initializable{
         core.setMaxAmount(maxComboBox.getValue());
         setColors();
     }
-
+    @FXML
     public void nextBtnOnAction(ActionEvent actionEvent){
-        if (!MainViewer.isNextPointerChangeValid(1)){
+        if (!core.isValidValues()){
+            priceError();
+        }
+        else if (!MainViewer.isNextPointerChangeValid(1)){
+            paneError();
             //
         }else{
             MainViewer.setCenterLayout(1);
         }
     }
-
+    @FXML
     public void previousBtnOnAction(ActionEvent actionEvent){
-        if (!MainViewer.isNextPointerChangeValid(-1)){
-            //
+        if (!core.isValidValues()){
+            priceError();
+        }
+        else if (!MainViewer.isNextPointerChangeValid(-1)){
+            paneError();
         }else{
             MainViewer.setCenterLayout(-1);
         }
@@ -79,4 +87,21 @@ public class WelcomeController implements Initializable{
             MainViewer.setMainStyleSheet("combo/invalidCombo.css");
 
     }
+
+    private void priceError(){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Pricing mismatch");
+        alert.setHeaderText("The current Min: " + core.getMinAmount()  + " The current max: " + core.getMaxAmount());
+        alert.setContentText("Select a min price that is less than the max price");
+        alert.show();
+    }
+
+    private void paneError(){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Pane error");
+        alert.setHeaderText("There is no pane on this side ");
+        alert.setContentText("Select the pane from a different side");
+        alert.show();
+    }
+
 }
