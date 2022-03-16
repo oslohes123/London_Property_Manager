@@ -2,7 +2,7 @@ package com.example.london_property_market.UI;
 
 import com.example.london_property_market.Loader.AirbnbDataLoader;
 import com.example.london_property_market.Loader.AirbnbListing;
-import com.example.london_property_market.Core.Functionality;
+import com.example.london_property_market.UI.Controller;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,23 +20,10 @@ import java.util.List;
 public class MainViewer extends Application {
 
     private Scene scene;
-    private static AirbnbDataLoader dataLoader = new AirbnbDataLoader();
-    private List<AirbnbListing> propertyData;
-    //private MapViewer mapPage;
-    @FXML private ComboBox<String> minComboBox = new ComboBox<>();
-    @FXML private ComboBox<String> maxComboBox = new ComboBox<>();
-    private Functionality core;
 
-//    @FXML
-//    public void goMap(ActionEvent event)
-//    {
-//        scene = mapPage.getScene();
-//        stage.setScene(scene);
-//    }
-    public MainViewer ()
-    {
-        propertyData = dataLoader.listDataLoader();
+    Controller cont;
 
+    public MainViewer() {
     }
 
     @Override
@@ -46,10 +33,6 @@ public class MainViewer extends Application {
         URL url = file.toURI().toURL();
         Pane root = FXMLLoader.load(url);
         scene = new Scene(root);
-        core = new Functionality(propertyData);
-        core.comboboxValues();
-//        minComboBox.getItems().addAll(core.values);
-//        maxComboBox.getItems().addAll(core.values);
         stage.setTitle("London Property Viewer");
         stage.setScene(scene);
         stage.show();

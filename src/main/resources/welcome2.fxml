@@ -44,14 +44,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.london_property_market.UI.MainViewer">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.london_property_market.UI.Controller">
    <top>
       <HBox alignment="TOP_RIGHT" style="-fx-background-color: Grey; -fx-padding: 2;" BorderPane.alignment="CENTER">
          <children>
             <Pane>
                <children>
                   <Label layoutY="5.0" text="From" />
-                  <ComboBox fx:id="minComboBox" layoutX="40.0" promptText="0" />
+                  <ComboBox fx:id="minComboBox" layoutX="40.0" onAction="#getMinValue" promptText="0" />
                </children>
                <HBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -60,7 +60,7 @@
             <Pane>
                <children>
                   <Label layoutY="5.0" text="To" />
-                  <ComboBox fx:id="maxComboBox" layoutX="35.0" promptText="MAX" />
+                  <ComboBox fx:id="maxComboBox" layoutX="35.0" onAction="#getMaxValue" promptText="MAX" />
                </children>
                <HBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
