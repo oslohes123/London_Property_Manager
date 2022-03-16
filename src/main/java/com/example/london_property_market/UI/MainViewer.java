@@ -26,6 +26,9 @@ public class MainViewer extends Application {
     public MainViewer() {
     }
 
+    //  -valid: #55524b;
+    //    -invalid:#ed0000;
+
     @Override
     public void start(Stage stage) throws IOException {
 
@@ -33,6 +36,8 @@ public class MainViewer extends Application {
         URL url = file.toURI().toURL();
         Pane root = FXMLLoader.load(url);
         scene = new Scene(root);
+        file = new File("src/main/resources/styles.css");
+        scene.getStylesheets().add(file.toURI().toURL().toExternalForm());
         stage.setTitle("London Property Viewer");
         stage.setScene(scene);
         stage.show();

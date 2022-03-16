@@ -18,6 +18,7 @@ public class Controller implements Initializable{
 
     private static AirbnbDataLoader dataLoader = new AirbnbDataLoader();
     private List<AirbnbListing> propertyData;
+    private static final String COMBO_BOX = "combo" ;
     @FXML
     private ComboBox<String> minComboBox;
     @FXML
@@ -39,6 +40,10 @@ public class Controller implements Initializable{
         core = new Functionality(propertyData);
         minComboBox.getItems().addAll(core.values);
         maxComboBox.getItems().addAll(core.values);
+        minComboBox.getStyleClass().add(COMBO_BOX);
+        maxComboBox.getStyleClass().add(COMBO_BOX);
+        minComboBox.setValue("0");
+        maxComboBox.setValue("MAX");
     }
 
 
@@ -46,11 +51,23 @@ public class Controller implements Initializable{
     @FXML
     public void getMinValue(ActionEvent actionEvent) {
         core.setMinAmount(minComboBox.getValue());
-
+        setColors();
     }
 
-
+    @FXML
     public void getMaxValue(ActionEvent actionEvent) {
         core.setMaxAmount(maxComboBox.getValue());
+        setColors();
+    }
+
+    private void setColors(){
+        if (!core.checkValidValues()){
+            minComboBox.setStyle("-mycolor:\"red\"");
+            maxComboBox.setStyle("-mycolor:\"red\"");
+
+        }else{
+            minComboBox.setStyle("-mycolor:\"grey\"");
+            maxComboBox.setStyle("-mycolor:\"grey\"");
+        }
     }
 }

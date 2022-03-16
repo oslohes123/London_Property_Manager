@@ -15,6 +15,8 @@ public class Functionality {
     public Functionality(List<AirbnbListing> propertyData) {
         this.PropertyData = propertyData;
         comboboxValues();
+        minAmount = 0;
+        maxAmount = comboBoxMaxValue();
     }
 
     /**
@@ -58,9 +60,8 @@ public class Functionality {
         this.minAmount = Integer.valueOf(minAmount);
     }
 
-    public void checkValidValues(){
-
-
+    public boolean checkValidValues(){
+        return maxAmount > minAmount;
     }
 
 }
