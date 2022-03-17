@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.esri.arcgisruntime.mapping.view.MapView?>
+
+
+<MapView fx:id="mapView" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.london_property_market.UI.Map.MapController" />
