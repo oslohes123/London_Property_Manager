@@ -19,6 +19,7 @@ import com.esri.arcgisruntime.mapping.view.MapView;
 import com.esri.arcgisruntime.symbology.SimpleFillSymbol;
 import com.esri.arcgisruntime.symbology.SimpleLineSymbol;
 import com.esri.arcgisruntime.symbology.TextSymbol;
+import com.example.london_property_market.UI.FXMLIRRepresentable;
 import com.google.gson.JsonParser;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -28,12 +29,10 @@ import javafx.scene.layout.BorderPane;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.io.File;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Random;
-import java.util.ResourceBundle;
 
-public class MapController {
+public class MapController implements FXMLIRRepresentable {
 
     private final String ARCGIS_API_KEY = "AAPKc555c6c3e07d4271a12ea786c0965414qrGdevhwwXl16CIE4TsMZFaF4cWqrF3CPKVPZYuqul9SCtFrtWFVEgFeqNF-2Mpg";
     private final double LONDON_LONGITUDE = -0.14130290092735798;
@@ -42,12 +41,11 @@ public class MapController {
 
     private final String GEO_JSON_FOLDER_PATH = "src/main/resources/map/geoJson/";
 
-    @FXML
     private MapView mapView;
     private HashMap<String, Graphic> polygons;
     private HashMap<Opacity, Integer> opacityMap;
 
-
+    @Override
     public BorderPane initialize() {
         BorderPane b = new BorderPane();
         ArcGISRuntimeEnvironment.setApiKey(ARCGIS_API_KEY);
