@@ -9,9 +9,7 @@ import java.sql.*;
  */
 public final class CsvLoader {
     private final String DATABASE_URL = "jdbc:h2:file:" +
-            "./London_Property_Market" +
-            "/src/main" +
-            "/resources/database/Locations";
+            "./src/main/resources/database/Locations";
     private final String USER = "sa";
 
     private static boolean created = false;
@@ -43,7 +41,7 @@ public final class CsvLoader {
             // Then execute a statement to create a Locations table using the
             // airbnb csv file
             statement.executeUpdate("CREATE TABLE IF NOT EXISTS Locations AS SELECT * " +
-                    "FROM CSVREAD('./London_Property_Market/src/main/resources" +
+                    "FROM CSVREAD('./src/main/resources" +
                     "/database/airbnb.csv')");
 
             // Always close database connections otherwise concurrency errors
