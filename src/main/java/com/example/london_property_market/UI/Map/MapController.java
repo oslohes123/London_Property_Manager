@@ -21,8 +21,6 @@ import com.esri.arcgisruntime.symbology.SimpleLineSymbol;
 import com.esri.arcgisruntime.symbology.TextSymbol;
 import com.example.london_property_market.UI.FXMLIRRepresentable;
 import com.google.gson.JsonParser;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
