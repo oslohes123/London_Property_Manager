@@ -1,6 +1,8 @@
 package com.example.london_property_market.Loader;
 
 import java.sql.*;
+import java.util.Arrays;
+
 /**
  * Loads the CSV into the database so that we can execute queries against it.
  * http://www.h2database.com/html/tutorial.html#csv
@@ -36,13 +38,16 @@ public final class CsvLoader {
             Statement statement = con.createStatement();
 
             // First drop the table if it has already been created
-            statement.executeUpdate("DROP TABLE IF EXISTS Locations");
+            statement.executeUpdate("DROP TABLE IF EXISTS Locations CASCADE;");
 
             // Then execute a statement to create a Locations table using the
             // airbnb csv file
             statement.executeUpdate("CREATE TABLE IF NOT EXISTS Locations AS SELECT * " +
                     "FROM CSVREAD('./src/main/resources" +
-                    "/database/airbnb.csv')");
+                    "/database/airbnb.csv');");
+
+            statement.execute("RUNSCRIPT FROM './src/main/resources/database" +
+                    "/queries/avgReviewsPerBorough.sql'");
 
             // Always close database connections otherwise concurrency errors
             con.close();
@@ -65,6 +70,25 @@ public final class CsvLoader {
             return rs;
         } catch (Exception e) {
             System.out.println(e.getCause() + "; \n" + e.getMessage());
+        }
+        return null;
+    }
+
+    /**
+     * Executes an SQL script on the database
+     * @param scriptPath the file path of the script
+     * @return a result set from the script
+     */
+    public ResultSet executeScript(String scriptPath){
+        try{
+            Connection con = DriverManager.getConnection(DATABASE_URL, USER,
+                    "");
+            Statement statement = con.createStatement();
+            String query = "RUNSCRIPT FROM \'"+ scriptPath + "\'";
+            statement.executeQuery(query);
+            return statement.getResultSet();
+        }catch (Exception e){
+            System.out.println(Arrays.toString(e.getStackTrace()));
         }
         return null;
     }
