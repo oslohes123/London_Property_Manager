@@ -1,8 +1,6 @@
 package com.example.london_property_market;
 
 import com.example.london_property_market.Loader.CsvLoader;
-import com.example.london_property_market.UI.MainViewer;
-import javafx.application.Application;
 
 import java.sql.ResultSet;
 
