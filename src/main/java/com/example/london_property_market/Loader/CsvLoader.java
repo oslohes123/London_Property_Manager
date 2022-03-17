@@ -2,6 +2,7 @@ package com.example.london_property_market.Loader;
 
 import java.sql.*;
 /**
+ * Loads the CSV into the database so that we can execute queries against it.
  * http://www.h2database.com/html/tutorial.html#csv
  *
  * @author Tom Hurford - k21002432
@@ -22,6 +23,9 @@ public final class CsvLoader {
         }
     }
 
+    /**
+     * Sets up the database, should only be run once
+     */
     private void dbSetup(){
         try{
             // If the database is created then it simply connects to the database
