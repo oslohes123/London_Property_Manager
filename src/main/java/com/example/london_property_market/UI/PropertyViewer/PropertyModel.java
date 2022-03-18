@@ -9,38 +9,39 @@ import javafx.scene.layout.VBox;
 import javax.xml.transform.Result;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.sql.ResultSet;
+import java.util.Set;
 
 public class PropertyModel {
 
-    private List<String> boroughs;
+    private Set<String> boroughs;
     private int minPrice;
     private int maxPrice;
 
 
-    public PropertyModel (List<String> boroughs, int minPrice, int maxPrice)
+    public PropertyModel (Set<String> boroughs, int minPrice, int maxPrice)
     {
         this.boroughs = boroughs;
         this.minPrice = minPrice;
         this.maxPrice = maxPrice;
     }
 
-    public List<ResultSet> getProperties()
-    {
+    public List<ResultSet> getProperties() {
         List<ResultSet> queryResults = new ArrayList<>();
         CsvLoader loader = new CsvLoader();
 
         for(String borough: boroughs) {
             ResultSet properties = loader.executeQuery(
                     "SELECT * FROM Locations" +
-                            "WHERE neighbourhood = " + borough +
-                            "AND price >= " + minPrice +
-                            "AND price <= " + maxPrice + ";"
+                            " WHERE neighbourhood = '" + borough + "'" +
+                            " AND price >= " + minPrice +
+                            " AND price <= " + maxPrice + ";"
             );
             queryResults.add(properties);
         }
-        System.out.println("Arrlen: " + queryResults.size());
+
         return queryResults;
     }
 
@@ -60,6 +61,7 @@ public class PropertyModel {
 
             while (borough.next())
             {
+                //http://tutorials.jenkov.com/jdbc/resultset.html
                 hostName.setText(borough.getString("host_name"));
                 neighbourhood.setText(borough.getString("neighbourhood"));
                 price.setText("" + borough.getInt("price"));
@@ -82,16 +84,7 @@ public class PropertyModel {
         //Creates a new window that shows all the data about that property
     }
 
-    public static void main(String[] args) {
-        ArrayList<String> borough = new ArrayList<>();
-        borough.add("Kingston upon Thames");
-        borough.add("Croydon");
-        borough.add("Ealing");
 
-        PropertyModel p = new PropertyModel(borough, 0, Integer.MAX_VALUE);
-        p.getProperties();
-
-    }
 
     public String createStageTitle()
     {

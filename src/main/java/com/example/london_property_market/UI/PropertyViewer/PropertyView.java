@@ -12,7 +12,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * The class that will show all the property listings
@@ -21,20 +23,22 @@ import java.util.List;
  * These values will be passed in by the map page.
  * @author Shaheer Effandi (K21013734)
  */
-public class PropertyView extends Stage
-{
-    @FXML private HBox propertyDisplayBox;
+public class PropertyView {
+    @FXML
+    private HBox propertyDisplayBox;
     private CsvLoader loader;
     private PropertyModel model;
     private Scene scene;
+    private Stage stage;
 
     /**
      * Constructor for DisplayView Class
+     *
      * @param boroughs
      * @param minPrice
      * @param maxPrice
      */
-    public PropertyView (List<String> boroughs, int minPrice, int maxPrice) throws IOException {
+    public PropertyView(Set<String> boroughs, int minPrice, int maxPrice) throws IOException, SQLException {
 
         URL url = getClass().getResource("views/Property-Display.fxml");
         Parent root = FXMLLoader.load(url);
@@ -42,14 +46,22 @@ public class PropertyView extends Stage
 
 
         model = new PropertyModel(boroughs, minPrice, maxPrice);
-        this.setTitle(model.createStageTitle());
-        this.setScene(scene);
-        this.show();
+        addPropertiesToViewer();
+
+        stage.setScene(scene);
+        stage.setTitle(model.createStageTitle());
 
     }
 
-    private void addPropertiesToViewer () throws SQLException {
+    private void addPropertiesToViewer() throws SQLException
+    {
         List<VBox> properties = model.getPropertyBoxes();
         propertyDisplayBox.getChildren().addAll(properties);
     }
+
+    public Stage getStage()
+    {
+        return stage;
+    }
+
 }
