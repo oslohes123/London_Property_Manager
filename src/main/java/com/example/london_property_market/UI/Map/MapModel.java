@@ -24,20 +24,31 @@ import java.util.Random;
  */
 public class MapModel {
 
+    // The path to the folder that contains the geojson file
     private final String GEO_JSON_FOLDER_PATH = "src/main/resources/map/geoJson/";
-
+    // The hashmap that will store the opacities
     private HashMap<Opacity, Integer> opacityMap;
 
+    /**
+     * This constructor creates a mapModel object with initializing its necessary variables
+     */
     public MapModel(){
         opacityMap = new HashMap<>();
         fillOpacityMap();
     }
 
+    /**
+     * This method returns a hash set that contains locations pairs (Longitude, Latitude) of properties that are within
+     * the selected range
+     * @return hash set that contains locations pairs (Longitude, Latitude) of properties that are within the selected
+     * range
+     */
     protected HashSet<Pair<Double, Double>> retrieveApplicableLocations(){
         HashSet<Pair<Double, Double>> locations = new HashSet<>();
 
         double minSearchAmount = MainModel.getMinAmount();
         double maxSearchAmount = MainModel.getMaxAmount();
+
         CsvLoader csvLoader = new CsvLoader();
         ResultSet resultedLocations = csvLoader.executeQuery("SELECT longitude, latitude FROM Locations WHERE price >=" + minSearchAmount + " AND price <=" + maxSearchAmount);
 
@@ -54,21 +65,36 @@ public class MapModel {
     }
 
 
+    /**
+     * This method populate the opacity map with the element's corresponding values.
+     */
     protected void fillOpacityMap(){
         opacityMap.put(Opacity.ZERO_OPACITY, 0xff000000);
         opacityMap.put(Opacity.DEFAULT_FILL_OPACITY, 0x33000000);
     }
 
+    /**
+     * This method returns a list that contains the file names in the geojson folder
+     * @return a list that contains the file names in the geojson folder
+     */
     protected String[] getAllGeoJsonResources(){
         File geoJsonResFolder = new File(GEO_JSON_FOLDER_PATH);
         return geoJsonResFolder.list();
     }
 
+    /**
+     * This method returns a random hex color with the requested opacity
+     * @param opacity the required opacity for the generated color
+     * @return a random hex color with the requested opacity
+     */
     protected int generateRandomHexWithOpacity(Opacity opacity){
-        Random rand = new Random();
-        return opacityMap.get(opacity) + rand.nextInt(0xffffff + 1);
+        return opacityMap.get(opacity) + new Random().nextInt(0xffffff + 1);
     }
 
+    /**
+     * This method returns the path for the folder that contains the geojson files
+     * @return the path for the folder that contains the geojson files
+     */
     protected String getGEO_JSON_FOLDER_PATH() {
         return GEO_JSON_FOLDER_PATH;
     }
