@@ -123,8 +123,13 @@ public class MapController implements FXMLIRRepresentable {
 
 
     private void openPropertyViewer(ActionEvent actionEvent) {
-        System.out.println("opened");
+
     }
+
+    private void openPropertyViewer(String boroughName){
+
+    }
+
 
 
     private void drawBoroughsBoundariesFromFolder(){
@@ -174,7 +179,7 @@ public class MapController implements FXMLIRRepresentable {
             Pair<String, String> boroughInfo = mapModel.getBoroughName(projectedPoint.getX(), projectedPoint.getY(), polygons);
 
             if (selectionType.getSelectedToggle().getProperties().get("id").equals(SelectionOptions.SINGLE_BOROUGH)){
-                openPropertyViewer(null);
+                openPropertyViewer(boroughInfo.getRight());
             }else {
 
                 if (boroughInfo.getLeft() != null && boroughInfo.getRight() != null) {
