@@ -8,8 +8,7 @@ import java.sql.*;
  */
 public final class CsvLoader {
     private final String DATABASE_URL = "jdbc:h2:file:" +
-            "./London_Property_Market" +
-            "/src/main" +
+            "./src/main" +
             "/resources/database/Locations";
     private final String USER = "sa";
 

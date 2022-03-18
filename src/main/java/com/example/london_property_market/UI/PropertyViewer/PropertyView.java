@@ -1,22 +1,17 @@
 package com.example.london_property_market.UI.PropertyViewer;
 
 import com.example.london_property_market.Loader.CsvLoader;
-import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.net.URL;
-import java.sql.ResultSet;
-import java.util.ArrayList;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -29,10 +24,9 @@ import java.util.List;
 public class PropertyView extends Stage
 {
     @FXML private HBox propertyDisplayBox;
-    private List<String> borough;
-    private int minPrice;
-    private int maxPrice;
     private CsvLoader loader;
+    private PropertyModel model;
+    private Scene scene;
 
     /**
      * Constructor for DisplayView Class
@@ -40,17 +34,22 @@ public class PropertyView extends Stage
      * @param minPrice
      * @param maxPrice
      */
-    public PropertyView (List<String> boroughs, int minPrice, int maxPrice)
-    {
+    public PropertyView (List<String> boroughs, int minPrice, int maxPrice) throws IOException {
 
-        this.maxPrice = maxPrice;
-        this.minPrice = minPrice;
-        addPropertiesToViewer(boroughs);
+        URL url = getClass().getResource("views/Property-Display.fxml");
+        Parent root = FXMLLoader.load(url);
+        scene = new Scene(root);
+
+
+        model = new PropertyModel(boroughs, minPrice, maxPrice);
+        this.setTitle(model.createStageTitle());
+        this.setScene(scene);
+        this.show();
+
     }
 
-    private void addPropertiesToViewer (List<String> boroughs)
-    {
-
+    private void addPropertiesToViewer () throws SQLException {
+        List<VBox> properties = model.getPropertyBoxes();
+        propertyDisplayBox.getChildren().addAll(properties);
     }
-
 }
