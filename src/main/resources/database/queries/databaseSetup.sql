@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS airbnb_locations (
     FROM
         CSVREAD('./src/main/resources/database/airbnb.csv');
 
--- Create an average reviews per property view
+-- Create an average reviews per borough]
 CREATE VIEW IF NOT EXISTS avg_reviews_per_property_view AS
     SELECT
         AVG(NUMBER_OF_REVIEWS) AS AVERAGE_REVIEWS,

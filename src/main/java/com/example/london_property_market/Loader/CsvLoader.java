@@ -1,5 +1,6 @@
 package com.example.london_property_market.Loader;
 
+import javax.swing.plaf.nimbus.State;
 import java.sql.*;
 import java.util.Arrays;
 
@@ -23,38 +24,30 @@ public final class CsvLoader {
         }
     }
 
-    /**
-     * Sets up the database, should only be run once
-     */
-    private void dbSetup(){
+    public void dbTeardown(){
         try{
-            // If the database is created then it simply connects to the database
-            // if the database is not created then it creates the database at the
-            // filepath
-            Connection con = DriverManager.getConnection(DATABASE_URL, USER, "");
-
-            // Creates a statement object so that we can execute code on the
-            // database
-            Statement statement = con.createStatement();
-
-            // First drop the table if it has already been created
-            statement.executeUpdate("DROP TABLE IF EXISTS Locations CASCADE;");
-
-            // Then execute a statement to create a Locations table using the
-            // airbnb csv file
-            statement.executeUpdate("CREATE TABLE IF NOT EXISTS Locations AS SELECT * " +
-                    "FROM CSVREAD('./src/main/resources" +
-                    "/database/airbnb.csv');");
-
+            Connection connection = DriverManager.getConnection(DATABASE_URL,
+                    USER, "");
+            Statement statement = connection.createStatement();
             statement.execute("RUNSCRIPT FROM './src/main/resources/database" +
-                    "/queries/avgReviewsPerBorough.sql'");
-
-            // Always close database connections otherwise concurrency errors
-            con.close();
+                    "/queries/databaseTeardown.sql'");
         }catch(Exception e){
-            System.out.println(e.getCause() + "; \n" + e.getMessage());
+            System.out.println(Arrays.toString(e.getStackTrace()));
         }
+        System.out.println("Database removed");
+    }
 
+    public void dbSetup(){
+        try{
+            Connection connection = DriverManager.getConnection(DATABASE_URL,
+                    USER, "");
+            Statement statement = connection.createStatement();
+            statement.execute("RUNSCRIPT FROM './src/main/resources/database" +
+                    "/queries/databaseSetup.sql'");
+        }catch(Exception e){
+            System.out.println(Arrays.toString(e.getStackTrace()));
+        }
+        System.out.println("Database setup");
     }
 
     /**
@@ -66,8 +59,7 @@ public final class CsvLoader {
         try {
             //Connect to the database
             Connection con = DriverManager.getConnection(DATABASE_URL, USER, "");
-            ResultSet rs = con.createStatement().executeQuery(SQL);
-            return rs;
+            return con.createStatement().executeQuery(SQL);
         } catch (Exception e) {
             System.out.println(e.getCause() + "; \n" + e.getMessage());
         }
@@ -84,7 +76,7 @@ public final class CsvLoader {
             Connection con = DriverManager.getConnection(DATABASE_URL, USER,
                     "");
             Statement statement = con.createStatement();
-            String query = "RUNSCRIPT FROM \'"+ scriptPath + "\'";
+            String query = "RUNSCRIPT FROM '" + scriptPath + "'";
             statement.executeQuery(query);
             return statement.getResultSet();
         }catch (Exception e){

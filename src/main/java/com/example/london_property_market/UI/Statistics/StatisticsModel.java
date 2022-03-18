@@ -34,21 +34,20 @@ public class StatisticsModel {
         return where.toString();
     }
 
+    public ResultSet avgReviewsPerProperty(){
+        String query = "SELECT * FROM avg_reviews_per_property_view WHERE" +
+                createWhere() + ";";
+        return sql.executeQuery(query);
+    }
 
-    /**
-     * Returns the top result from the query, -1 otherwise
-     * @return double of the average number of reviews
-     */
-    public double averageReviewsPerProperty(){
-        String query =
-                "SELECT * FROM avgReviewsPerBorough WHERE" + createWhere();
-        ResultSet rs = sql.executeQuery(query);
-        try{
-            return rs.getDouble("Average_Reviews");
-        }catch(Exception e){
-            System.out.println(e.getStackTrace());
-        }
-        return -1;
+    public ResultSet number_of_properties_available(){
+        String query = "SELECT * FROM number_of_properties_available_view " +
+                "WHERE" + createWhere() + ";";
+        return sql.executeQuery(query);
+    }
+
+    public ResultSet numberOfRoomTypes(){
+
     }
 
 }
