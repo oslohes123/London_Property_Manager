@@ -93,6 +93,7 @@ public class MapController implements FXMLIRRepresentable {
 
         selectionType = new ToggleGroup();
 
+        //https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/ToggleButton.html
         ToggleButton singleBoroughToggle = new ToggleButton();
         ToggleButton multipleBoroughToggle = new ToggleButton();
 
