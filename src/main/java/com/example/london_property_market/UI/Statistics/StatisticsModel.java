@@ -22,6 +22,11 @@ public class StatisticsModel {
         this.boroughs = boroughs;
     }
 
+    /**
+     * Builds a WHERE statement to attach to the end of select statements so
+     * that information from individual boroughs is created.
+     * @return a where statement containing the boroughs 
+     */
     private String createWhere(){
         StringBuilder where = new StringBuilder();
         Iterator<String> i = boroughs.listIterator();
@@ -47,7 +52,27 @@ public class StatisticsModel {
     }
 
     public ResultSet numberOfRoomTypes(){
+        String query =
+                "SELECT * FROM number_of_room_types_view WHERE" + createWhere() + ";";
+        return sql.executeQuery(query);
+    }
 
+    public ResultSet mostExpensiveProperty(){
+        String query =
+                "SELECT * FROM most_expensive_property_view WHERE" + createWhere() + ";";
+        return sql.executeQuery(query);
+    }
+
+    public ResultSet averagePricePerNight(){
+        String query =
+                "SELECT * FROM avg_price_per_night WHERE" + createWhere() + ";";
+        return sql.executeQuery(query);
+    }
+
+    public ResultSet averagePricePerMinStay(){
+        String query =
+                "SELECT * FROM avg_price_per_min_stay WHERE" + createWhere() + ";";
+        return sql.executeQuery(query);
     }
 
 }
