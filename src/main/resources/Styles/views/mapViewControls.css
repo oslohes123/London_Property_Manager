@@ -1,0 +1,17 @@
+HBox{
+    -fx-alignment:center;
+    -fx-spacing:15px;
+    -fx-padding: 10px;
+}
+
+#selectionType{
+    -fx-font-size:14px;
+    -fx-font-family:"Constantia";
+}
+
+#viewBoroughs{
+    -fx-background-color: #61cdb2;
+     -fx-font-family:"Constantia";
+    -fx-margin: 20px;
+    -fx-text-fill:#000;
+}
