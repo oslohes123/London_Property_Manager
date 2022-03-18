@@ -83,6 +83,8 @@ public class MapController implements FXMLIRRepresentable {
     private HBox getHeaderControls(){
         HBox headerControl = new HBox();
 
+        //https://github.com/controlsfx/controlsfx
+        //https://controlsfx.github.io/javadoc/11.1.1/org.controlsfx.controls/org/controlsfx/control/ToggleSwitch.html
         selectionType = new ToggleSwitch("Enable selection of multiple boroughs");
         selectionType.setOnMouseClicked(this::switchBoroughsToggle);
 
