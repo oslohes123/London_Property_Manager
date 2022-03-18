@@ -22,14 +22,12 @@ import com.google.gson.JsonParser;
 import javafx.event.ActionEvent;
 import javafx.geometry.Point2D;
 import javafx.scene.control.Button;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import org.apache.commons.lang3.tuple.Pair;
-
+import org.controlsfx.control.ToggleSwitch;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -48,7 +46,7 @@ public class MapController implements FXMLIRRepresentable {
 
     private HashMap<String, Graphic> polygons;
     HashSet<String> selectedBoroughs;
-    private ToggleGroup selectionType;
+    private ToggleSwitch selectionType;
     private Button viewBoroughs;
 
     MapModel mapModel;
@@ -85,42 +83,20 @@ public class MapController implements FXMLIRRepresentable {
     private HBox getHeaderControls(){
         HBox headerControl = new HBox();
 
-        selectionType = new ToggleGroup();
-
-        //https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/ToggleButton.html
-        ToggleButton singleBoroughToggle = new ToggleButton();
-        ToggleButton multipleBoroughToggle = new ToggleButton();
-
-        singleBoroughToggle.setText("Single Borough");
-        multipleBoroughToggle.setText("Multiple Borough");
-
-        singleBoroughToggle.getProperties().put("id", SelectionOptions.SINGLE_BOROUGH);
-        multipleBoroughToggle.getProperties().put("id", SelectionOptions.MULTIPLE_BOROUGH);
-
-        singleBoroughToggle.setSelected(true);
-
-        singleBoroughToggle.setOnAction(this::disableViewButton);
-        multipleBoroughToggle.setOnAction(this::enableViewButton);
-
-        selectionType.getToggles().addAll(singleBoroughToggle, multipleBoroughToggle);
-
+        selectionType = new ToggleSwitch("Enable selection of multiple boroughs");
+        selectionType.setOnMouseClicked(this::switchBoroughsToggle);
 
         viewBoroughs = new Button("View multiple boroughs");
         viewBoroughs.setDisable(true);
         viewBoroughs.setOnAction(this::openPropertyViewer);
 
-        headerControl.getChildren().addAll(singleBoroughToggle, multipleBoroughToggle, viewBoroughs);
+        headerControl.getChildren().addAll(selectionType, viewBoroughs);
         return headerControl;
     }
 
-    private void enableViewButton(ActionEvent actionEvent) {
-        viewBoroughs.setDisable(false);
+    private void switchBoroughsToggle(MouseEvent mouseEvent) {
+        viewBoroughs.setDisable(!viewBoroughs.isDisable());
     }
-
-    private void disableViewButton(ActionEvent actionEvent) {
-        viewBoroughs.setDisable(true);
-    }
-
 
     private void openPropertyViewer(ActionEvent actionEvent) {
 
@@ -178,7 +154,7 @@ public class MapController implements FXMLIRRepresentable {
 
             Pair<String, String> boroughInfo = mapModel.getBoroughName(projectedPoint.getX(), projectedPoint.getY(), polygons);
 
-            if (selectionType.getSelectedToggle().getProperties().get("id").equals(SelectionOptions.SINGLE_BOROUGH)){
+            if (!selectionType.isSelected()){
                 openPropertyViewer(boroughInfo.getRight());
             }else {
 
