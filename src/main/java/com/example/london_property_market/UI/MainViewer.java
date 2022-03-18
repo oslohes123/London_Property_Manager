@@ -6,12 +6,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import org.apache.commons.lang3.tuple.ImmutablePair;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 public class MainViewer extends Application {
 
-    private final static String[] VIEWS_NAMES_FXML = {"WelcomeView.fxml", "map.fxml"};
+    private final static HashMap<Integer, Object> screenRegister = new HashMap<>();
     private static int VIEW_POINTER = 0;
 
     private Scene scene;
@@ -23,27 +25,38 @@ public class MainViewer extends Application {
         FXMLLoader root = new FXMLLoader(getClass().getClassLoader().getResource("views/MainView.fxml"));
         mainPane = root.load();
 
+<<<<<<< HEAD
         mainPane.setCenter(new FXMLLoader(getClass().getClassLoader().getResource("views/Property-Display.fxml")).load());
+=======
+        createScreenRegisterEntries();
+
+        mainPane.setCenter(new FXMLLoader(getClass().getClassLoader().getResource("views/WelcomeView.fxml")).load());
+>>>>>>> development/dev
         mainPane.getStylesheets().add(MainViewer.class.getClassLoader().getResource("Styles/combo/validCombo.css").toExternalForm());
 
-        scene = new Scene(mainPane);
+        scene = new Scene(mainPane, 1040, 740);
 
         stage.setTitle("London Property Viewer");
         stage.setScene(scene);
         stage.show();
     }
 
+    private static void createScreenRegisterEntries(){
+        screenRegister.put(0, "WelcomeView.fxml");
+        screenRegister.put(1, new MapController());
+    }
+
     public static void setCenterLayout(int direction){
 
-        if (VIEW_POINTER+direction != 1) {
+        if (screenRegister.get(VIEW_POINTER+direction) instanceof FXMLIRRepresentable) {
+            mainPane.setCenter(((FXMLIRRepresentable) screenRegister.get(VIEW_POINTER + direction)).initialize());
+            updatePanels();
+        }else
             try {
-                mainPane.setCenter((new FXMLLoader(MainViewer.class.getClassLoader().getResource("views/"+VIEWS_NAMES_FXML[VIEW_POINTER+direction])).load()));
+                mainPane.setCenter((new FXMLLoader(MainViewer.class.getClassLoader().getResource("views/"+screenRegister.get(VIEW_POINTER+direction))).load()));
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-        else
-            mainPane.setCenter(new MapController().initialize());
 
         VIEW_POINTER += direction;
 
@@ -55,6 +68,13 @@ public class MainViewer extends Application {
     }
 
     public static boolean isNextPointerChangeValid(int direction){
-        return VIEW_POINTER + direction < VIEWS_NAMES_FXML.length && VIEW_POINTER + direction >= 0;
+        return VIEW_POINTER + direction < screenRegister.size() && VIEW_POINTER + direction >= 0;
+    }
+
+    public static void updatePanels(){
+        for (Object panel : screenRegister.values())
+            if (panel instanceof FXMLIRRepresentable)
+                ((FXMLIRRepresentable) panel).onChangeInformation();
+
     }
 }

@@ -19,7 +19,7 @@ public class WelcomeController implements Initializable{
 
     private AirbnbDataLoader dataLoader = new AirbnbDataLoader();
     private List<AirbnbListing> propertyData;
-    private final String COMBO_BOX_CSS_CLASS = "combo" ;
+    private final String COMBO_BOX_CSS_CLASS = "combo";
 
     @FXML
     private ComboBox<String> minComboBox;
@@ -63,7 +63,6 @@ public class WelcomeController implements Initializable{
         }
         else if (!MainViewer.isNextPointerChangeValid(1)){
             paneError();
-            //
         }else{
             MainViewer.setCenterLayout(1);
         }
@@ -81,10 +80,12 @@ public class WelcomeController implements Initializable{
     }
 
     private void setColors(){
-        if (core.isValidValues())
+        if (core.isValidValues()) {
             MainViewer.setMainStyleSheet("combo/validCombo.css");
-        else
+            MainViewer.updatePanels();
+        }else {
             MainViewer.setMainStyleSheet("combo/invalidCombo.css");
+        }
 
     }
 
