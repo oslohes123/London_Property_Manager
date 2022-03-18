@@ -3,11 +3,18 @@ package com.example.london_property_market.UI.Map;
 import com.esri.arcgisruntime.geometry.Point;
 import com.esri.arcgisruntime.geometry.Polygon;
 import com.esri.arcgisruntime.mapping.view.Graphic;
+import com.example.london_property_market.Loader.CsvLoader;
+import com.example.london_property_market.UI.Welcome.MainModel;
 import com.sun.javafx.geom.Line2D;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
+import java.io.File;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Random;
 
 
 /**
@@ -16,6 +23,55 @@ import java.util.HashMap;
  * @version 18-03-2022
  */
 public class MapModel {
+
+    private final String GEO_JSON_FOLDER_PATH = "src/main/resources/map/geoJson/";
+
+    private HashMap<Opacity, Integer> opacityMap;
+
+    public MapModel(){
+        opacityMap = new HashMap<>();
+        fillOpacityMap();
+    }
+
+    protected HashSet<Pair<Double, Double>> retrieveApplicableLocations(){
+        HashSet<Pair<Double, Double>> locations = new HashSet<>();
+
+        double minSearchAmount = MainModel.getMinAmount();
+        double maxSearchAmount = MainModel.getMaxAmount();
+        CsvLoader csvLoader = new CsvLoader();
+        ResultSet resultedLocations = csvLoader.executeQuery("SELECT longitude, latitude FROM Locations WHERE price >=" + minSearchAmount + " AND price <=" + maxSearchAmount);
+
+        try {
+            resultedLocations.next(); // To skip the header
+            while (resultedLocations.next())
+                locations.add(new ImmutablePair(Double.parseDouble(resultedLocations.getString(1)), Double.parseDouble(resultedLocations.getString(2))));
+
+        }catch (SQLException exception){
+            exception.printStackTrace();
+        }
+
+        return locations;
+    }
+
+
+    protected void fillOpacityMap(){
+        opacityMap.put(Opacity.ZERO_OPACITY, 0xff000000);
+        opacityMap.put(Opacity.DEFAULT_FILL_OPACITY, 0x33000000);
+    }
+
+    protected String[] getAllGeoJsonResources(){
+        File geoJsonResFolder = new File(GEO_JSON_FOLDER_PATH);
+        return geoJsonResFolder.list();
+    }
+
+    protected int generateRandomHexWithOpacity(Opacity opacity){
+        Random rand = new Random();
+        return opacityMap.get(opacity) + rand.nextInt(0xffffff + 1);
+    }
+
+    protected String getGEO_JSON_FOLDER_PATH() {
+        return GEO_JSON_FOLDER_PATH;
+    }
 
     /**
      * This method returns the name of the borough that a point is in. This method acts as a helper method for the

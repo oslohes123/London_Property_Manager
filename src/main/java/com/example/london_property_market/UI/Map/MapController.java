@@ -17,9 +17,7 @@ import com.esri.arcgisruntime.mapping.view.Graphic;
 import com.esri.arcgisruntime.mapping.view.GraphicsOverlay;
 import com.esri.arcgisruntime.mapping.view.MapView;
 import com.esri.arcgisruntime.symbology.*;
-import com.example.london_property_market.Loader.CsvLoader;
 import com.example.london_property_market.UI.FXMLIRRepresentable;
-import com.example.london_property_market.UI.Welcome.MainModel;
 import com.google.gson.JsonParser;
 import javafx.event.ActionEvent;
 import javafx.geometry.Point2D;
@@ -30,20 +28,14 @@ import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
-import java.io.File;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Random;
 
 public class MapController implements FXMLIRRepresentable {
 
     private final String ARCGIS_API_KEY = "AAPKc555c6c3e07d4271a12ea786c0965414qrGdevhwwXl16CIE4TsMZFaF4cWqrF3CPKVPZYuqul9SCtFrtWFVEgFeqNF-2Mpg";
-    private final String GEO_JSON_FOLDER_PATH = "src/main/resources/map/geoJson/";
 
 
     private final double LONDON_LONGITUDE = -0.14130290092735798;
@@ -55,23 +47,25 @@ public class MapController implements FXMLIRRepresentable {
     private GraphicsOverlay propertyPointsOverlay;
 
     private HashMap<String, Graphic> polygons;
-    private HashMap<Opacity, Integer> opacityMap;
     HashSet<String> selectedBoroughs;
     private ToggleGroup selectionType;
     private Button viewBoroughs;
+
+    MapModel mapModel;
+
 
     @Override
     public BorderPane initialize() {
         BorderPane mainPane = new BorderPane();
         ArcGISRuntimeEnvironment.setApiKey(ARCGIS_API_KEY);
 
+        mapModel = new MapModel();
+
         selectedBoroughs = new HashSet<>();
         mainPane.setTop(getHeaderControls());
 
         polygons = new HashMap<>();
-        opacityMap = new HashMap<>();
         mapView = new MapView();
-        fillOpacityMap();
 
         ArcGISMap map = new ArcGISMap(BasemapStyle.ARCGIS_NAVIGATION);
         mapView.setMap(map);
@@ -132,27 +126,18 @@ public class MapController implements FXMLIRRepresentable {
         System.out.println("opened");
     }
 
-    private void fillOpacityMap(){
-        opacityMap.put(Opacity.ZERO_OPACITY, 0xff000000);
-        opacityMap.put(Opacity.DEFAULT_FILL_OPACITY, 0x33000000);
-    }
-
-    private String[] getAllGeoJsonResources(){
-        File geoJsonResFolder = new File(GEO_JSON_FOLDER_PATH);
-        return geoJsonResFolder.list();
-    }
 
     private void drawBoroughsBoundariesFromFolder(){
         GraphicsOverlay graphicsOverlay = new GraphicsOverlay();
         mapView.getGraphicsOverlays().add(graphicsOverlay);
 
-        for (String fileName : getAllGeoJsonResources()) {
+        for (String fileName : mapModel.getAllGeoJsonResources()) {
 
-            PolygonBuilder polygon = new PolygonBuilder(GeoJsonCoordinatesParser.getPointCollectionFromGeoJsonCoordinates(GEO_JSON_FOLDER_PATH + fileName));
-            Graphic polygonGraphic = new Graphic(polygon.toGeometry(), new SimpleLineSymbol(SimpleLineSymbol.Style.SOLID, generateRandomHexWithOpacity(Opacity.ZERO_OPACITY), 3));
-            polygonGraphic.getAttributes().put("Name", GeoJsonCoordinatesParser.getBoroughNameFromFile(GEO_JSON_FOLDER_PATH+fileName));
+            PolygonBuilder polygon = new PolygonBuilder(GeoJsonCoordinatesParser.getPointCollectionFromGeoJsonCoordinates(mapModel.getGEO_JSON_FOLDER_PATH() + fileName));
+            Graphic polygonGraphic = new Graphic(polygon.toGeometry(), new SimpleLineSymbol(SimpleLineSymbol.Style.SOLID, mapModel.generateRandomHexWithOpacity(Opacity.ZERO_OPACITY), 3));
+            polygonGraphic.getAttributes().put("Name", GeoJsonCoordinatesParser.getBoroughNameFromFile(mapModel.getGEO_JSON_FOLDER_PATH()+fileName));
             graphicsOverlay.getGraphics().add(polygonGraphic);
-            polygons.put(GEO_JSON_FOLDER_PATH+fileName, polygonGraphic);
+            polygons.put(mapModel.getGEO_JSON_FOLDER_PATH()+fileName, polygonGraphic);
 
         }
 
@@ -185,7 +170,6 @@ public class MapController implements FXMLIRRepresentable {
         // Important as the user may click on the map before it completely loads
         if (mapPoint != null) {
             Point projectedPoint = (Point) GeometryEngine.project(mapPoint, SpatialReferences.getWgs84());
-            MapModel mapModel = new MapModel();
 
             Pair<String, String> boroughInfo = mapModel.getBoroughName(projectedPoint.getX(), projectedPoint.getY(), polygons);
 
@@ -197,10 +181,10 @@ public class MapController implements FXMLIRRepresentable {
                     // change fill when clicked
 
                     if (JsonParser.parseString(polygons.get(boroughInfo.getLeft()).getSymbol().toJson()).getAsJsonObject().get("type").getAsString().equals("esriSLS")) {
-                        polygons.get(boroughInfo.getLeft()).setSymbol(new SimpleFillSymbol(SimpleFillSymbol.Style.SOLID, generateRandomHexWithOpacity(Opacity.DEFAULT_FILL_OPACITY), new SimpleLineSymbol(SimpleLineSymbol.Style.SOLID, generateRandomHexWithOpacity(Opacity.ZERO_OPACITY), 2)));
+                        polygons.get(boroughInfo.getLeft()).setSymbol(new SimpleFillSymbol(SimpleFillSymbol.Style.SOLID, mapModel.generateRandomHexWithOpacity(Opacity.DEFAULT_FILL_OPACITY), new SimpleLineSymbol(SimpleLineSymbol.Style.SOLID, mapModel.generateRandomHexWithOpacity(Opacity.ZERO_OPACITY), 2)));
                         selectedBoroughs.add(boroughInfo.getRight());
                     }else {
-                        polygons.get(boroughInfo.getLeft()).setSymbol(new SimpleLineSymbol(SimpleLineSymbol.Style.SOLID, generateRandomHexWithOpacity(Opacity.ZERO_OPACITY), 3));
+                        polygons.get(boroughInfo.getLeft()).setSymbol(new SimpleLineSymbol(SimpleLineSymbol.Style.SOLID, mapModel.generateRandomHexWithOpacity(Opacity.ZERO_OPACITY), 3));
                         selectedBoroughs.remove(boroughInfo.getRight());
                     }
                 }
@@ -208,11 +192,6 @@ public class MapController implements FXMLIRRepresentable {
             }
 
         }
-    }
-
-    private int generateRandomHexWithOpacity(Opacity opacity){
-        Random rand = new Random();
-        return opacityMap.get(opacity) + rand.nextInt(0xffffff + 1);
     }
 
     //https://www.youtube.com/watch?v=bLUwuK5ZpHM&t=1585s
@@ -227,7 +206,7 @@ public class MapController implements FXMLIRRepresentable {
 
             propertyPointsOverlay.setRenderer(propertyRenderer);
 
-            for (Pair<Double,Double> locationPair : retrieveApplicableLocations()){
+            for (Pair<Double,Double> locationPair : mapModel.retrieveApplicableLocations()){
                 Point point = new Point(locationPair.getLeft(), locationPair.getRight(), SpatialReferences.getWgs84());
                 Graphic pointGraphic = new Graphic(point);
 
@@ -238,24 +217,5 @@ public class MapController implements FXMLIRRepresentable {
         }
     }
 
-    private HashSet<Pair<Double, Double>> retrieveApplicableLocations(){
-        HashSet<Pair<Double, Double>> locations = new HashSet<>();
-
-        double minSearchAmount = MainModel.getMinAmount();
-        double maxSearchAmount = MainModel.getMaxAmount();
-        CsvLoader csvLoader = new CsvLoader();
-        ResultSet resultedLocations = csvLoader.executeQuery("SELECT longitude, latitude FROM Locations WHERE price >=" + minSearchAmount + " AND price <=" + maxSearchAmount);
-
-        try {
-            resultedLocations.next(); // To skip the header
-            while (resultedLocations.next())
-                locations.add(new ImmutablePair(Double.parseDouble(resultedLocations.getString(1)), Double.parseDouble(resultedLocations.getString(2))));
-
-        }catch (SQLException exception){
-                exception.printStackTrace();
-        }
-
-        return locations;
-    }
 
 }
