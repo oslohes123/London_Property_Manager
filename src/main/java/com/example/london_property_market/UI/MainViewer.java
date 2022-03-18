@@ -30,7 +30,7 @@ public class MainViewer extends Application {
         mainPane.setCenter(new FXMLLoader(getClass().getClassLoader().getResource("views/WelcomeView.fxml")).load());
         mainPane.getStylesheets().add(MainViewer.class.getClassLoader().getResource("Styles/combo/validCombo.css").toExternalForm());
 
-        scene = new Scene(mainPane, 840, 640);
+        scene = new Scene(mainPane, 1040, 740);
 
         stage.setTitle("London Property Viewer");
         stage.setScene(scene);
@@ -44,9 +44,10 @@ public class MainViewer extends Application {
 
     public static void setCenterLayout(int direction){
 
-        if (screenRegister.get(VIEW_POINTER+direction) instanceof FXMLIRRepresentable)
-            mainPane.setCenter(((FXMLIRRepresentable) screenRegister.get(VIEW_POINTER+direction)).initialize());
-        else
+        if (screenRegister.get(VIEW_POINTER+direction) instanceof FXMLIRRepresentable) {
+            mainPane.setCenter(((FXMLIRRepresentable) screenRegister.get(VIEW_POINTER + direction)).initialize());
+            updatePanels();
+        }else
             try {
                 mainPane.setCenter((new FXMLLoader(MainViewer.class.getClassLoader().getResource("views/"+screenRegister.get(VIEW_POINTER+direction))).load()));
             } catch (IOException e) {
@@ -64,5 +65,12 @@ public class MainViewer extends Application {
 
     public static boolean isNextPointerChangeValid(int direction){
         return VIEW_POINTER + direction < screenRegister.size() && VIEW_POINTER + direction >= 0;
+    }
+
+    public static void updatePanels(){
+        for (Object panel : screenRegister.values())
+            if (panel instanceof FXMLIRRepresentable)
+                ((FXMLIRRepresentable) panel).onChangeInformation();
+
     }
 }

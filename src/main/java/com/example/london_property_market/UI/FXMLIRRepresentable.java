@@ -5,4 +5,5 @@ import javafx.scene.layout.Pane;
 public interface FXMLIRRepresentable {
 
     Pane initialize();
+    void onChangeInformation();
 }

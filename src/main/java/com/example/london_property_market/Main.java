@@ -1,17 +1,12 @@
 package com.example.london_property_market;
 
-import com.example.london_property_market.Loader.CsvLoader;
-
-import java.sql.ResultSet;
+import com.example.london_property_market.UI.MainViewer;
+import javafx.application.Application;
 
 public class Main {
 
     public static void main(String[] args) {
-        CsvLoader sql = new CsvLoader();
-        ResultSet rs = sql.executeQuery("SELECT * FROM Locations");
-
-
-
+        Application.launch(MainViewer.class, args);
     }
 
 }

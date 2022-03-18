@@ -9,8 +9,8 @@ public class MainModel {
 
     private List<AirbnbListing> PropertyData;
     private List<String> values;
-    private int minAmount;
-    private int maxAmount;
+    private static int minAmount;
+    private static int maxAmount;
 
     public MainModel(List<AirbnbListing> propertyData) {
         this.PropertyData = propertyData;
@@ -70,10 +70,10 @@ public class MainModel {
         return maxAmount >= minAmount;
     }
 
-    public int getMinAmount(){
+    public static int getMinAmount(){
         return minAmount;
     }
-    public int getMaxAmount(){
+    public static int getMaxAmount(){
         return maxAmount;
     }
 }
