@@ -46,7 +46,8 @@ public class MapController implements FXMLIRRepresentable {
 
     private HashMap<String, Graphic> polygons;
     HashSet<String> selectedBoroughs;
-    private ToggleSwitch selectionType;
+    private ToggleSwitch propertySelectionType;
+    private ToggleSwitch statsSelectionType;
     private Button viewBoroughs;
 
     MapModel mapModel;
@@ -86,10 +87,12 @@ public class MapController implements FXMLIRRepresentable {
 
         //https://github.com/controlsfx/controlsfx
         //https://controlsfx.github.io/javadoc/11.1.1/org.controlsfx.controls/org/controlsfx/control/ToggleSwitch.html
-        selectionType = new ToggleSwitch("Enable selection of multiple boroughs");
-        selectionType.setOnMouseClicked(this::switchBoroughsToggle);
-        selectionType.setId("selectionType");
+        propertySelectionType = new ToggleSwitch("Enable selection of multiple boroughs");
+        propertySelectionType.setOnMouseClicked(this::switchBoroughsToggle);
+        propertySelectionType.getStylesheets().add("selectionType");
 
+        statsSelectionType = new ToggleSwitch("View statistics from selected borough");
+        statsSelectionType.getStylesheets().add("selectionType");
 
         viewBoroughs = new Button("View multiple boroughs");
         viewBoroughs.setDisable(true);
@@ -101,7 +104,7 @@ public class MapController implements FXMLIRRepresentable {
         openStats.getStyleClass().add("controlButtons");
 
 
-        headerControl.getChildren().addAll(selectionType, viewBoroughs, openStats);
+        headerControl.getChildren().addAll(propertySelectionType, viewBoroughs, statsSelectionType, openStats);
         return headerControl;
     }
 
@@ -119,10 +122,10 @@ public class MapController implements FXMLIRRepresentable {
 
 
     private void openStatsWindow(ActionEvent actionEvent) {
-        if (selectedBoroughs.size() == 0){
-            // pass null, which will indicate *
-        }else{
+        if (statsSelectionType.isSelected()){
             // pass the hashset itself
+        }else{
+            // pass null, which will indicate *
         }
 
     }
@@ -173,7 +176,7 @@ public class MapController implements FXMLIRRepresentable {
 
             Pair<String, String> boroughInfo = mapModel.getBoroughName(projectedPoint.getX(), projectedPoint.getY(), polygons);
 
-            if (!selectionType.isSelected()){
+            if (!propertySelectionType.isSelected()){
                 openPropertyViewer(boroughInfo.getRight());
             }else {
 
