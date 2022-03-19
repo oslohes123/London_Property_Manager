@@ -2,11 +2,16 @@ package com.example.london_property_market.UI.PropertyViewer;
 
 import com.example.london_property_market.Loader.CsvLoader;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import javax.xml.transform.Result;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -19,6 +24,7 @@ public class PropertyModel {
     private Set<String> boroughs;
     private int minPrice;
     private int maxPrice;
+    public static final CsvLoader loader = new CsvLoader();
 
 
     public PropertyModel (Set<String> boroughs, int minPrice, int maxPrice)
@@ -28,10 +34,8 @@ public class PropertyModel {
         this.maxPrice = maxPrice;
     }
 
-    public List<ResultSet> getProperties() {
+    private List<ResultSet> getProperties() {
         List<ResultSet> queryResults = new ArrayList<>();
-        CsvLoader loader = new CsvLoader();
-
         for(String borough: boroughs) {
             ResultSet properties = loader.executeQuery(
                     "SELECT * FROM Locations" +
@@ -68,7 +72,12 @@ public class PropertyModel {
                 numberOfReviews.setText("" + borough.getInt("number_of_reviews"));
                 minNumberOfNights.setText("" + borough.getInt("minimum_nights"));
 
-                seeMoreButton.setUserData(borough);
+                seeMoreButton.setUserData(
+                        loader.executeQuery(
+                           "SELECT * FROM Locations" +
+                            " WHERE id = " + borough.getInt("id")
+                        )
+                );
                 seeMoreButton.setOnAction(e -> showAllData((ResultSet) seeMoreButton.getUserData()));
                 seeMoreButton.setText("More Details");
 
@@ -81,10 +90,43 @@ public class PropertyModel {
     }
 
     private void showAllData(ResultSet results) {
-        //Creates a new window that shows all the data about that property
+        try {
+
+            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("views/PropertyDetails.fxml"));
+            Scene scene = new Scene(root);
+
+
+            Stage stage = new Stage();
+            stage.setTitle(results.getString("name"));
+            stage.setScene(scene);
+            stage.show();
+
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+
     }
 
+    private VBox createDataPage(ResultSet results) throws SQLException {
+        VBox dataPage = new VBox();
+        Label name, hostName, latitude, longitude, room_type, minNights, numberOfReviews, lastReview, reviewsPerMonth, hostListingCount, availability365;
+        Label data;
+        name = new Label(results.getString("name"));
+        data = new Label();
 
+        data.setText(
+                "Host Name: " + results.getString("host_name")
+                + "\nHost ID: " + results.getInt("host_id")
+                + "\nRoom Type: " + results.getString("room_type")
+                + "\nPrice: " + results.getInt("price")
+                + ""
+        );
+    dataPage.getChildren().addAll(name, data);
+    return null;
+    }
 
     public String createStageTitle()
     {

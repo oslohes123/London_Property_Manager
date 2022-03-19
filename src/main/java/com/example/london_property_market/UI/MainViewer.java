@@ -25,13 +25,10 @@ public class MainViewer extends Application {
         FXMLLoader root = new FXMLLoader(getClass().getClassLoader().getResource("views/MainView.fxml"));
         mainPane = root.load();
 
-<<<<<<< HEAD
-        mainPane.setCenter(new FXMLLoader(getClass().getClassLoader().getResource("views/Property-Display.fxml")).load());
-=======
         createScreenRegisterEntries();
 
         mainPane.setCenter(new FXMLLoader(getClass().getClassLoader().getResource("views/WelcomeView.fxml")).load());
->>>>>>> development/dev
+
         mainPane.getStylesheets().add(MainViewer.class.getClassLoader().getResource("Styles/combo/validCombo.css").toExternalForm());
 
         scene = new Scene(mainPane, 1040, 740);

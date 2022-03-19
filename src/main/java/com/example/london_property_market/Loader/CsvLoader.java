@@ -2,20 +2,12 @@ package com.example.london_property_market.Loader;
 
 import java.sql.*;
 /**
-<<<<<<< HEAD
-=======
- * Loads the CSV into the database so that we can execute queries against it.
->>>>>>> development/dev
  * http://www.h2database.com/html/tutorial.html#csv
  *
  * @author Tom Hurford - k21002432
  */
 public final class CsvLoader {
     private final String DATABASE_URL = "jdbc:h2:file:" +
-
-            "./src/main" +
-            "/resources/database/Locations";
-
             "./src/main/resources/database/Locations";
 
     private final String USER = "sa";
@@ -29,12 +21,10 @@ public final class CsvLoader {
         }
     }
 
-<<<<<<< HEAD
-=======
     /**
      * Sets up the database, should only be run once
      */
->>>>>>> development/dev
+
     private void dbSetup(){
         try{
             // If the database is created then it simply connects to the database
@@ -52,11 +42,7 @@ public final class CsvLoader {
             // Then execute a statement to create a Locations table using the
             // airbnb csv file
             statement.executeUpdate("CREATE TABLE IF NOT EXISTS Locations AS SELECT * " +
-<<<<<<< HEAD
-                    "FROM CSVREAD('./London_Property_Market/src/main/resources" +
-=======
                     "FROM CSVREAD('./src/main/resources" +
->>>>>>> development/dev
                     "/database/airbnb.csv')");
 
             // Always close database connections otherwise concurrency errors
@@ -83,8 +69,5 @@ public final class CsvLoader {
         }
         return null;
     }
-<<<<<<< HEAD
+
 }
-=======
-}
->>>>>>> development/dev
