@@ -12,7 +12,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -40,7 +39,7 @@ public class PropertyView {
      */
     public PropertyView(Set<String> boroughs, int minPrice, int maxPrice) throws IOException, SQLException {
 
-        URL url = getClass().getResource("views/Property-Display.fxml");
+        URL url = getClass().getResource("views/PropertyDisplay.fxml");
         Parent root = FXMLLoader.load(url);
         scene = new Scene(root);
 
