@@ -42,6 +42,12 @@ public class GeoJsonCoordinatesParser {
         return parts;
     }
 
+    /**
+     * This method returns the name of the borough in the specified file. The name of the borough is in the geojson file,
+     * which this method extracts.
+     * @param fileName the name of the file
+     * @return the name of the borough
+     */
     public static String getBoroughNameFromFile(String fileName){
 
         //The case where a location outside london is selected

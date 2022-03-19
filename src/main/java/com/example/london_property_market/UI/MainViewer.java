@@ -6,7 +6,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import org.apache.commons.lang3.tuple.ImmutablePair;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -37,11 +36,19 @@ public class MainViewer extends Application {
         stage.show();
     }
 
-    private static void createScreenRegisterEntries(){
+    /**
+     * This method populate tha hashmap with the panel reference, either as a string to represent an fxml file name, or
+     * a class declaration to store the reference
+     */
+    private void createScreenRegisterEntries(){
         screenRegister.put(0, "WelcomeView.fxml");
         screenRegister.put(1, new MapController());
     }
 
+    /**
+     * This method sets the central layout of the mainViewer to the required layout.
+     * @param direction 1 for right, -1 for left
+     */
     public static void setCenterLayout(int direction){
 
         if (screenRegister.get(VIEW_POINTER+direction) instanceof FXMLIRRepresentable) {
@@ -58,15 +65,28 @@ public class MainViewer extends Application {
 
     }
 
+    /**
+     * This method sets the stylesheet for the mainView. The reason for the task separation is that different scenarios
+     * requires the change of the mainView layout. The style sheet has to be on the designated style folder.
+     * @param styleSheetName the name of the style sheet.
+     */
     public static void setMainStyleSheet(String styleSheetName){
         mainPane.getStylesheets().clear();
         mainPane.getStylesheets().add(MainViewer.class.getClassLoader().getResource("Styles/"+styleSheetName).toExternalForm());
     }
 
+    /**
+     * This method returns true if it is possible to navigate to a panel
+     * @param direction 1 for right, -1 for left
+     * @return true if it is possible to navigate, false otherwise
+     */
     public static boolean isNextPointerChangeValid(int direction){
         return VIEW_POINTER + direction < screenRegister.size() && VIEW_POINTER + direction >= 0;
     }
 
+    /**
+     * This method updates the FXMLIRRepresentable panels when a change on them is needed.
+     */
     public static void updatePanels(){
         for (Object panel : screenRegister.values())
             if (panel instanceof FXMLIRRepresentable)
