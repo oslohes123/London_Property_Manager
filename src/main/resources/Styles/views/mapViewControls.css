@@ -9,7 +9,7 @@ HBox{
     -fx-font-family:"Constantia";
 }
 
-#viewBoroughs{
+.controlButtons{
     -fx-background-color: #61cdb2;
      -fx-font-family:"Constantia";
     -fx-margin: 20px;

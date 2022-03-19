@@ -94,9 +94,14 @@ public class MapController implements FXMLIRRepresentable {
         viewBoroughs = new Button("View multiple boroughs");
         viewBoroughs.setDisable(true);
         viewBoroughs.setOnAction(this::openPropertyViewer);
-        viewBoroughs.setId("viewBoroughs");
+        viewBoroughs.getStyleClass().add("controlButtons");
 
-        headerControl.getChildren().addAll(selectionType, viewBoroughs);
+        Button openStats = new Button("Statistics");
+        openStats.setOnAction(this::openStatsWindow);
+        openStats.getStyleClass().add("controlButtons");
+
+
+        headerControl.getChildren().addAll(selectionType, viewBoroughs, openStats);
         return headerControl;
     }
 
@@ -113,6 +118,14 @@ public class MapController implements FXMLIRRepresentable {
     }
 
 
+    private void openStatsWindow(ActionEvent actionEvent) {
+        if (selectedBoroughs.size() == 0){
+            // pass null, which will indicate *
+        }else{
+            // pass the hashset itself
+        }
+
+    }
 
     private void drawBoroughsBoundariesFromFolder(){
         GraphicsOverlay graphicsOverlay = new GraphicsOverlay();
