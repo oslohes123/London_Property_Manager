@@ -13,8 +13,17 @@ public class Main {
         List<String> boroughTest = new ArrayList<>();
         boroughTest.add("Croydon");
         StatisticsModel stats = new StatisticsModel(boroughTest);
+        try {
+            if (stats.avgReviewsPerProperty().next()){
+                System.out.println(stats.avgReviewsPerProperty().getObject(2));
+            }else{
+                System.out.println("Avgrevews.next came out false so there was nothing there");
+            }
 
-        System.out.println(stats.averageReviewsPerProperty());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
 }
