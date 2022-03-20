@@ -1,6 +1,8 @@
 package com.example.london_property_market.Loader;
-
+import javax.swing.plaf.nimbus.State;
 import java.sql.*;
+import java.util.Arrays;
+
 /**
  * Loads the CSV into the database so that we can execute queries against it.
  * http://www.h2database.com/html/tutorial.html#csv
@@ -22,34 +24,37 @@ public final class CsvLoader {
     }
 
     /**
-     * Sets up the database, should only be run once
+     * Runs the teardown script on the database
      */
-    private void dbSetup(){
+    public void dbTeardown(){
         try{
-            // If the database is created then it simply connects to the database
-            // if the database is not created then it creates the database at the
-            // filepath
-            Connection con = DriverManager.getConnection(DATABASE_URL, USER, "");
-
-            // Creates a statement object so that we can execute code on the
-            // database
-            Statement statement = con.createStatement();
-
-            // First drop the table if it has already been created
-            statement.executeUpdate("DROP TABLE IF EXISTS Locations");
-
-            // Then execute a statement to create a Locations table using the
-            // airbnb csv file
-            statement.executeUpdate("CREATE TABLE IF NOT EXISTS Locations AS SELECT * " +
-                    "FROM CSVREAD('./src/main/resources" +
-                    "/database/airbnb.csv')");
-
-            // Always close database connections otherwise concurrency errors
-            con.close();
+            Connection connection = DriverManager.getConnection(DATABASE_URL,
+                    USER, "");
+            Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            statement.execute("RUNSCRIPT FROM './src/main/resources/database" +
+                    "/queries/databaseTeardown.sql'");
         }catch(Exception e){
-            System.out.println(e.getCause() + "; \n" + e.getMessage());
+            System.out.println(Arrays.toString(e.getStackTrace()));
         }
+        System.out.println("Database removed");
+    }
 
+
+    /**
+     * Sets up the database through the schema found in the directory, and the schema makes use of the CSV file to populate
+     * the rows
+     */
+    public void dbSetup(){
+        try{
+            Connection connection = DriverManager.getConnection(DATABASE_URL,
+                    USER, "");
+            Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            statement.execute("RUNSCRIPT FROM './src/main/resources/database" +
+                    "/queries/databaseSetup.sql'");
+        }catch(Exception e){
+            System.out.println(Arrays.toString(e.getStackTrace()));
+        }
+        System.out.println("Database setup");
     }
 
     /**
@@ -61,10 +66,28 @@ public final class CsvLoader {
         try {
             //Connect to the database
             Connection con = DriverManager.getConnection(DATABASE_URL, USER, "");
-            ResultSet rs = con.createStatement().executeQuery(SQL);
-            return rs;
+            return con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE).executeQuery(SQL);
         } catch (Exception e) {
             System.out.println(e.getCause() + "; \n" + e.getMessage());
+        }
+        return null;
+    }
+
+    /**
+     * Executes an SQL script on the database
+     * @param scriptPath the file path of the script
+     * @return a result set from the script
+     */
+    public ResultSet executeScript(String scriptPath){
+        try{
+            Connection con = DriverManager.getConnection(DATABASE_URL, USER,
+                    "");
+            Statement statement = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+            String query = "RUNSCRIPT FROM '" + scriptPath + "'";
+            statement.executeQuery(query);
+            return statement.getResultSet();
+        }catch (Exception e){
+            System.out.println(Arrays.toString(e.getStackTrace()));
         }
         return null;
     }
