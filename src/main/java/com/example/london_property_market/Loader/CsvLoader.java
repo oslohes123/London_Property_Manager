@@ -1,5 +1,4 @@
 package com.example.london_property_market.Loader;
-
 import javax.swing.plaf.nimbus.State;
 import java.sql.*;
 import java.util.Arrays;
@@ -24,11 +23,14 @@ public final class CsvLoader {
         }
     }
 
+    /**
+     * Runs the teardown script on the database
+     */
     public void dbTeardown(){
         try{
             Connection connection = DriverManager.getConnection(DATABASE_URL,
                     USER, "");
-            Statement statement = connection.createStatement();
+            Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             statement.execute("RUNSCRIPT FROM './src/main/resources/database" +
                     "/queries/databaseTeardown.sql'");
         }catch(Exception e){
@@ -37,11 +39,16 @@ public final class CsvLoader {
         System.out.println("Database removed");
     }
 
+
+    /**
+     * Sets up the database through the schema found in the directory, and the schema makes use of the CSV file to populate
+     * the rows
+     */
     public void dbSetup(){
         try{
             Connection connection = DriverManager.getConnection(DATABASE_URL,
                     USER, "");
-            Statement statement = connection.createStatement();
+            Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             statement.execute("RUNSCRIPT FROM './src/main/resources/database" +
                     "/queries/databaseSetup.sql'");
         }catch(Exception e){
@@ -59,7 +66,7 @@ public final class CsvLoader {
         try {
             //Connect to the database
             Connection con = DriverManager.getConnection(DATABASE_URL, USER, "");
-            return con.createStatement().executeQuery(SQL);
+            return con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE).executeQuery(SQL);
         } catch (Exception e) {
             System.out.println(e.getCause() + "; \n" + e.getMessage());
         }
@@ -75,7 +82,7 @@ public final class CsvLoader {
         try{
             Connection con = DriverManager.getConnection(DATABASE_URL, USER,
                     "");
-            Statement statement = con.createStatement();
+            Statement statement = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
             String query = "RUNSCRIPT FROM '" + scriptPath + "'";
             statement.executeQuery(query);
             return statement.getResultSet();
