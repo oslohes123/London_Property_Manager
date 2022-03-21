@@ -6,9 +6,7 @@ import com.esri.arcgisruntime.geometry.SpatialReferences;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
 import java.util.stream.Collectors;
 
 public class GeoJsonCoordinatesParser {
@@ -16,27 +14,24 @@ public class GeoJsonCoordinatesParser {
     public static PartCollection getPointCollectionFromGeoJsonCoordinates(String coordinatesFilePath){
         PartCollection parts = new PartCollection(SpatialReferences.getWgs84());
 
-        try {
 
-            BufferedReader coordinatesFileReader = new BufferedReader(new FileReader(coordinatesFilePath));
-            JsonArray coordinatesArray = JsonParser.parseString(coordinatesFileReader.lines().collect(Collectors.joining())).getAsJsonObject().get("features").getAsJsonArray().get(0).getAsJsonObject().get("geometry").getAsJsonObject().get("coordinates").getAsJsonArray();
+        InputStream boroughFileReader = GeoJsonCoordinatesParser.class.getResourceAsStream(coordinatesFilePath);
 
-            for (int i = 0; i < coordinatesArray.size(); i++) {
+        BufferedReader coordinatesFileReader = new BufferedReader(new InputStreamReader(boroughFileReader));
+        JsonArray coordinatesArray = JsonParser.parseString(coordinatesFileReader.lines().collect(Collectors.joining())).getAsJsonObject().get("features").getAsJsonArray().get(0).getAsJsonObject().get("geometry").getAsJsonObject().get("coordinates").getAsJsonArray();
 
-                PointCollection polygonCoordinateSet = new PointCollection(SpatialReferences.getWgs84());
-                JsonArray pointSet = coordinatesArray.get(i).getAsJsonArray();
+        for (int i = 0; i < coordinatesArray.size(); i++) {
 
-                if (coordinatesArray.get(i).getAsJsonArray().get(0).getAsJsonArray().get(0).isJsonArray())
-                    pointSet = pointSet.get(0).getAsJsonArray();
+            PointCollection polygonCoordinateSet = new PointCollection(SpatialReferences.getWgs84());
+            JsonArray pointSet = coordinatesArray.get(i).getAsJsonArray();
 
-                for (int j = 0; j < pointSet.size(); j++)
-                    polygonCoordinateSet.add(pointSet.get(j).getAsJsonArray().get(0).getAsDouble(), pointSet.get(j).getAsJsonArray().get(1).getAsDouble());
+            if (coordinatesArray.get(i).getAsJsonArray().get(0).getAsJsonArray().get(0).isJsonArray())
+                pointSet = pointSet.get(0).getAsJsonArray();
 
-                parts.add(polygonCoordinateSet);
-            }
+            for (int j = 0; j < pointSet.size(); j++)
+                polygonCoordinateSet.add(pointSet.get(j).getAsJsonArray().get(0).getAsDouble(), pointSet.get(j).getAsJsonArray().get(1).getAsDouble());
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            parts.add(polygonCoordinateSet);
         }
 
         return parts;
@@ -54,16 +49,12 @@ public class GeoJsonCoordinatesParser {
         if (fileName == null)
             return null;
 
-        try {
 
-            BufferedReader coordinatesFileReader = new BufferedReader(new FileReader(fileName));
-            return JsonParser.parseString(coordinatesFileReader.lines().collect(Collectors.joining())).getAsJsonObject().get("features").getAsJsonArray().get(0).getAsJsonObject().get("properties").getAsJsonObject().get("name").toString().replaceAll("\"","");
+        InputStream boroughFileReader = GeoJsonCoordinatesParser.class.getResourceAsStream(fileName);
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        BufferedReader coordinatesFileReader = new BufferedReader(new InputStreamReader(boroughFileReader));
+        return JsonParser.parseString(coordinatesFileReader.lines().collect(Collectors.joining())).getAsJsonObject().get("features").getAsJsonArray().get(0).getAsJsonObject().get("properties").getAsJsonObject().get("name").toString().replaceAll("\"","");
 
-        return null;
     }
 
 }

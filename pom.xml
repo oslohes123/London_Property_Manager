@@ -206,7 +206,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                com.example.london_property_market/com.example.london_property_market.Main
+                               com.example.london_property_market.Main
                             </mainClass>
                         </configuration>
                     </execution>
@@ -225,7 +225,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <!-- change this to your main class -->
-                            <mainClass> com.example.london_property_market/com.example.london_property_market.Main</mainClass>
+                            <mainClass> com.example.london_property_market.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -239,7 +239,7 @@
                     <archive>
                         <manifest>
                             <!-- change this to your main class -->
-                            <mainClass> com.example.london_property_market/com.example.london_property_market.Main</mainClass>
+                            <mainClass> com.example.london_property_market.Main</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
@@ -257,6 +257,35 @@
                 </executions>
             </plugin>
 
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.2.0</version>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+
+                        <configuration>
+                            <outputDirectory>target/classes</outputDirectory>
+                            <includeEmptyDirs>true</includeEmptyDirs>
+                            <resources>
+
+                                <resource>
+                                    <directory>src/main/resources</directory>
+                                    <filtering>false</filtering>
+                                </resource>
+
+                            </resources>
+                        </configuration>
+
+                    </execution>
+                </executions>
+            </plugin>
 
 
         </plugins>
