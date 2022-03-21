@@ -24,6 +24,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import org.apache.commons.lang3.tuple.Pair;
@@ -45,7 +46,7 @@ public class MapController implements FXMLIRRepresentable {
     private GraphicsOverlay propertyPointsOverlay;
 
     private HashMap<String, Graphic> polygons;
-    HashSet<String> selectedBoroughs;
+    private HashSet<String> selectedBoroughs;
     private ToggleSwitch propertySelectionType;
     private ToggleSwitch statsSelectionType;
     private Button viewBoroughs;
@@ -88,16 +89,17 @@ public class MapController implements FXMLIRRepresentable {
         //https://github.com/controlsfx/controlsfx
         //https://controlsfx.github.io/javadoc/11.1.1/org.controlsfx.controls/org/controlsfx/control/ToggleSwitch.html
         propertySelectionType = new ToggleSwitch("Enable selection of multiple boroughs");
-        propertySelectionType.setOnMouseClicked(this::switchBoroughsToggle);
-        propertySelectionType.getStylesheets().add("selectionType");
+        propertySelectionType.getStyleClass().add("selectionType");
 
         statsSelectionType = new ToggleSwitch("View statistics from selected borough");
-        statsSelectionType.getStylesheets().add("selectionType");
+        statsSelectionType.getStyleClass().add("selectionType");
 
+        //https://stackoverflow.com/questions/29616246/how-to-bind-inverse-boolean-javafx
+        //
         viewBoroughs = new Button("View multiple boroughs");
-        viewBoroughs.setDisable(true);
         viewBoroughs.setOnAction(this::openPropertyViewer);
         viewBoroughs.getStyleClass().add("controlButtons");
+        viewBoroughs.disableProperty().bind(propertySelectionType.selectedProperty().not());
 
         Button openStats = new Button("Statistics");
         openStats.setOnAction(this::openStatsWindow);
@@ -106,10 +108,6 @@ public class MapController implements FXMLIRRepresentable {
 
         headerControl.getChildren().addAll(propertySelectionType, viewBoroughs, statsSelectionType, openStats);
         return headerControl;
-    }
-
-    private void switchBoroughsToggle(MouseEvent mouseEvent) {
-        viewBoroughs.setDisable(!viewBoroughs.isDisable());
     }
 
     private void openPropertyViewer(ActionEvent actionEvent) {
