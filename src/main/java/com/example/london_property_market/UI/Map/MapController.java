@@ -24,7 +24,6 @@ import javafx.geometry.Point2D;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import org.apache.commons.lang3.tuple.Pair;

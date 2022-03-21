@@ -13,7 +13,6 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Random;
@@ -113,7 +112,7 @@ public class MapModel {
      *                  way that a borough is drawn on the map.
      * @return the name of the borough that a point is in
      */
-    public Pair<String, String> getBoroughName(double longitude, double latitude, HashMap<String, Graphic> identifier){
+    protected Pair<String, String> getBoroughName(double longitude, double latitude, HashMap<String, Graphic> identifier){
         String fileName = getBoroughFileName(longitude, latitude, identifier);
         return new ImmutablePair<>(fileName, GeoJsonCoordinatesParser.getBoroughNameFromFile(fileName));
     }
