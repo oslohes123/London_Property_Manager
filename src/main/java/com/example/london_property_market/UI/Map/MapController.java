@@ -130,7 +130,7 @@ public class MapController implements FXMLIRRepresentable {
             if (statsSelectionType.isSelected()){
                 FXMLLoader statsLoader = new FXMLLoader(getClass().getResource("/views/StatsView.fxml"));
                 AnchorPane statsAnchorPane = statsLoader.load();
-                Scene statsScene = new Scene(statsAnchorPane, 600, 400);
+                Scene statsScene = new Scene(statsAnchorPane);
                 Stage stage = new Stage();
                 stage.setTitle("Statistics");
                 stage.setScene(statsScene);
