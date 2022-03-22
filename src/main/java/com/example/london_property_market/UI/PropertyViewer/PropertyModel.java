@@ -62,6 +62,7 @@ public class PropertyModel {
         {
 
             VBox propertyData = new VBox();
+
             Label hostName, neighbourhood, price, numberOfReviews, minNumberOfNights;
             Button seeMoreButton = new Button();
             hostName = new Label("Host Name: " + validProperties.getString("host_name"));
@@ -76,6 +77,7 @@ public class PropertyModel {
             seeMoreButton.setText("More Details");
 
             propertyData.getChildren().addAll(hostName, neighbourhood, price, numberOfReviews, minNumberOfNights, seeMoreButton);
+            propertyData.setPrefSize(Integer.MAX_VALUE, Integer.MAX_VALUE);
             properties.add(propertyData);
         }
         return properties;

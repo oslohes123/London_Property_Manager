@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -27,9 +28,7 @@ import java.util.Set;
  * @author Shaheer Effandi (K21013734)
  */
 public class PropertyController {
-    @FXML
-    public HBox topPropertyDisplayBox;
-    @FXML private HBox botPropertyDisplayBox;
+    @FXML private GridPane propertyDisplayGrid;
     @FXML private Button nextProperties;
     @FXML private Button previousProperties;
     @FXML ComboBox sortByCombo;
@@ -81,21 +80,23 @@ public class PropertyController {
     {
         properties = propertyBoxes;
         beginningPointer = 0;
+        int counter = 0;
 
         for(VBox property: properties) {
 
-            if(topPropertyDisplayBox.getChildren().size() != PROPERTIES_PER_PAGE/2) {
-                topPropertyDisplayBox.getChildren().add(property);
+            if(counter < PROPERTIES_PER_PAGE/2) {
+                propertyDisplayGrid.add(property, counter %(PROPERTIES_PER_PAGE / 2), 0);
             }
 
-            else if (botPropertyDisplayBox.getChildren().size() != PROPERTIES_PER_PAGE/2) {
-                botPropertyDisplayBox.getChildren().add(property);
+            else if (counter < PROPERTIES_PER_PAGE) {
+                propertyDisplayGrid.add(property, counter %(PROPERTIES_PER_PAGE / 2), 1);
             }
 
             else {
                 endPointer = PROPERTIES_PER_PAGE;
                 return;
             }
+            counter ++;
         }
 
         //if there are no more properties, the number of properties
@@ -146,14 +147,18 @@ public class PropertyController {
     }
 
     private void addPropertiesToDisplay() {
+        int counter = 0;
         for (int i = beginningPointer; i < endPointer; i++) {
-            if(topPropertyDisplayBox.getChildren().size() != PROPERTIES_PER_PAGE/2) {
-                topPropertyDisplayBox.getChildren().add(properties.get(i));
+            if(counter < PROPERTIES_PER_PAGE/2) {
+                propertyDisplayGrid.add(properties.get(i), counter %(PROPERTIES_PER_PAGE / 2), 0);
             }
-            else if(botPropertyDisplayBox.getChildren().size() != PROPERTIES_PER_PAGE) {
-                botPropertyDisplayBox.getChildren().add(properties.get(i));
+
+            else if (counter < PROPERTIES_PER_PAGE) {
+                propertyDisplayGrid.add(properties.get(i), counter %(PROPERTIES_PER_PAGE / 2), 1);
             }
+            counter ++;
         }
+
     }
 
     private void setSortByCombo()
@@ -171,7 +176,6 @@ public class PropertyController {
     private void sortProperties(Event event)  {
 
         try {
-            System.out.println("This Has Been Called");
             List<VBox> sortedProperties = model.sortBy((String) sortByCombo.getValue());
             if (sortedProperties != null) {
                 clearDisplayBoxes();
@@ -186,8 +190,7 @@ public class PropertyController {
 
     private void clearDisplayBoxes()
     {
-        topPropertyDisplayBox.getChildren().clear();
-        botPropertyDisplayBox.getChildren().clear();
+        propertyDisplayGrid.getChildren().clear();
     }
 
     public Stage getStage()

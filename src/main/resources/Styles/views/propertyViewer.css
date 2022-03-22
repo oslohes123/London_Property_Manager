@@ -1,0 +1,5 @@
+.VBox {
+    -fx-padding: 8px;
+    -fx-spacing: 8px;
+    -fx-background-color: rgba(0, 248, 248, 0.6);
+}
