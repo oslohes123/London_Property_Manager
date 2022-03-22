@@ -9,7 +9,8 @@ import com.sun.javafx.geom.Line2D;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
-import java.io.File;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -25,7 +26,7 @@ import java.util.Random;
 public class MapModel {
 
     // The path to the folder that contains the geojson file
-    private final String GEO_JSON_FOLDER_PATH = "src/main/resources/map/geoJson/";
+    private final String GEO_JSON_FOLDER_PATH = "/map/geoJson/";
     // The hashmap that will store the opacities
     private HashMap<Opacity, Integer> opacityMap;
 
@@ -75,11 +76,14 @@ public class MapModel {
 
     /**
      * This method returns a list that contains the file names in the geojson folder
+     * REFERENCE: https://stackoverflow.com/questions/28985379/java-how-to-read-folder-and-list-files-in-that-folder-in-jar-environment-instead
      * @return a list that contains the file names in the geojson folder
      */
     protected String[] getAllGeoJsonResources(){
-        File geoJsonResFolder = new File(GEO_JSON_FOLDER_PATH);
-        return geoJsonResFolder.list();
+        InputStream is = getClass().getResourceAsStream(GEO_JSON_FOLDER_PATH);
+        InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
+        BufferedReader br = new BufferedReader(isr);
+        return br.lines().toArray(String[]::new);
     }
 
     /**
@@ -108,7 +112,7 @@ public class MapModel {
      *                  way that a borough is drawn on the map.
      * @return the name of the borough that a point is in
      */
-    public Pair<String, String> getBoroughName(double longitude, double latitude, HashMap<String, Graphic> identifier){
+    protected Pair<String, String> getBoroughName(double longitude, double latitude, HashMap<String, Graphic> identifier){
         String fileName = getBoroughFileName(longitude, latitude, identifier);
         return new ImmutablePair<>(fileName, GeoJsonCoordinatesParser.getBoroughNameFromFile(fileName));
     }
