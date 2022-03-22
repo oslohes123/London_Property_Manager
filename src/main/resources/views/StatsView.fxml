@@ -9,12 +9,12 @@
 
 <AnchorPane prefHeight="350.0" prefWidth="600.0" style="-fx-background-color: #ece4db;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.london_property_market.UI.Statistics.StatisticsController">
    <children>
-      <Button fx:id="leftStatsButton" layoutX="51.0" layoutY="75.0" mnemonicParsing="false" onAction="#leftButtonAction" onMouseClicked="#leftButtonClick" prefHeight="207.0" prefWidth="110.0" style="-fx-border-color: black;" text="&lt;" textAlignment="CENTER" textOverrun="CLIP" AnchorPane.bottomAnchor="75.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="75.0">
+      <Button fx:id="leftStatsButton" layoutX="51.0" layoutY="75.0" mnemonicParsing="false" onMouseClicked="#leftButtonClick" prefHeight="207.0" prefWidth="110.0" style="-fx-border-color: black;" text="&lt;" textAlignment="CENTER" textOverrun="CLIP" AnchorPane.bottomAnchor="75.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="75.0">
          <font>
             <Font name="Calibri" size="55.0" />
          </font>
       </Button>
-      <Button fx:id="rightStatsButton" layoutX="430.0" layoutY="75.0" mnemonicParsing="false" onAction="#rightButtonAction" onMouseClicked="#rightButtonClick" prefHeight="207.0" prefWidth="110.0" style="-fx-border-color: black;" text="&gt;" textAlignment="CENTER" textOverrun="CLIP" AnchorPane.bottomAnchor="75.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="75.0">
+      <Button fx:id="rightStatsButton" layoutX="430.0" layoutY="75.0" mnemonicParsing="false" onMouseClicked="#rightButtonClick" prefHeight="207.0" prefWidth="110.0" style="-fx-border-color: black;" text="&gt;" textAlignment="CENTER" textOverrun="CLIP" AnchorPane.bottomAnchor="75.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="75.0">
          <font>
             <Font name="Calibri" size="55.0" />
          </font>

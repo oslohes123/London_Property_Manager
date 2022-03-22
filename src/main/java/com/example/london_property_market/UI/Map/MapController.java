@@ -20,16 +20,21 @@ import com.esri.arcgisruntime.symbology.*;
 import com.example.london_property_market.UI.FXMLIRRepresentable;
 import com.google.gson.JsonParser;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 import org.apache.commons.lang3.tuple.Pair;
 import org.controlsfx.control.ToggleSwitch;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Stack;
 
 public class MapController implements FXMLIRRepresentable {
 
@@ -49,6 +54,8 @@ public class MapController implements FXMLIRRepresentable {
     private ToggleSwitch propertySelectionType;
     private ToggleSwitch statsSelectionType;
     private Button viewBoroughs;
+
+
 
     MapModel mapModel;
 
@@ -119,11 +126,23 @@ public class MapController implements FXMLIRRepresentable {
 
 
     private void openStatsWindow(ActionEvent actionEvent) {
-        if (statsSelectionType.isSelected()){
-            // pass the hashset itself
-        }else{
-            // pass null, which will indicate *
+        try{
+            if (statsSelectionType.isSelected()){
+                FXMLLoader statsLoader = new FXMLLoader(getClass().getResource("/views/StatsView.fxml"));
+                AnchorPane statsAnchorPane = statsLoader.load();
+                Scene statsScene = new Scene(statsAnchorPane, 600, 400);
+                Stage stage = new Stage();
+                stage.setTitle("Statistics");
+                stage.setScene(statsScene);
+                stage.show();
+                // pass the hashset itself
+            }else{
+                // pass null, which will indicate *
+            }
+        }catch(Exception e ){
+            e.printStackTrace();
         }
+
 
     }
 
