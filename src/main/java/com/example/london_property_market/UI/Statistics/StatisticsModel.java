@@ -19,6 +19,11 @@ public class StatisticsModel {
     private typesOfStat counter;
 
 
+    /**
+     * Constructor that takes in a list of boroughs to be setup.
+     * Also uses this list to set the first stat, in the enum
+     * @param boroughs The list of boroughs
+     */
     public StatisticsModel(List<String> boroughs){
         sql = new CsvLoader();
         this.boroughs = boroughs;
@@ -42,6 +47,11 @@ public class StatisticsModel {
         return where.toString();
     }
 
+    /**
+     * Gets the next stat using the enum to loop over all the different stats available.
+     * @param isForward should we go to the next stat or the stat before
+     * @return A resultset containing data from the SQL lines
+     */
     public ResultSet getNextStat(boolean isForward){
         if (isForward){
            counter =  counter.loopForward();
@@ -49,16 +59,24 @@ public class StatisticsModel {
            counter = counter.loopBackward();
         }
         String methodToRun = counter.toString();
-
         ResultSet output = null;
-
         output = runQuery(methodToRun);
         return output;
     }
+
+    /**
+     *
+     * @return Name of the stat to be displayed on the label.
+     */
     public String getStatName(){
         return counter.getName();
     }
 
+    /**
+     * Runs a general query
+     * @param view Name of the view we will be getting.
+     * @return ResultSet containing that view.
+     */
     private ResultSet runQuery(String view){
         String query = "SELECT * FROM "+ view +" WHERE" +
                 createWhere() + ";";

@@ -86,5 +86,22 @@ CREATE VIEW IF NOT EXISTS avg_price_per_min_stay AS
     FROM
         airbnb_locations
     GROUP BY
-        NEIGHBOURHOOD
+        NEIGHBOURHOOD;
 
+-- Cheapest property
+CREATE VIEW IF NOT EXISTS cheapest_property_view AS
+    SELECT
+    MIN(airbnb_locations.price * airbnb_locations.minimum_nights) AS PRICE, neighbourhood
+    FROM airbnb_locations
+    GROUP BY
+             neighbourhood;
+
+-- Longest description
+CREATE VIEW IF NOT EXISTS longest_description_view AS
+SELECT
+    name,LENGTH(name)AS length,neighbourhood
+FROM airbnb_locations
+GROUP BY
+    length, neighbourhood
+order by
+    length desc;
