@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="400.0" stylesheets="@../Styles/views/propertyViewer.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="500.0" style="-fx-border-radius: 12;" stylesheets="@../Styles/views/propertyViewer.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <bottom>
-      <Pane prefHeight="60.0" style="-fx-background-color: grey;" BorderPane.alignment="CENTER" />
+      <Pane prefHeight="60.0" BorderPane.alignment="CENTER" />
    </bottom>
    <left>
       <Button fx:id="previousProperties" disable="true" mnemonicParsing="false" onAction="#viewPrevious" prefHeight="100.0" text="&lt;" BorderPane.alignment="CENTER">
@@ -28,7 +28,7 @@
          </cursor></Button>
    </right>
    <top>
-      <HBox alignment="CENTER_RIGHT" prefHeight="60.0" style="-fx-background-color: grey;" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER_RIGHT" prefHeight="60.0" BorderPane.alignment="CENTER">
          <children>
             <Label text="Sort By:" />
             <ComboBox fx:id="sortByCombo" promptText="--" visibleRowCount="5">

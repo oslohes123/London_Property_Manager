@@ -8,14 +8,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import javafx.event.ActionEvent;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Set;
@@ -31,8 +29,9 @@ public class PropertyController {
     @FXML private GridPane propertyDisplayGrid;
     @FXML private Button nextProperties;
     @FXML private Button previousProperties;
-    @FXML ComboBox sortByCombo;
+    @FXML private ComboBox<String> sortByCombo;
 
+    //The number of properties that will be shown on a page at a time
     public static final int PROPERTIES_PER_PAGE = 8;
     private PropertyModel model;
 
@@ -40,12 +39,15 @@ public class PropertyController {
     private int beginningPointer;
     private int endPointer;
 
-    private Scene scene;
     private Stage stage;
     private List<VBox> properties;
 
     /**
-     * Constructor for DisplayView Class
+     * Constructor for DisplayView Class, Loads the FXML file and initialises
+     * the model and the stage.
+     * Sets the Actions for each of the @FXML variables and adds options to the
+     * comboBox
+     *
      *
      * @param boroughs the selected boroughs
      * @param minPrice the minimum price per night for a property
@@ -57,10 +59,9 @@ public class PropertyController {
         FXMLLoader fxmlLoader = new FXMLLoader(url);
         //https://ifelse.info/questions/46749/problem-loading-fxml-file
         fxmlLoader.setController(this);
-
         Parent root = fxmlLoader.load();
 
-        scene = new Scene(root);
+        Scene scene = new Scene(root);
         model = new PropertyModel(boroughs, minPrice, maxPrice);
         stage = new Stage();
 
@@ -76,6 +77,12 @@ public class PropertyController {
 
     }
 
+    /**
+     * Iterates through a list of VBoxes a constant number of them to the page
+     * Set pointers so that the next and previous buttons are able to show the properties
+     * @param propertyBoxes a list of properties
+     * @throws SQLException
+     */
     private void addPropertiesToViewer(List<VBox> propertyBoxes) throws SQLException
     {
         properties = propertyBoxes;
@@ -103,6 +110,12 @@ public class PropertyController {
         nextProperties.setDisable(true);
     }
 
+    /**
+     * If this button is enabled, it will show the previous properties in the list.
+     * If we press the previousProperties button, it means that after clicking, the
+     * nextProperties button must be enabled
+     * @param event
+     */
     public void viewPrevious(ActionEvent event)
     {
         clearDisplayBoxes();
@@ -124,6 +137,11 @@ public class PropertyController {
         addPropertiesToDisplay();
     }
 
+    /**
+     * If this button is enabled, it will show the next properties in the list.
+     * If we press the nextProperties button, it means that after clicking, the
+     * previousProperties button must be enabled
+    */
     public void viewNext(ActionEvent event)
     {
         clearDisplayBoxes();
@@ -146,6 +164,10 @@ public class PropertyController {
         addPropertiesToDisplay();
     }
 
+    /**
+     * A method that adds properties to a gridPane to display.
+     * Used to reduce duplicate code
+     */
     private void addPropertiesToDisplay() {
         int counter = 0;
         for (int i = beginningPointer; i < endPointer; i++) {
@@ -161,6 +183,9 @@ public class PropertyController {
 
     }
 
+    /**
+     * Adds all sortBy options to the ComboBox
+     */
     private void setSortByCombo()
     {
         sortByCombo.getItems().addAll(
@@ -172,11 +197,16 @@ public class PropertyController {
     }
 
 
-
+    /**
+     * When an option in the ComboBox is selected, the Pane is emptied
+     * and the model gets a list of VBoxes with properties sorted by the selected criteria
+     * this list is then passed into the addPropertiesToViewer method
+     * @param event
+     */
     private void sortProperties(Event event)  {
 
         try {
-            List<VBox> sortedProperties = model.sortBy((String) sortByCombo.getValue());
+            List<VBox> sortedProperties = model.sortBy(sortByCombo.getValue());
             if (sortedProperties != null) {
                 clearDisplayBoxes();
                 addPropertiesToViewer(sortedProperties);
@@ -188,11 +218,20 @@ public class PropertyController {
         }
     }
 
+    /**
+     * Clears the gridPane so that different properties can be added
+     */
     private void clearDisplayBoxes()
     {
         propertyDisplayGrid.getChildren().clear();
     }
 
+    /**
+     * An accessor method used so that the Map page can
+     * open a new window that shows data for all the properties
+     * that fit the criteria
+     * @return stage
+    */
     public Stage getStage()
     {
         return stage;

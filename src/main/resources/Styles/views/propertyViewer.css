@@ -1,5 +1,22 @@
-.VBox {
+VBox {
     -fx-padding: 8px;
-    -fx-spacing: 8px;
-    -fx-background-color: rgba(0, 248, 248, 0.6);
+    -fx-spacing: 2px;
+    -fx-background-color: rgba(8, 42, 206, 0.6);
+    -fx-border-radius: 10px;
+}
+
+VBox:hover {
+    -fx-border-color: rgb(7, 42, 206);
+    -fx-background-color: white;
+    -fx-border-radius: 10px;
+    -fx-cursor: hand;
+}
+
+GridPane {
+    -fx-border-radius: 10px;
+    -fx-background-color: grey;
+}
+
+BorderPane {
+    -fx-background-color: rgba(8, 42, 206, 0.6);
 }
