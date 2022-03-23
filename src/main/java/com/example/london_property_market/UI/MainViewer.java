@@ -10,14 +10,26 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.HashMap;
 
+/**
+ * This class represents the main UI class of the application. This class acts as the main viewer (manager) for the
+ * panels that are on the main panel.
+ */
 public class MainViewer extends Application {
 
+    // The hashmap that contains the objects (screens references) and their tag (to access)
     private final static HashMap<Integer, Object> screenRegister = new HashMap<>();
+    // The pointer that points to the screen on the hashmap
     private static int VIEW_POINTER = 0;
-
+    // The main scene
     private Scene scene;
+    // The main pane for the center pain on the scene
     private static BorderPane mainPane;
 
+    /**
+     * The main application start point
+     * @param stage stage
+     * @throws IOException IOException
+     */
     @Override
     public void start(Stage stage) throws IOException {
 
