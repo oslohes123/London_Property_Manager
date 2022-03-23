@@ -18,10 +18,12 @@ import com.esri.arcgisruntime.mapping.view.GraphicsOverlay;
 import com.esri.arcgisruntime.mapping.view.MapView;
 import com.esri.arcgisruntime.symbology.*;
 import com.example.london_property_market.UI.FXMLIRRepresentable;
+import com.example.london_property_market.UI.Statistics.StatisticsController;
 import com.google.gson.JsonParser;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -32,6 +34,8 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.tuple.Pair;
 import org.controlsfx.control.ToggleSwitch;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Stack;
@@ -129,8 +133,12 @@ public class MapController implements FXMLIRRepresentable {
         try{
             if (statsSelectionType.isSelected()){
                 FXMLLoader statsLoader = new FXMLLoader(getClass().getResource("/views/StatsView.fxml"));
-                AnchorPane statsAnchorPane = statsLoader.load();
-                Scene statsScene = new Scene(statsAnchorPane);
+                Parent root = statsLoader.load();
+
+                StatisticsController statisticsController = statsLoader.getController();
+                statisticsController.setBoroughsList(new ArrayList<>(selectedBoroughs));
+
+                Scene statsScene = new Scene(root);
                 Stage stage = new Stage();
                 stage.setTitle("Statistics");
                 stage.setScene(statsScene);
