@@ -22,7 +22,7 @@ public class StatisticsModel {
     public StatisticsModel(List<String> boroughs){
         sql = new CsvLoader();
         this.boroughs = boroughs;
-        counter = typesOfStat.avgReviewsPerProperty;
+        counter = typesOfStat.avg_reviews_per_property_view;
     }
 
     /**
@@ -36,7 +36,7 @@ public class StatisticsModel {
         while(i.hasNext()){
             where.append(" neighbourhood = '").append(i.next()).append("'");
             if(i.hasNext()){
-                where.append(" AND");
+                where.append(" OR");
             }
         }
         return where.toString();
@@ -51,55 +51,20 @@ public class StatisticsModel {
         String methodToRun = counter.toString();
 
         ResultSet output = null;
-        try{
-           Method method = this.getClass().getDeclaredMethod(methodToRun);
-            output  = (ResultSet) method.invoke(this);
-        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace();
-        }
+
+        output = runQuery(methodToRun);
         return output;
     }
-
-
-
     public String getStatName(){
         return counter.getName();
     }
 
-    private ResultSet avgReviewsPerProperty(){
-        String query = "SELECT * FROM avg_reviews_per_property_view WHERE" +
+    private ResultSet runQuery(String view){
+        String query = "SELECT * FROM "+ view +" WHERE" +
                 createWhere() + ";";
+
         return sql.executeQuery(query);
     }
 
-    private ResultSet number_of_properties_available(){
-        String query = "SELECT * FROM number_of_properties_available_view " +
-                "WHERE" + createWhere() + ";";
-        return sql.executeQuery(query);
-    }
-
-    private ResultSet numberOfRoomTypes(){
-        String query =
-                "SELECT * FROM number_of_room_types_view WHERE" + createWhere() + ";";
-        return sql.executeQuery(query);
-    }
-
-    private ResultSet mostExpensiveProperty(){
-        String query =
-                "SELECT * FROM most_expensive_property_view WHERE" + createWhere() + ";";
-        return sql.executeQuery(query);
-    }
-
-    private ResultSet averagePricePerNight(){
-        String query =
-                "SELECT * FROM avg_price_per_night WHERE" + createWhere() + ";";
-        return sql.executeQuery(query);
-    }
-
-    private ResultSet averagePricePerMinStay(){
-        String query =
-                "SELECT * FROM avg_price_per_min_stay WHERE" + createWhere() + ";";
-        return sql.executeQuery(query);
-    }
 
 }

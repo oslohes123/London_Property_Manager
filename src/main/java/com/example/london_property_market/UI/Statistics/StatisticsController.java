@@ -34,7 +34,6 @@ public class StatisticsController implements Initializable {
     public Label statsTitle;
     @FXML
     public TableView statTable;
-    private ObservableList<ObservableList> data;
 
     private StatisticsModel statModel;
 
@@ -58,9 +57,7 @@ public class StatisticsController implements Initializable {
 
     @FXML
     public void rightButtonClick(MouseEvent mouseEvent) {
-        statTable.getColumns().clear();
         ResultSet rs = statModel.getNextStat(true);
-
         setupLabels(rs);
     }
 
@@ -72,7 +69,8 @@ public class StatisticsController implements Initializable {
     private void setupLabels(ResultSet rs){
         String label = statModel.getStatName();
         statsTitle.setText(label);
-        data = FXCollections.observableArrayList();
+        ObservableList<ObservableList> data = FXCollections.observableArrayList();
+        ObservableList<String> row;
         try{
             statTable.getColumns().clear();
             ResultSetMetaData rsmd = rs.getMetaData();
@@ -93,19 +91,23 @@ public class StatisticsController implements Initializable {
             // This part is for adding the data to each of the columns
             while(rs.next()) {
                 //Iterate Row
-                ObservableList<String> row = FXCollections.observableArrayList();
+                row = FXCollections.observableArrayList();
                 for (int i = 1; i <= rs.getMetaData().getColumnCount(); i++) {
                     //Iterate Column
                     row.add(rs.getString(i));
                 }
 //                System.out.println("Row [1] added " + row);
                 data.add(row);
-
-                statTable.setItems(data);
             }
+
+            statTable.setItems(data);
+            rs.close();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+
 
 
 

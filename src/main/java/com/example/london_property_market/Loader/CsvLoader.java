@@ -1,5 +1,6 @@
 package com.example.london_property_market.Loader;
 import javax.swing.plaf.nimbus.State;
+import javax.xml.transform.Result;
 import java.sql.*;
 import java.util.Arrays;
 
@@ -15,6 +16,7 @@ public final class CsvLoader {
     private final String USER = "sa";
 
     private static boolean created = false;
+    Connection con;
 
     public CsvLoader(){
         if(!created){
@@ -28,9 +30,9 @@ public final class CsvLoader {
      */
     public void dbTeardown(){
         try{
-            Connection connection = DriverManager.getConnection(DATABASE_URL,
+             con = DriverManager.getConnection(DATABASE_URL,
                     USER, "");
-            Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            Statement statement = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             statement.execute("RUNSCRIPT FROM './src/main/resources/database" +
                     "/queries/databaseTeardown.sql'");
         }catch(Exception e){
@@ -46,9 +48,9 @@ public final class CsvLoader {
      */
     public void dbSetup(){
         try{
-            Connection connection = DriverManager.getConnection(DATABASE_URL,
+            con = DriverManager.getConnection(DATABASE_URL,
                     USER, "");
-            Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            Statement statement = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             statement.execute("RUNSCRIPT FROM './src/main/resources/database" +
                     "/queries/databaseSetup.sql'");
         }catch(Exception e){
@@ -65,7 +67,7 @@ public final class CsvLoader {
     public ResultSet executeQuery(String SQL) {
         try {
             //Connect to the database
-            Connection con = DriverManager.getConnection(DATABASE_URL, USER, "");
+            con = DriverManager.getConnection(DATABASE_URL, USER, "");
             return con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE).executeQuery(SQL);
         } catch (Exception e) {
             System.out.println(e.getCause() + "; \n" + e.getMessage());
@@ -80,7 +82,7 @@ public final class CsvLoader {
      */
     public ResultSet executeScript(String scriptPath){
         try{
-            Connection con = DriverManager.getConnection(DATABASE_URL, USER,
+            con = DriverManager.getConnection(DATABASE_URL, USER,
                     "");
             Statement statement = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
             String query = "RUNSCRIPT FROM '" + scriptPath + "'";
