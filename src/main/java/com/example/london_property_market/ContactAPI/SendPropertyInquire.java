@@ -21,8 +21,8 @@ public class SendPropertyInquire {
             byte[] postData = urlParameters.getBytes(StandardCharsets.UTF_8);
             int postDataLength = postData.length;
 
-            httpURLConnection.setDoOutput( true );
-            httpURLConnection.setInstanceFollowRedirects( false );
+            httpURLConnection.setDoOutput(true);
+            httpURLConnection.setInstanceFollowRedirects(false);
             httpURLConnection.setRequestMethod("POST");
             httpURLConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             httpURLConnection.setRequestProperty("charset", "utf-8");
