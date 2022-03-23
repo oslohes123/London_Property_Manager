@@ -6,7 +6,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
-public class Send {
+public class SendPropertyInquire {
 
     private final static String SENDER_URL = "https://yousef-altaher.com/special/informationReciever.php";
 
