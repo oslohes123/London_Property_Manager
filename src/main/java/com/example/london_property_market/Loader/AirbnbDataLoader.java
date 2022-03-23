@@ -4,14 +4,14 @@ import com.univocity.parsers.common.processor.BeanListProcessor;
 import com.univocity.parsers.csv.CsvParser;
 import com.univocity.parsers.csv.CsvParserSettings;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.List;
 
 
 public class AirbnbDataLoader {
 
-    private final String CSV_FILE_PATH = "src/main/resources/propertyData/airbnb-london.csv";
+    private final String CSV_FILE_PATH = "/propertyData/airbnb-london.csv";
 
     public List<AirbnbListing> listDataLoader() {
 
@@ -22,11 +22,9 @@ public class AirbnbDataLoader {
         csvParserSettings.setProcessor(beanListProcessor);
 
         CsvParser csvParser = new CsvParser(csvParserSettings);
-        try {
-            csvParser.parse(new FileReader(CSV_FILE_PATH));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+
+        InputStream csvStream = getClass().getResourceAsStream(CSV_FILE_PATH);
+        csvParser.parse(new InputStreamReader(csvStream));
 
         return beanListProcessor.getBeans();
     }
