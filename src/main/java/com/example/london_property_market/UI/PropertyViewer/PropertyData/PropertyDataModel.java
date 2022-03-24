@@ -10,7 +10,7 @@ public class PropertyDataModel {
     public static ResultSet getPropertyData(int id) {
 
         return loader.executeQuery(
-                "SELECT * FROM Locations " +
+                "SELECT * FROM airbnb_locations " +
                         "WHERE id = '" + id + "';"
         );
     }
