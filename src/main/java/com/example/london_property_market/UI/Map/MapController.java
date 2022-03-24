@@ -208,7 +208,7 @@ public class MapController implements FXMLIRRepresentable {
 
                 StatisticsController statisticsController = statsLoader.getController();
                 statisticsController.setBoroughsList(new ArrayList<>(selectedBoroughs));
-              
+
                 Scene statsScene = new Scene(root);
                 Stage stage = new Stage();
                 stage.setTitle("Statistics");

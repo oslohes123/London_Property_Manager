@@ -29,12 +29,13 @@ public class getContactedController implements Initializable {
     public getContactedController(int propertyID) {
         try{
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("views/sendInfo.fxml"));
+            fxmlLoader.setController(this);
             Parent root = fxmlLoader.load();
             propertyData = PropertyDataModel.getPropertyData(propertyID);
             
             Scene scene = new Scene(root);
             stage = new Stage();
-            stage.setTitle(propertyData.getString("name"));
+            stage.setTitle("Get Connected");
             stage.setScene(scene);
         }catch (Exception e){
             e.printStackTrace();
@@ -54,6 +55,6 @@ public class getContactedController implements Initializable {
 
     @FXML
     public void sendClicked(MouseEvent mouseEvent) {
-
+        
     }
 }

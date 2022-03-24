@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane style="-fx-background-color: #faedcd;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.london_property_market.UI.Statistics.StatisticsController">
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.london_property_market.UI.Statistics.StatisticsController">
    <right>
       <Button fx:id="rightStatsButton" mnemonicParsing="false" onMouseClicked="#rightButtonClick" prefHeight="312.0" prefWidth="110.0" style="-fx-border-color: black;" text="&gt;" textAlignment="CENTER" textOverrun="CLIP" BorderPane.alignment="CENTER">
          <font>
