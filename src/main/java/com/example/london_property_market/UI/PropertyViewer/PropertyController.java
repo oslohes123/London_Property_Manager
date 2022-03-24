@@ -3,6 +3,7 @@ package com.example.london_property_market.UI.PropertyViewer;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -12,6 +13,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import javafx.event.ActionEvent;
+
+
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -88,6 +91,8 @@ public class PropertyController {
         properties = propertyBoxes;
         beginningPointer = 0;
         int counter = 0;
+
+        properties.forEach(a -> a.setPadding(new Insets(20)));
 
         for(VBox property: properties) {
 

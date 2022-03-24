@@ -59,7 +59,7 @@ public class PropertyModel {
      */
     private ResultSet getProperties() {
         return loader.executeQuery(
-                "SELECT * FROM Locations" +
+                "SELECT * FROM airbnb_locations" +
                         " WHERE (" + getBoroughFilterQuery() +
                         ") AND price >= " + minPrice +
                         " AND price <= " + maxPrice + ";"
@@ -179,7 +179,7 @@ public class PropertyModel {
      */
     private ResultSet getProperties(String sortBy) {
         return loader.executeQuery(
-                "SELECT * FROM Locations" +
+                "SELECT * FROM airbnb_locations" +
                         " WHERE (" + getBoroughFilterQuery() +
                         ") AND price >= " + minPrice +
                         " AND price <= " + maxPrice + "" +

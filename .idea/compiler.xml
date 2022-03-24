@@ -13,4 +13,9 @@
       <module name="London_Property_Market" target="11" />
     </bytecodeTargetLevel>
   </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="London_Property_Market" options="--add-exports javafx.graphics/com.sun.javafx.geom=ALL-UNNAMED" />
+    </option>
+  </component>
 </project>

@@ -51,7 +51,7 @@ public class MapModel {
         double maxSearchAmount = MainModel.getMaxAmount();
 
         CsvLoader csvLoader = new CsvLoader();
-        ResultSet resultedLocations = csvLoader.executeQuery("SELECT longitude, latitude FROM Locations WHERE price >=" + minSearchAmount + " AND price <=" + maxSearchAmount);
+        ResultSet resultedLocations = csvLoader.executeQuery("SELECT longitude, latitude FROM airbnb_locations WHERE price >=" + minSearchAmount + " AND price <=" + maxSearchAmount);
 
         try {
             resultedLocations.next(); // To skip the header

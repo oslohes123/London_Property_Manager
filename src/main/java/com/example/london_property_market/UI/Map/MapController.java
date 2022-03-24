@@ -20,20 +20,27 @@ import com.esri.arcgisruntime.symbology.*;
 import com.example.london_property_market.UI.FXMLIRRepresentable;
 import com.example.london_property_market.UI.PropertyViewer.PropertyController;
 import com.example.london_property_market.UI.Welcome.MainModel;
+import com.example.london_property_market.UI.Statistics.StatisticsController;
 import com.google.gson.JsonParser;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.tuple.Pair;
 import org.controlsfx.control.ToggleSwitch;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Stack;
 
 /**
  *
@@ -72,8 +79,15 @@ public class MapController implements FXMLIRRepresentable {
     private ToggleSwitch statsSelectionType;
     private Button viewBoroughs;
 
+<<<<<<< HEAD
     // The map model
     private MapModel mapModel;
+=======
+
+
+    MapModel mapModel;
+
+>>>>>>> development/dev
 
     /**
      * This method initialize the map view with its necessary objects. The use of a different method other than the constructor
@@ -173,11 +187,27 @@ public class MapController implements FXMLIRRepresentable {
      * @param actionEvent actionEvent
      */
     private void openStatsWindow(ActionEvent actionEvent) {
-        if (statsSelectionType.isSelected()){
-            // pass the hashset itself
-        }else{
-            // pass null, which will indicate *
+        try{
+            if (statsSelectionType.isSelected()){
+                FXMLLoader statsLoader = new FXMLLoader(getClass().getResource("/views/StatsView.fxml"));
+                Parent root = statsLoader.load();
+
+                StatisticsController statisticsController = statsLoader.getController();
+                statisticsController.setBoroughsList(new ArrayList<>(selectedBoroughs));
+
+                Scene statsScene = new Scene(root);
+                Stage stage = new Stage();
+                stage.setTitle("Statistics");
+                stage.setScene(statsScene);
+                stage.show();
+                // pass the hashset itself
+            }else{
+                // pass null, which will indicate *
+            }
+        }catch(Exception e ){
+            e.printStackTrace();
         }
+
 
     }
 

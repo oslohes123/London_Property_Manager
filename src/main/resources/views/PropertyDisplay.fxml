@@ -19,22 +19,54 @@
       <Button fx:id="previousProperties" disable="true" mnemonicParsing="false" onAction="#viewPrevious" prefHeight="100.0" text="&lt;" BorderPane.alignment="CENTER">
          <cursor>
             <Cursor fx:constant="HAND" />
-         </cursor></Button>
+         </cursor>
+         <BorderPane.margin>
+            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+         </BorderPane.margin></Button>
    </left>
    <right>
       <Button fx:id="nextProperties" mnemonicParsing="false" onAction="#viewNext" prefHeight="103.0" text="&gt;" BorderPane.alignment="CENTER">
          <cursor>
             <Cursor fx:constant="HAND" />
-         </cursor></Button>
+         </cursor>
+         <BorderPane.margin>
+            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+         </BorderPane.margin></Button>
    </right>
+<<<<<<< HEAD
+=======
+   <center>
+      <VBox BorderPane.alignment="CENTER">
+         <children>
+            <HBox fx:id="topPropertyDisplayBox">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin></HBox>
+            <HBox fx:id="botPropertyDisplayBox">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin></HBox>
+         </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </VBox>
+   </center>
+>>>>>>> development/dev
    <top>
       <HBox alignment="CENTER_RIGHT" prefHeight="60.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Sort By:" />
+            <Label text="Sort By:">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </HBox.margin></Label>
             <ComboBox fx:id="sortByCombo" promptText="--" visibleRowCount="5">
                <cursor>
                   <Cursor fx:constant="HAND" />
-               </cursor></ComboBox>
+               </cursor>
+               <HBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </HBox.margin></ComboBox>
          </children>
       </HBox>
    </top>
