@@ -43,10 +43,10 @@ public class MainModel {
      * @return int with highest price
      */
     private int comboBoxMaxValue() {
-
-        return PropertyData.stream()
-                .map(AirbnbListing::getPrice)
-                .max(Integer::compare).get();
+        return 10000;
+//        return PropertyData.stream()
+//                .map(AirbnbListing::getPrice)
+//                .max(Integer::compare).get();
 
     }
 
@@ -67,7 +67,7 @@ public class MainModel {
     }
 
     public boolean isValidValues(){
-        return maxAmount >= minAmount;
+        return maxAmount > minAmount;
     }
 
     public static int getMinAmount(){

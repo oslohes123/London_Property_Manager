@@ -5,7 +5,6 @@ import java.sql.*;
 import java.util.Arrays;
 
 /**
- * Loads the CSV into the database so that we can execute queries against it.
  * http://www.h2database.com/html/tutorial.html#csv
  *
  * @author Tom Hurford - k21002432
@@ -13,6 +12,7 @@ import java.util.Arrays;
 public final class CsvLoader {
     private final String DATABASE_URL = "jdbc:h2:file:" +
             "./src/main/resources/database/Locations";
+
     private final String USER = "sa";
 
     private static boolean created = false;

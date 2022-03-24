@@ -35,7 +35,7 @@ public class WelcomeController implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        propertyData = dataLoader.listDataLoader();
+        //propertyData = dataLoader.listDataLoader();
         core = new MainModel(propertyData);
         minComboBox.getItems().addAll(core.getCombValues());
         maxComboBox.getItems().addAll(core.getCombValues());

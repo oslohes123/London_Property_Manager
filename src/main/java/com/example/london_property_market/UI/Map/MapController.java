@@ -18,6 +18,8 @@ import com.esri.arcgisruntime.mapping.view.GraphicsOverlay;
 import com.esri.arcgisruntime.mapping.view.MapView;
 import com.esri.arcgisruntime.symbology.*;
 import com.example.london_property_market.UI.FXMLIRRepresentable;
+import com.example.london_property_market.UI.PropertyViewer.PropertyController;
+import com.example.london_property_market.UI.Welcome.MainModel;
 import com.example.london_property_market.UI.Statistics.StatisticsController;
 import com.google.gson.JsonParser;
 import javafx.event.ActionEvent;
@@ -121,7 +123,17 @@ public class MapController implements FXMLIRRepresentable {
     }
 
     private void openPropertyViewer(ActionEvent actionEvent) {
+        try {
 
+            PropertyController viewProperties = new PropertyController(selectedBoroughs, MainModel.getMinAmount(), MainModel.getMaxAmount());
+            Stage stage = viewProperties.getStage();
+            stage.show();
+
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
     private void openPropertyViewer(String boroughName){

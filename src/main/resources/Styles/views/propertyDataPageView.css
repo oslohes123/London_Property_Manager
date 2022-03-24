@@ -1,0 +1,12 @@
+.VBox {
+    -fx-font-size: 12px;
+    -fx-font-family: Calibri;
+    -fx-padding: 8px;
+    -fx-spacing: 4px;
+    -fx-alignment: center;
+}
+.propertyName {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+
+}

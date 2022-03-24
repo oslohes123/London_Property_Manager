@@ -27,6 +27,7 @@ public class MainViewer extends Application {
         createScreenRegisterEntries();
 
         mainPane.setCenter(new FXMLLoader(getClass().getClassLoader().getResource("views/WelcomeView.fxml")).load());
+
         mainPane.getStylesheets().add(MainViewer.class.getClassLoader().getResource("Styles/combo/validCombo.css").toExternalForm());
 
         scene = new Scene(mainPane, 1040, 740);
