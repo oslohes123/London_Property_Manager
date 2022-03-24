@@ -2,6 +2,7 @@ package com.example.london_property_market.UI.PropertyViewer;
 
 import com.example.london_property_market.Loader.CsvLoader;
 import com.example.london_property_market.UI.PropertyViewer.PropertyData.PropertyDataController;
+import com.example.london_property_market.UI.PropertyViewer.getContacted.getContactedController;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
@@ -64,6 +65,7 @@ public class PropertyModel {
             VBox propertyData = new VBox();
             Label hostName, neighbourhood, price, numberOfReviews, minNumberOfNights;
             Button seeMoreButton = new Button();
+            Button getContactedButton = new Button();
             hostName = new Label("Host Name: " + validProperties.getString("host_name"));
             neighbourhood = new Label("Borough: " + validProperties.getString("neighbourhood"));
             price = new Label("Price Per Night: " + validProperties.getInt("price"));
@@ -74,6 +76,10 @@ public class PropertyModel {
             seeMoreButton.setUserData(validProperties.getInt("id"));
             seeMoreButton.setOnAction(e -> showAllData((int) seeMoreButton.getUserData()));
             seeMoreButton.setText("More Details");
+
+            getContactedButton.setUserData(validProperties.getInt("id"));
+            getContactedButton.setOnAction(e -> getContactedOpener((int) getContactedButton.getUserData()));
+            getContactedButton.setText("Get Contacted");
 
             propertyData.getChildren().addAll(hostName, neighbourhood, price, numberOfReviews, minNumberOfNights, seeMoreButton);
             properties.add(propertyData);
@@ -98,6 +104,18 @@ public class PropertyModel {
         catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void getContactedOpener(int id){
+        try{
+            getContactedController contactedController = new getContactedController();
+            Stage stage = contactedController.getStage();
+            stage.show();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
     }
 
 
