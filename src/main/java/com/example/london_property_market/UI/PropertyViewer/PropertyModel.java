@@ -16,6 +16,7 @@ import java.util.List;
 import java.sql.ResultSet;
 import java.util.Set;
 
+
 public class PropertyModel {
 
     private Set<String> boroughs;
@@ -81,7 +82,7 @@ public class PropertyModel {
             getContactedButton.setOnAction(e -> getContactedOpener((int) getContactedButton.getUserData()));
             getContactedButton.setText("Get Contacted");
 
-            propertyData.getChildren().addAll(hostName, neighbourhood, price, numberOfReviews, minNumberOfNights, seeMoreButton);
+            propertyData.getChildren().addAll(hostName, neighbourhood, price, numberOfReviews, minNumberOfNights, seeMoreButton,getContactedButton);
             properties.add(propertyData);
         }
         return properties;
@@ -108,7 +109,7 @@ public class PropertyModel {
 
     private void getContactedOpener(int id){
         try{
-            getContactedController contactedController = new getContactedController();
+            getContactedController contactedController = new getContactedController(id);
             Stage stage = contactedController.getStage();
             stage.show();
         }catch (Exception e){
