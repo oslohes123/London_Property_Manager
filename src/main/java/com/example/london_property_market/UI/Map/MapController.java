@@ -79,15 +79,9 @@ public class MapController implements FXMLIRRepresentable {
     private ToggleSwitch statsSelectionType;
     private Button viewBoroughs;
 
-<<<<<<< HEAD
-    // The map model
-    private MapModel mapModel;
-=======
-
-
     MapModel mapModel;
 
->>>>>>> development/dev
+
 
     /**
      * This method initialize the map view with its necessary objects. The use of a different method other than the constructor
