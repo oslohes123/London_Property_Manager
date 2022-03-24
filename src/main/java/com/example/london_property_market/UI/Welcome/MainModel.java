@@ -1,19 +1,21 @@
 package com.example.london_property_market.UI.Welcome;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.example.london_property_market.Loader.AirbnbListing;
+import com.example.london_property_market.Loader.CsvLoader;
 
 public class MainModel {
 
-    private List<AirbnbListing> PropertyData;
     private List<String> values;
     private static int minAmount;
     private static int maxAmount;
 
-    public MainModel(List<AirbnbListing> propertyData) {
-        this.PropertyData = propertyData;
+    public MainModel() {
+
         comboBoxValues();
         minAmount = 0;
         maxAmount = comboBoxMaxValue();
@@ -43,11 +45,25 @@ public class MainModel {
      * @return int with highest price
      */
     private int comboBoxMaxValue() {
-        return 10000;
-//        return PropertyData.stream()
-//                .map(AirbnbListing::getPrice)
-//                .max(Integer::compare).get();
+        int maxPrice = -1;
 
+        try {
+            CsvLoader loader = new CsvLoader();
+            ResultSet rs = loader.executeQuery(
+                    "SELECT MAX(price) AS maxPrice FROM airbnb_locations; "
+            );
+            rs.next();
+            maxPrice = rs.getInt("maxPrice");
+
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+
+
+        return maxPrice;
     }
 
     public void setMaxAmount(String maxAmount) {
