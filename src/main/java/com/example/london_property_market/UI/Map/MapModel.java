@@ -109,7 +109,7 @@ public class MapModel {
      * @param longitude the longitude of a point
      * @param latitude the latitude of a point
      * @param identifier the map that contains, and hence identify, all the boroughs as Name : polygon. Polygon are the
-     *                  way that a borough is drawn on the map.
+     *                  way that a borough is drawn on the map and which the algorithm needs to interact with.
      * @return the name of the borough that a point is in
      */
     protected Pair<String, String> getBoroughName(double longitude, double latitude, HashMap<String, Graphic> identifier){

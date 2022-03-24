@@ -12,18 +12,39 @@ import org.junit.Test;
 
 import java.util.HashMap;
 
+/**
+ * This class performs jUnit tests on the mapModel class.
+ *
+ * NOTE: The validity of the tests are derived from the boundaries of london boroughs according to
+ * https://findthatpostcode.uk/. It was observed that there may exist some points that are without any boroughs or
+ * overlaps, but they are rare and only visible at a level that is well beyond the users experiments. The tests may fail
+ * for this reason as the boroughs in overlaps are decided by the order of the polygons. In this case, it was assumed that
+ * files to be on the same order in any machine since the same files would normally have the same hash values.
+ * @author Yousef Altaher
+ * @version 23-03-2022
+ */
 public class MapModelTester {
 
+    // The map model - which to be tested
     private MapModel mapModel;
+    // The boroughs' identifier, which have polygons that represents boroughs
     private HashMap<String, Graphic> identifier;
 
+    /**
+     * This method perform any required tasks before testing.
+     */
     @Before
     public void initialize(){
         mapModel = new MapModel();
         identifier = new HashMap<>();
+        // It is important to call this method as the identifier is required for testing. Please see mapModel class for
+        // more information about the identifier.
         drawBoroughsBoundariesFromFolder();
     }
 
+    /**
+     * This method test the random hex generator color, that it generate a color with zero (No) opacity.
+     */
     @Test
     public void testGenerateRandomHexWithOpacityWithZeroOpacity(){
         int randomHex = mapModel.generateRandomHexWithOpacity(Opacity.ZERO_OPACITY);
@@ -31,6 +52,9 @@ public class MapModelTester {
 
     }
 
+    /**
+     * This method test the random hex generator color, that it generate a color with partial opacity. 0x33000000 exactly.
+     */
     @Test
     public void testGenerateRandomHexWithOpacityWithDefaultFillOpacity(){
         int randomHex = mapModel.generateRandomHexWithOpacity(Opacity.DEFAULT_FILL_OPACITY);
@@ -38,8 +62,10 @@ public class MapModelTester {
 
     }
 
-    // Assuming the identifier is correct
-
+    /**
+     * This method populate the identifier with boroughs information. This method is not a test method. But a method
+     * that aids the tester to perform the tests.
+     */
     private void drawBoroughsBoundariesFromFolder(){
 
         // Generate the identifier
@@ -53,6 +79,9 @@ public class MapModelTester {
         }
     }
 
+    /**
+     * This method tests random points around, but outside, london
+     */
     @Test
     public void testOutsideOfLondonPoints(){
 
@@ -81,6 +110,9 @@ public class MapModelTester {
 
     }
 
+    /**
+     * This method tests random points that in river thames
+     */
     @Test
     public void testRiverThamesPoints(){
 
@@ -108,6 +140,9 @@ public class MapModelTester {
 
     }
 
+    /**
+     * This method tests random points that are near the boundaries of two or more boroughs
+     */
     @Test
     public void testCloseToBoundariesPoints() {
         ImmutablePair<String, String>[] expectedResults = new ImmutablePair[14];
@@ -148,7 +183,9 @@ public class MapModelTester {
 
     }
 
-
+    /**
+     * This method tests random points within the boroughs.
+     */
     @Test
     public void testRandomPointsWithinTheBoroughs() {
         ImmutablePair<String, String>[] expectedResults = new ImmutablePair[94];
