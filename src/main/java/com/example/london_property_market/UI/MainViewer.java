@@ -1,5 +1,6 @@
 package com.example.london_property_market.UI;
 
+import com.example.london_property_market.UI.LifeExpense.LifeExpensesController;
 import com.example.london_property_market.UI.Map.MapController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -55,6 +56,7 @@ public class MainViewer extends Application {
     private void createScreenRegisterEntries(){
         screenRegister.put(0, "WelcomeView.fxml");
         screenRegister.put(1, new MapController());
+        screenRegister.put(2, new LifeExpensesController());
     }
 
     /**
