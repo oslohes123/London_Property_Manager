@@ -7,8 +7,7 @@ public enum typesOfStat {
     most_expensive_property_view(3,"Most expensive property"),
     avg_price_per_night(4,"Average price per night"),
     avg_price_per_min_stay(5, "Average price Per minimum stay"),
-    cheapest_property_view(6,"Cheapest property per minimum stay"),
-    longest_description_view(7,"Neighborhood with longest property description");
+    cheapest_property_view(6,"Cheapest property per minimum stay");
 
     /**
      * id allows looping
