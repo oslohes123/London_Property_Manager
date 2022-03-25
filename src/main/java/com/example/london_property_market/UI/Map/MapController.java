@@ -52,7 +52,7 @@ import java.util.Stack;
  * redundancy since it almost was used in all of this class. But this reference was not used for the creating of this class,
  * but for the functionality that involves specific actions that are related to the ArcGIS map.
  *
- * @author Yousef Altaher
+ * @author Yousef Altaher, K20047484
  * @version 23-03-2022
  */
 public class MapController implements FXMLIRRepresentable {

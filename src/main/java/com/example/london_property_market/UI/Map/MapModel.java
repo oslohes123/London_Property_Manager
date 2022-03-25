@@ -20,7 +20,7 @@ import java.util.Random;
 
 /**
  * This class contains the model of the mapView.
- * @author Yousef Altaher
+ * @author Yousef Altaher, K20047484
  * @version 18-03-2022
  */
 public class MapModel {

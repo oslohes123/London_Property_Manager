@@ -6,11 +6,27 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
+/**
+ * This class represent the connection point between the java program and the server side.
+ *
+ * @author Yousef Altaher, K20047484
+ * @version 25-03-2022
+ */
 public class SendPropertyInquire {
 
+    // The API that stores the contact of the users.
     private final static String SENDER_URL = "https://yousef-altaher.com/special/informationReciever.php";
 
-    //https://www.edureka.co/community/6308/java-sending-http-parameters-via-post-method-easily
+    /**
+     * This method contacts the server side of the program with the user's information to perform the functionality
+     * of contacting
+     *
+     * Reference: https://www.edureka.co/community/6308/java-sending-http-parameters-via-post-method-easily
+     * @param email user's email
+     * @param name user's name
+     * @param property user's selected property
+     * @return true if the request was successfully uploaded, false otherwise.
+     */
     public static boolean sendContact(String email, String name, String property){
 
         try {
