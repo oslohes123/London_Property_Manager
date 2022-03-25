@@ -50,6 +50,7 @@ public final class CsvLoader {
     public ResultSet executeQuery(String SQL) {
         try {
             //Connect to the database
+            Class.forName("org.postgresql.Driver");
             con = DriverManager.getConnection("jdbc:postgresql://18.133.250.240:5432/london_property_viewer","assignmentViewer","admin");
             return con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE).executeQuery(SQL);
         } catch (Exception e) {
@@ -65,6 +66,7 @@ public final class CsvLoader {
      */
     public ResultSet executeScript(String scriptPath){
         try{
+            Class.forName("org.postgresql.Driver");
             con = DriverManager.getConnection("jdbc:postgresql://18.133.250.240:5432/london_property_viewer","assignmentViewer","admin");
             Statement statement = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
             String query = "RUNSCRIPT FROM '" + scriptPath + "'";
