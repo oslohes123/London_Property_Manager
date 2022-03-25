@@ -1,0 +1,37 @@
+.outerPane {
+    -fx-background-color: purple;
+}
+
+.innerPane {
+    -fx-background-color: white;
+    -fx-background-radius: 10px;
+}
+
+.colouredLabel {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.innerBox {
+    -fx-background-color: rgba(128, 0, 128, 0.80);
+    -fx-background-radius: 10px;
+}
+
+Button {
+    -fx-background-color: white;
+    -fx-background-radius: 10px;
+    -fx-text-fill: purple;
+    -fx-font-size: 12px;
+}
+Button:hover{
+    -fx-background-color: purple;
+    -fx-border-color: white;
+    -fx-border-radius: 10px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+ComboBox {
+    -fx-background-color: white;
+}

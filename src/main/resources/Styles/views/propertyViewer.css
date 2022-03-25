@@ -1,24 +1,19 @@
+
+
 VBox {
     -fx-padding: 8px;
     -fx-spacing: 2px;
 
-    -fx-border-radius: 10px;
-    -fx-border-color: rgba(8, 42, 206, 0.6);
-    -fx-background-color: rgba(8, 42, 206, 0.6);
+    -fx-border-color: purple;
+    -fx-background-color: white;
     -fx-background-radius: 10px;
-}
-
-VBox:hover {
-    -fx-border-color: rgb(7, 42, 206);
-    -fx-background-color: white;
-    -fx-cursor: hand;
-}
-
-GridPane {
     -fx-border-radius: 10px;
-    -fx-background-color: white;
-}
 
-BorderPane {
-    -fx-background-color: grey;
+    -fx-font-weight: bold;
+
+}
+VBox:hover {
+    -fx-background-color: rgba(128, 0, 128, 0.8);
+    -fx-cursor: hand;
+
 }

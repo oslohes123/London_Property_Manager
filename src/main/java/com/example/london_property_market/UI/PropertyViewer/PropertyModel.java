@@ -105,16 +105,20 @@ public class PropertyModel {
             VBox propertyData = new VBox();
             propertyData.setUserData(validProperties.getInt("id"));
             propertyData.setOnMouseClicked(e -> showAllData((int) propertyData.getUserData()));
+            propertyData.setId("innerBox");
 
             //http://tutorials.jenkov.com/jdbc/resultset.html
-            Label hostName, neighbourhood, price, numberOfReviews, minNumberOfNights;
-            hostName = new Label("Host Name: " + validProperties.getString("host_name"));
-            neighbourhood = new Label("Borough: " + validProperties.getString("neighbourhood"));
-            price = new Label("Price Per Night: " + validProperties.getInt("price"));
-            numberOfReviews = new Label("Number of Reviews: " + validProperties.getInt("number_of_reviews"));
-            minNumberOfNights = new Label("Minimum stay (nights): " + validProperties.getInt("minimum_nights"));
+            Label dataLabel = new Label(
+                    "Host Name: " + validProperties.getString("host_name")
+                    + "\nBorough: " + validProperties.getString("neighbourhood")
+                    + "\nPrice Per Night: " + validProperties.getInt("price")
+                    + "\nNumber of Reviews: " + validProperties.getInt("number_of_reviews")
+                    + "\nMinimum stay (nights): " + validProperties.getInt("minimum_nights")
+            );
+            //dataLabel.setStyle("-fx-text-fill: white; -fx-font-weight: bold;");
+            dataLabel.setId("colouredLabel");
 
-            propertyData.getChildren().addAll(hostName, neighbourhood, price, numberOfReviews, minNumberOfNights);
+            propertyData.getChildren().add(dataLabel);
             properties.add(propertyData);
         }
         return properties;
@@ -214,4 +218,6 @@ public class PropertyModel {
         sortCriteria.put("Price: High-Low", "price DESC");
         sortCriteria.put("Number of Reviews", "number_of_reviews DESC");
     }
+
+
 }

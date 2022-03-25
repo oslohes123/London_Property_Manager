@@ -18,6 +18,7 @@ import javafx.event.ActionEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -237,10 +238,7 @@ public class PropertyController {
      * that fit the criteria
      * @return stage
     */
-    public Stage getStage()
-    {
+    public Stage getStage() {
         return stage;
     }
-
-
 }

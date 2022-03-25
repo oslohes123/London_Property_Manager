@@ -5,11 +5,12 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane style="-fx-background-color: #faedcd;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.london_property_market.UI.Statistics.StatisticsController">
+<BorderPane styleClass="outerPane" stylesheets="@../Styles/views/mainStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.london_property_market.UI.Statistics.StatisticsController">
    <right>
-      <Button fx:id="rightStatsButton" mnemonicParsing="false" onMouseClicked="#rightButtonClick" prefHeight="312.0" prefWidth="110.0" style="-fx-border-color: black;" text="&gt;" textAlignment="CENTER" textOverrun="CLIP" BorderPane.alignment="CENTER">
+      <Button fx:id="rightStatsButton" mnemonicParsing="false" onMouseClicked="#rightButtonClick" prefHeight="250.0" prefWidth="110.0" text="&gt;" textAlignment="CENTER" textOverrun="CLIP" BorderPane.alignment="CENTER">
          <font>
             <Font name="Calibri" size="55.0" />
          </font>
@@ -19,7 +20,7 @@
       </Button>
    </right>
    <left>
-      <Button fx:id="leftStatsButton" mnemonicParsing="false" onMouseClicked="#leftButtonClick" prefHeight="312.0" prefWidth="110.0" style="-fx-border-color: black;" text="&lt;" textAlignment="CENTER" textOverrun="CLIP" BorderPane.alignment="CENTER">
+      <Button fx:id="leftStatsButton" mnemonicParsing="false" onMouseClicked="#leftButtonClick" prefHeight="250.0" prefWidth="110.0" text="&lt;" textAlignment="CENTER" textOverrun="CLIP" BorderPane.alignment="CENTER">
          <font>
             <Font name="Calibri" size="55.0" />
          </font>
@@ -29,7 +30,7 @@
       </Button>
    </left>
    <top>
-      <Label fx:id="statsTitle" text="StatTitle" BorderPane.alignment="CENTER">
+      <Label fx:id="statsTitle" styleClass="colouredLabel" text="StatTitle" BorderPane.alignment="CENTER">
          <font>
             <Font size="32.0" />
          </font>
@@ -39,7 +40,7 @@
       </Label>
    </top>
    <center>
-      <TableView fx:id="statTable" BorderPane.alignment="CENTER">
+      <TableView fx:id="statTable" styleClass="innerPane" BorderPane.alignment="CENTER">
         <columns>
         </columns>
          <BorderPane.margin>
@@ -47,4 +48,7 @@
          </BorderPane.margin>
       </TableView>
    </center>
+   <bottom>
+      <Pane BorderPane.alignment="CENTER" />
+   </bottom>
 </BorderPane>

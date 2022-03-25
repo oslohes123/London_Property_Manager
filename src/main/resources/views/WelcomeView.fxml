@@ -1,28 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox style="-fx-alignment: center; -fx-spacing: 10; -fx-padding: 10;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
+<HBox prefWidth="700.0" style="-fx-alignment: center; -fx-spacing: 10; -fx-padding: 10; -fx-background-color: white; -fx-background-radius: 10px;" styleClass="innerPane" stylesheets="@../Styles/views/mainStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox prefHeight="237.0" prefWidth="574.0" style="-fx-font-size: 12; -fx-alignment: center; -fx-padding: 20; -fx-background-color: #dee0e3; -fx-spacing: 5; -fx-font-size: 13;">
+      <VBox prefWidth="300.0" style="-fx-font-size: 12; -fx-alignment: center; -fx-padding: 20; -fx-spacing: 5; -fx-font-size: 13; -fx-background-radius: 10px;" styleClass="innerBox">
          <children>
-            <Label text="Welcome to Airbnb property detail viewer.  " textAlignment="CENTER" wrapText="true" />
-            <Label text="In this application you can find the right property for you in each borough of London." textAlignment="CENTER" wrapText="true" />
-            <Label text="Click open map to select a borough." textAlignment="CENTER" wrapText="true" />
+            <Label styleClass="colouredLabel" stylesheets="@../Styles/views/mainStyle.css" text="Welcome to Airbnb property detail viewer.  " textAlignment="CENTER" wrapText="true" />
+            <Label styleClass="colouredLabel" text="In this application you can find the right property for you in each borough of London." textAlignment="CENTER" wrapText="true" />
+            <Label styleClass="colouredLabel" text="Click open map to select a borough." textAlignment="CENTER" wrapText="true" />
          </children>
       </VBox>
-      <VBox style="-fx-padding: 10;">
+      <VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="237.0" prefWidth="365.0" style="-fx-padding: 10; -fx-spacing: 10;">
          <children>
-            <ImageView fitHeight="255.0" fitWidth="385.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="218.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Explanation.gif" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="254.0" fitWidth="329.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../emptyImage.png" />
                </image>
             </ImageView>
          </children>
       </VBox>
    </children>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
 </HBox>

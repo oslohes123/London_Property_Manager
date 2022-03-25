@@ -4,11 +4,14 @@ import com.example.london_property_market.UI.Map.MapController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Iterator;
 
 /**
  * This class represents the main UI class of the application. This class acts as the main viewer (manager) for the
@@ -42,7 +45,7 @@ public class MainViewer extends Application {
 
         mainPane.getStylesheets().add(MainViewer.class.getClassLoader().getResource("Styles/combo/validCombo.css").toExternalForm());
 
-        scene = new Scene(mainPane, 1040, 740);
+        scene = new Scene(mainPane);
 
         stage.setTitle("London Property Viewer");
         stage.setScene(scene);
@@ -70,6 +73,7 @@ public class MainViewer extends Application {
         }else
             try {
                 mainPane.setCenter((new FXMLLoader(MainViewer.class.getClassLoader().getResource("views/"+screenRegister.get(VIEW_POINTER+direction))).load()));
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -83,9 +87,13 @@ public class MainViewer extends Application {
      * requires the change of the mainView layout. The style sheet has to be on the designated style folder.
      * @param styleSheetName the name of the style sheet.
      */
-    public static void setMainStyleSheet(String styleSheetName){
-        mainPane.getStylesheets().clear();
-        mainPane.getStylesheets().add(MainViewer.class.getClassLoader().getResource("Styles/"+styleSheetName).toExternalForm());
+    public static void setMainStyleSheet(String styleSheetName, ComboBox... comboBoxes){
+
+        for (ComboBox comboBox : comboBoxes) {
+            comboBox.getStylesheets().clear();
+            comboBox.getStylesheets().add(styleSheetName);
+        }
+        //mainPane.getStylesheets().add(MainViewer.class.getClassLoader().getResource("Styles/"+styleSheetName).toExternalForm());
     }
 
     /**

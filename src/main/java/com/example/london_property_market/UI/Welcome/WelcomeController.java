@@ -65,6 +65,7 @@ public class WelcomeController implements Initializable{
             paneError();
         }else{
             MainViewer.setCenterLayout(1);
+
         }
     }
     @FXML
@@ -73,7 +74,8 @@ public class WelcomeController implements Initializable{
             priceError();
         }
         else if (!MainViewer.isNextPointerChangeValid(-1)){
-            paneError();
+            System.exit(0);
+            //paneError();
         }else{
             MainViewer.setCenterLayout(-1);
         }
@@ -81,12 +83,12 @@ public class WelcomeController implements Initializable{
 
     private void setColors(){
         if (core.isValidValues()) {
-            MainViewer.setMainStyleSheet("combo/validCombo.css");
+            MainViewer.setMainStyleSheet("Styles/combo/validCombo.css", minComboBox, maxComboBox);
             MainViewer.updatePanels();
-        }else {
-            MainViewer.setMainStyleSheet("combo/invalidCombo.css");
-        }
 
+        }else {
+            MainViewer.setMainStyleSheet("Styles/combo/invalidCombo.css", minComboBox, maxComboBox);
+        }
     }
 
     private void priceError(){

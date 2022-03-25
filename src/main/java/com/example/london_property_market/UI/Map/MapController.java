@@ -91,6 +91,7 @@ public class MapController implements FXMLIRRepresentable {
     @Override
     public BorderPane initialize() {
         BorderPane mainPane = new BorderPane();
+
         ArcGISRuntimeEnvironment.setApiKey(ARCGIS_API_KEY);
 
         mapModel = new MapModel();
