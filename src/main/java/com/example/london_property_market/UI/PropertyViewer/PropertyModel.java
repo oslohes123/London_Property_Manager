@@ -2,6 +2,11 @@ package com.example.london_property_market.UI.PropertyViewer;
 
 import com.example.london_property_market.Loader.CsvLoader;
 import com.example.london_property_market.UI.PropertyViewer.PropertyData.PropertyDataController;
+<<<<<<< HEAD
+=======
+import com.example.london_property_market.UI.PropertyViewer.getContacted.getContactedController;
+import javafx.scene.control.Button;
+>>>>>>> afc8cfa0c6834f6ede91fca6522d0ed650740681
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -18,6 +23,7 @@ import java.sql.ResultSet;
  *
  * @author Shaheer Effandi (K21013734)
  */
+
 
 public class PropertyModel {
 
@@ -108,6 +114,7 @@ public class PropertyModel {
             propertyData.setId("innerBox");
 
             //http://tutorials.jenkov.com/jdbc/resultset.html
+<<<<<<< HEAD
             Label dataLabel = new Label(
                     "Host Name: " + validProperties.getString("host_name")
                     + "\nBorough: " + validProperties.getString("neighbourhood")
@@ -119,6 +126,33 @@ public class PropertyModel {
             dataLabel.setId("colouredLabel");
 
             propertyData.getChildren().add(dataLabel);
+=======
+            Label hostName, neighbourhood, price, numberOfReviews, minNumberOfNights;
+<<<<<<< HEAD
+=======
+            Button seeMoreButton = new Button();
+            Button getContactedButton = new Button();
+>>>>>>> afc8cfa0c6834f6ede91fca6522d0ed650740681
+            hostName = new Label("Host Name: " + validProperties.getString("host_name"));
+            neighbourhood = new Label("Borough: " + validProperties.getString("neighbourhood"));
+            price = new Label("Price Per Night: " + validProperties.getInt("price"));
+            numberOfReviews = new Label("Number of Reviews: " + validProperties.getInt("number_of_reviews"));
+            minNumberOfNights = new Label("Minimum stay (nights): " + validProperties.getInt("minimum_nights"));
+
+<<<<<<< HEAD
+            propertyData.getChildren().addAll(hostName, neighbourhood, price, numberOfReviews, minNumberOfNights);
+=======
+            seeMoreButton.setUserData(validProperties.getInt("id"));
+            seeMoreButton.setOnAction(e -> showAllData((int) seeMoreButton.getUserData()));
+            seeMoreButton.setText("More Details");
+
+            getContactedButton.setUserData(validProperties.getInt("id"));
+            getContactedButton.setOnAction(e -> getContactedOpener((int) getContactedButton.getUserData()));
+            getContactedButton.setText("Get Contacted");
+
+            propertyData.getChildren().addAll(hostName, neighbourhood, price, numberOfReviews, minNumberOfNights, seeMoreButton,getContactedButton);
+>>>>>>> afc8cfa0c6834f6ede91fca6522d0ed650740681
+>>>>>>> development/dev
             properties.add(propertyData);
         }
         return properties;
@@ -152,6 +186,18 @@ public class PropertyModel {
         catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void getContactedOpener(int id){
+        try{
+            getContactedController contactedController = new getContactedController(id);
+            Stage stage = contactedController.getStage();
+            stage.show();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
     }
 
 

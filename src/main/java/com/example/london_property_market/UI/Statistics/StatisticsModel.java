@@ -37,13 +37,17 @@ public class StatisticsModel {
      */
     private String createWhere(){
         StringBuilder where = new StringBuilder();
-        Iterator<String> i = boroughs.listIterator();
-        while(i.hasNext()){
-            where.append(" neighbourhood = '").append(i.next()).append("'");
-            if(i.hasNext()){
-                where.append(" OR");
+        if (boroughs.size() > 0){
+            where.append(" WHERE");
+            Iterator<String> i = boroughs.listIterator();
+            while(i.hasNext()){
+                where.append(" neighbourhood = '").append(i.next()).append("'");
+                if(i.hasNext()){
+                    where.append(" OR");
+                }
             }
         }
+
         return where.toString();
     }
 
@@ -78,7 +82,7 @@ public class StatisticsModel {
      * @return ResultSet containing that view.
      */
     private ResultSet runQuery(String view){
-        String query = "SELECT * FROM "+ view +" WHERE" +
+        String query = "SELECT * FROM "+ view +
                 createWhere() + ";";
 
         return sql.executeQuery(query);

@@ -27,6 +27,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
@@ -36,6 +37,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.tuple.Pair;
 import org.controlsfx.control.ToggleSwitch;
+import org.junit.internal.ExactComparisonCriteria;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,15 +45,14 @@ import java.util.HashSet;
 import java.util.Stack;
 
 /**
- *
  * This class represents the map controller, which represents the second panel.
- *
+ * <p>
  * Reference: https://developers.arcgis.com/java/api-reference/reference/
  * Note that a common reference to all ArcGIS functionality is their API reference, which is only written here to reduce
  * redundancy since it almost was used in all of this class. But this reference was not used for the creating of this class,
  * but for the functionality that involves specific actions that are related to the ArcGIS map.
  *
- * @author Yousef Altaher
+ * @author Yousef Altaher, K20047484
  * @version 23-03-2022
  */
 public class MapController implements FXMLIRRepresentable {
@@ -86,6 +87,7 @@ public class MapController implements FXMLIRRepresentable {
     /**
      * This method initialize the map view with its necessary objects. The use of a different method other than the constructor
      * serve as a generalization, as it will ease the creating of views from mainView.
+     *
      * @return the pane for the view
      */
     @Override
@@ -121,9 +123,10 @@ public class MapController implements FXMLIRRepresentable {
 
     /**
      * This method create the header layout and its UI elements.
+     *
      * @return the layout that has the header controls (UIs).
      */
-    private HBox getHeaderControls(){
+    private HBox getHeaderControls() {
         HBox headerControl = new HBox();
         headerControl.getStylesheets().add("Styles/views/mapViewControls.css");
 
@@ -153,18 +156,21 @@ public class MapController implements FXMLIRRepresentable {
 
     /**
      * This method opens the property viewer for the selected boroughs
+     *
      * @param actionEvent actionEvent
      */
     private void openPropertyViewer(ActionEvent actionEvent) {
         try {
+            if (selectedBoroughs.size() == 0) {
+                noBoroughsSelected();
+            } else {
+                PropertyController viewProperties = new PropertyController(selectedBoroughs, MainModel.getMinAmount(), MainModel.getMaxAmount());
+                Stage stage = viewProperties.getStage();
+                stage.show();
+            }
 
-            PropertyController viewProperties = new PropertyController(selectedBoroughs, MainModel.getMinAmount(), MainModel.getMaxAmount());
-            Stage stage = viewProperties.getStage();
-            stage.show();
 
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -173,12 +179,17 @@ public class MapController implements FXMLIRRepresentable {
      * This method opens the property viewer for one borough.
      * The reason behind the existence of two methods is to allow the user to save their selection after changing the
      * mode to one borough
+     *
      * @param boroughName borough name
      */
+<<<<<<< HEAD
     private void openPropertyViewer(String boroughName){
         HashSet<String> borough = new HashSet<>();
         borough.add(boroughName);
         try {
+=======
+    private void openPropertyViewer(String boroughName) {
+>>>>>>> development/dev
 
             PropertyController viewProperties = new PropertyController(borough, MainModel.getMinAmount(), MainModel.getMaxAmount());
             Stage stage = viewProperties.getStage();
@@ -191,13 +202,27 @@ public class MapController implements FXMLIRRepresentable {
         }
     }
 
+    private void noBoroughsSelected() {
+
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("No boroughs selected");
+        alert.setHeaderText("You need to select a borough first");
+        alert.setContentText("Select 1 or more boroughs");
+        alert.show();
+
+    }
+
+
     /**
      * This method opens the statistics windows for the selected panel
+     *
      * @param actionEvent actionEvent
      */
     private void openStatsWindow(ActionEvent actionEvent) {
-        try{
-            if (statsSelectionType.isSelected()){
+        try {
+
+
+            if (statsSelectionType.isSelected()) {
                 FXMLLoader statsLoader = new FXMLLoader(getClass().getResource("/views/StatsView.fxml"));
                 Parent root = statsLoader.load();
 
@@ -210,21 +235,23 @@ public class MapController implements FXMLIRRepresentable {
                 stage.setScene(statsScene);
                 stage.show();
                 // pass the hashset itself
-            }else{
+            } else {
                 // pass null, which will indicate *
+
             }
-        }catch(Exception e ){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
 
     }
 
+
     /**
      * This method draws the boundaries of london on the map based on the files that are specified on the mapModel.
      * Reference: https://developers.arcgis.com/java/maps-2d/tutorials/add-a-point-line-and-polygon/
      */
-    private void drawBoroughsBoundariesFromFolder(){
+    private void drawBoroughsBoundariesFromFolder() {
         GraphicsOverlay graphicsOverlay = new GraphicsOverlay();
         mapView.getGraphicsOverlays().add(graphicsOverlay);
 
@@ -232,9 +259,9 @@ public class MapController implements FXMLIRRepresentable {
 
             PolygonBuilder polygon = new PolygonBuilder(GeoJsonCoordinatesParser.getPointCollectionFromGeoJsonCoordinates(mapModel.getGEO_JSON_FOLDER_PATH() + fileName));
             Graphic polygonGraphic = new Graphic(polygon.toGeometry(), new SimpleLineSymbol(SimpleLineSymbol.Style.SOLID, mapModel.generateRandomHexWithOpacity(Opacity.ZERO_OPACITY), 3));
-            polygonGraphic.getAttributes().put("Name", GeoJsonCoordinatesParser.getBoroughNameFromFile(mapModel.getGEO_JSON_FOLDER_PATH()+fileName));
+            polygonGraphic.getAttributes().put("Name", GeoJsonCoordinatesParser.getBoroughNameFromFile(mapModel.getGEO_JSON_FOLDER_PATH() + fileName));
             graphicsOverlay.getGraphics().add(polygonGraphic);
-            polygons.put(mapModel.getGEO_JSON_FOLDER_PATH()+fileName, polygonGraphic);
+            polygons.put(mapModel.getGEO_JSON_FOLDER_PATH() + fileName, polygonGraphic);
 
         }
 
@@ -243,17 +270,17 @@ public class MapController implements FXMLIRRepresentable {
     }
 
     /**
-     *
      * This method add labels (borough names) to the map.
-     *
+     * <p>
      * Note: the references have used json encoding. The developer have chosen to follow the coding approach for more
      * consistency and control, but the reference is kept as the developer have used it, along with the documentation,
      * to locate the attributes and to understand their mechanism.
-     *
+     * <p>
      * References: https://www.youtube.com/watch?v=bLUwuK5ZpHM&t=1585s
+     *
      * @param graphicsOverlay the overlay that the labels will be added to
      */
-    private void addBoroughsLabels(GraphicsOverlay graphicsOverlay){
+    private void addBoroughsLabels(GraphicsOverlay graphicsOverlay) {
         LabelExpression lblExpression = new SimpleLabelExpression("[Name]");
         TextSymbol labelSymbol = new TextSymbol();
         labelSymbol.setColor(0xff5528f9);
@@ -272,8 +299,9 @@ public class MapController implements FXMLIRRepresentable {
 
     /**
      * This method takes the mouse input of the user and color the borough that the user has selected.
-     *
+     * <p>
      * References: https://developers.arcgis.com/java/sample-code/show-callout/, https://www.youtube.com/watch?v=bLUwuK5ZpHM&t=1585s
+     *
      * @param mouseEvent mouseEvent
      */
     private void onMouseClick(MouseEvent mouseEvent) {
@@ -287,9 +315,9 @@ public class MapController implements FXMLIRRepresentable {
             Pair<String, String> boroughInfo = mapModel.getBoroughName(projectedPoint.getX(), projectedPoint.getY(), polygons);
 
             // check if the user is on single or multiple borough mode
-            if (!propertySelectionType.isSelected()){
+            if (!propertySelectionType.isSelected()) {
                 openPropertyViewer(boroughInfo.getRight());
-            }else {
+            } else {
 
                 // Important as users may click a location outside london
                 if (boroughInfo.getLeft() != null && boroughInfo.getRight() != null) {
@@ -298,7 +326,7 @@ public class MapController implements FXMLIRRepresentable {
                     if (JsonParser.parseString(polygons.get(boroughInfo.getLeft()).getSymbol().toJson()).getAsJsonObject().get("type").getAsString().equals("esriSLS")) {
                         polygons.get(boroughInfo.getLeft()).setSymbol(new SimpleFillSymbol(SimpleFillSymbol.Style.SOLID, mapModel.generateRandomHexWithOpacity(Opacity.DEFAULT_FILL_OPACITY), new SimpleLineSymbol(SimpleLineSymbol.Style.SOLID, mapModel.generateRandomHexWithOpacity(Opacity.ZERO_OPACITY), 2)));
                         selectedBoroughs.add(boroughInfo.getRight());
-                    }else {
+                    } else {
                         polygons.get(boroughInfo.getLeft()).setSymbol(new SimpleLineSymbol(SimpleLineSymbol.Style.SOLID, mapModel.generateRandomHexWithOpacity(Opacity.ZERO_OPACITY), 3));
                         selectedBoroughs.remove(boroughInfo.getRight());
                     }
@@ -314,17 +342,17 @@ public class MapController implements FXMLIRRepresentable {
      * Reference: https://www.youtube.com/watch?v=bLUwuK5ZpHM&t=1585s
      */
     @Override
-    public void onChangeInformation(){
+    public void onChangeInformation() {
         if (mapView != null) {
             propertyPointsOverlay.getGraphics().clear();
 
-            Image propertyIcon = new Image(getClass().getResourceAsStream("/icon/property_clipart.png"),0,40,true, true);
+            Image propertyIcon = new Image(getClass().getResourceAsStream("/icon/property_clipart.png"), 0, 40, true, true);
             PictureMarkerSymbol propertyIconSymbol = new PictureMarkerSymbol(propertyIcon);
             SimpleRenderer propertyRenderer = new SimpleRenderer(propertyIconSymbol);
 
             propertyPointsOverlay.setRenderer(propertyRenderer);
 
-            for (Pair<Double,Double> locationPair : mapModel.retrieveApplicableLocations()){
+            for (Pair<Double, Double> locationPair : mapModel.retrieveApplicableLocations()) {
                 Point point = new Point(locationPair.getLeft(), locationPair.getRight(), SpatialReferences.getWgs84());
                 Graphic pointGraphic = new Graphic(point);
 

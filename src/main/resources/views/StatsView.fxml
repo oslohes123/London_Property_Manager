@@ -8,7 +8,11 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
+<<<<<<< HEAD
 <BorderPane styleClass="outerPane" stylesheets="@../Styles/views/mainStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.london_property_market.UI.Statistics.StatisticsController">
+=======
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.london_property_market.UI.Statistics.StatisticsController">
+>>>>>>> development/dev
    <right>
       <Button fx:id="rightStatsButton" mnemonicParsing="false" onMouseClicked="#rightButtonClick" prefHeight="250.0" prefWidth="110.0" text="&gt;" textAlignment="CENTER" textOverrun="CLIP" BorderPane.alignment="CENTER">
          <font>

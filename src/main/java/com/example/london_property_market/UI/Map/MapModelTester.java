@@ -20,7 +20,7 @@ import java.util.HashMap;
  * overlaps, but they are rare and only visible at a level that is well beyond the users experiments. The tests may fail
  * for this reason as the boroughs in overlaps are decided by the order of the polygons. In this case, it was assumed that
  * files to be on the same order in any machine since the same files would normally have the same hash values.
- * @author Yousef Altaher
+ * @author Yousef Altaher, K20047484
  * @version 23-03-2022
  */
 public class MapModelTester {
