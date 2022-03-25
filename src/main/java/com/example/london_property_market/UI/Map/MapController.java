@@ -91,6 +91,8 @@ public class MapController implements FXMLIRRepresentable {
     @Override
     public BorderPane initialize() {
         BorderPane mainPane = new BorderPane();
+        mainPane.getStylesheets().add("Styles/views/mainStyle.css");
+        mainPane.setId("innerPane");
 
         ArcGISRuntimeEnvironment.setApiKey(ARCGIS_API_KEY);
 
@@ -135,7 +137,7 @@ public class MapController implements FXMLIRRepresentable {
 
         //https://stackoverflow.com/questions/29616246/how-to-bind-inverse-boolean-javafx
         //
-        viewBoroughs = new Button("View multiple boroughs");
+        viewBoroughs = new Button("View boroughs");
         viewBoroughs.setOnAction(this::openPropertyViewer);
         viewBoroughs.getStyleClass().add("controlButtons");
         viewBoroughs.disableProperty().bind(propertySelectionType.selectedProperty().not());
@@ -174,7 +176,19 @@ public class MapController implements FXMLIRRepresentable {
      * @param boroughName borough name
      */
     private void openPropertyViewer(String boroughName){
+        HashSet<String> borough = new HashSet<>();
+        borough.add(boroughName);
+        try {
 
+            PropertyController viewProperties = new PropertyController(borough, MainModel.getMinAmount(), MainModel.getMaxAmount());
+            Stage stage = viewProperties.getStage();
+            stage.show();
+
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
     /**

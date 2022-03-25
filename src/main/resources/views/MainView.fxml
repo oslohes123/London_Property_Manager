@@ -42,7 +42,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefWidth="800.0" styleClass="outerPane" stylesheets="@../Styles/views/mainStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.london_property_market.UI.Welcome.WelcomeController">
+<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefWidth="1000.0" styleClass="outerPane" stylesheets="@../Styles/views/mainStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.london_property_market.UI.Welcome.WelcomeController">
    <bottom>
       <BorderPane prefHeight="1.0" prefWidth="108.0" style="-fx-padding: 8;" stylesheets="@../Styles/views/mainStyle.css" BorderPane.alignment="CENTER">
          <right>
