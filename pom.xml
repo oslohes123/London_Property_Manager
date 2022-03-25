@@ -155,6 +155,12 @@
             <version>RELEASE</version>
             <scope>compile</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.3.3</version>
+        </dependency>
 
 
     </dependencies>
@@ -288,8 +294,8 @@
                 <version>3.2.0</version>
                 <executions>
                     <execution>
-                        <id>copy-resources</id>
-                        <phase>validate</phase>
+                        <id>attach-sources</id>
+                        <phase>verify</phase>
                         <goals>
                             <goal>copy-resources</goal>
                         </goals>
@@ -310,6 +316,9 @@
                     </execution>
                 </executions>
             </plugin>
+
+
+
 
 
         </plugins>

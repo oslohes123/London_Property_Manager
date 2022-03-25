@@ -16,11 +16,10 @@ public final class CsvLoader {
     private final String USER = "sa";
 
     private static boolean created = false;
-    Connection con;
+    private Connection con;
 
     public CsvLoader(){
         if(!created){
-            dbSetup();
             created = true;
         }
     }
@@ -42,22 +41,6 @@ public final class CsvLoader {
     }
 
 
-    /**
-     * Sets up the database through the schema found in the directory, and the schema makes use of the CSV file to populate
-     * the rows
-     */
-    public void dbSetup(){
-        try{
-            con = DriverManager.getConnection(DATABASE_URL,
-                    USER, "");
-            Statement statement = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            statement.execute("RUNSCRIPT FROM './src/main/resources/database" +
-                    "/queries/databaseSetup.sql'");
-        }catch(Exception e){
-            System.out.println(Arrays.toString(e.getStackTrace()));
-        }
-        System.out.println("Database setup");
-    }
 
     /**
      * Executes an SQL query on the database
@@ -67,7 +50,7 @@ public final class CsvLoader {
     public ResultSet executeQuery(String SQL) {
         try {
             //Connect to the database
-            con = DriverManager.getConnection(DATABASE_URL, USER, "");
+            con = DriverManager.getConnection("jdbc:postgresql://18.133.250.240:5432/london_property_viewer","assignmentViewer","admin");
             return con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE).executeQuery(SQL);
         } catch (Exception e) {
             System.out.println(e.getCause() + "; \n" + e.getMessage());
@@ -82,8 +65,7 @@ public final class CsvLoader {
      */
     public ResultSet executeScript(String scriptPath){
         try{
-            con = DriverManager.getConnection(DATABASE_URL, USER,
-                    "");
+            con = DriverManager.getConnection("jdbc:postgresql://18.133.250.240:5432/london_property_viewer","assignmentViewer","admin");
             Statement statement = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
             String query = "RUNSCRIPT FROM '" + scriptPath + "'";
             statement.executeQuery(query);
