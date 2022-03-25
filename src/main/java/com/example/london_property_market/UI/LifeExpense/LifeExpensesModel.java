@@ -12,10 +12,15 @@ public class LifeExpensesModel {
     private int servicePointer;
 
     public LifeExpensesModel(){
-        servicePointer = 0;
+        servicePointer = -1;
         addedCost = 0;
         serviceManager = new ServiceManager();
         servicesNames = serviceManager.getAllServicesNames();
+    }
+
+    protected void resetModelPointer(){
+        servicePointer = -1;
+        addedCost = 0;
     }
 
     protected String getNameForTheCurrentService(){
@@ -26,12 +31,16 @@ public class LifeExpensesModel {
         return serviceManager.getAServiceByName(servicesNames[servicePointer]).getAvailableCosts();
     }
 
-    protected void selectedOption(String serviceName, CostTypes type){
-        addedCost += serviceManager.getAServiceByName(serviceName).getCost(type);
+    protected void setSelectedOption(CostTypes type){
+        addedCost += serviceManager.getAServiceByName(getNameForTheCurrentService()).getCost(type);
+    }
+
+    public double getAddedCost() {
+        return addedCost;
     }
 
     protected boolean nextService(){
-        if (servicePointer < servicesNames.length) {
+        if (servicesNames.length > 0 && servicePointer < servicesNames.length -1) {
             servicePointer++;
             return true;
         }
