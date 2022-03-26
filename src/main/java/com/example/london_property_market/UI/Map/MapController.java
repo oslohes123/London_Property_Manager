@@ -79,6 +79,7 @@ public class MapController implements FXMLIRRepresentable {
     private ToggleSwitch propertySelectionType;
     private ToggleSwitch statsSelectionType;
     private Button viewBoroughs;
+    private Button openStats;
 
     // The map model
     private MapModel mapModel;
@@ -136,14 +137,14 @@ public class MapController implements FXMLIRRepresentable {
         statsSelectionType.getStyleClass().add("selectionType");
 
         //https://stackoverflow.com/questions/29616246/how-to-bind-inverse-boolean-javafx
-        //
         viewBoroughs = new Button("View multiple boroughs");
         viewBoroughs.setOnAction(this::openPropertyViewer);
         viewBoroughs.getStyleClass().add("controlButtons");
         viewBoroughs.disableProperty().bind(propertySelectionType.selectedProperty().not());
 
-        Button openStats = new Button("Statistics");
+        openStats = new Button("Statistics");
         openStats.setOnAction(this::openStatsWindow);
+        openStats.disableProperty().bind(statsSelectionType.selectedProperty().not());
         openStats.getStyleClass().add("controlButtons");
 
 
