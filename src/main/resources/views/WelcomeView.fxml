@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox style="-fx-alignment: center; -fx-spacing: 10; -fx-padding: 10;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
+<HBox style="-fx-alignment: center; -fx-spacing: 10; -fx-padding: 10;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox prefHeight="237.0" prefWidth="574.0" style="-fx-font-size: 12; -fx-alignment: center; -fx-padding: 20; -fx-background-color: #dee0e3; -fx-spacing: 5; -fx-font-size: 13;">
          <children>
@@ -20,6 +20,11 @@
             <ImageView fitHeight="255.0" fitWidth="385.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Explanation.gif" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="254.0" fitWidth="379.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Map%20explanation.gif" />
                </image>
             </ImageView>
          </children>
