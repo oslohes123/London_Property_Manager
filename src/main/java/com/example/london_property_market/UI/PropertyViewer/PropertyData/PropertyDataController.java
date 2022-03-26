@@ -1,9 +1,11 @@
 package com.example.london_property_market.UI.PropertyViewer.PropertyData;
 
+import com.example.london_property_market.UI.PropertyViewer.PropertyData.getContacted.getContactedController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -27,6 +29,7 @@ public class PropertyDataController {
     @FXML private VBox dataPage;
     //The tuple of with the data of the selected property
     private ResultSet propertyData;
+    private int propertyId;
 
     /**
      * Loads the FXML file and creates the stage for the window.
@@ -41,7 +44,8 @@ public class PropertyDataController {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("views/PropertyDetails.fxml"));
         fxmlLoader.setController(this);
         Parent root = fxmlLoader.load();
-        propertyData = PropertyDataModel.getPropertyData(propertyID);
+        this.propertyId = propertyID;
+        propertyData = PropertyDataModel.getPropertyData(propertyId);
 
         createDataPage();
         Scene scene = new Scene(root);
@@ -81,7 +85,24 @@ public class PropertyDataController {
                 + "\nLongitude: " + propertyData.getDouble("longitude")
         );
 
-        dataPage.getChildren().addAll(name, data);
+        Button getContactedButton = new Button();
+        getContactedButton.getStyleClass().add("innerPaneButton");
+        getContactedButton.setOnAction(e -> getContactedOpener(propertyId));
+        getContactedButton.setText("Get Contacted");
+
+        dataPage.getChildren().addAll(name, data, getContactedButton);
+    }
+
+    private void getContactedOpener(int id){
+        try{
+            getContactedController contactedController = new getContactedController(id);
+            Stage stage = contactedController.getStage();
+            stage.show();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
     }
 
     /**

@@ -64,6 +64,7 @@ public class WelcomeController implements Initializable{
         else if (!MainViewer.isNextPointerChangeValid(1)){
             paneError();
         }else{
+
             MainViewer.setCenterLayout(1);
 
         }

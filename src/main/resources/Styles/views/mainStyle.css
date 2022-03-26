@@ -22,14 +22,20 @@ Button {
     -fx-background-radius: 10px;
     -fx-text-fill: purple;
     -fx-font-size: 12px;
+    -fx-font-weight: bold;
 }
 Button:hover{
     -fx-background-color: purple;
     -fx-border-color: white;
     -fx-border-radius: 10px;
     -fx-text-fill: white;
-    -fx-font-weight: bold;
+
     -fx-cursor: hand;
+}
+
+.innerPaneButton {
+    -fx-border-color: purple;
+    -fx-border-radius: 10px;
 }
 
 ComboBox {

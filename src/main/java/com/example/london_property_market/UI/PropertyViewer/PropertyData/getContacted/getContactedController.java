@@ -1,4 +1,4 @@
-package com.example.london_property_market.UI.PropertyViewer.getContacted;
+package com.example.london_property_market.UI.PropertyViewer.PropertyData.getContacted;
 
 import com.example.london_property_market.UI.PropertyViewer.PropertyData.PropertyDataModel;
 import javafx.fxml.FXML;

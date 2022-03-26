@@ -14,6 +14,7 @@ import java.util.Comparator;
 
 public class LifeExpensesController implements FXMLIRRepresentable {
 
+    private ScrollPane outerPane;
     private LifeExpensesModel model;
     private VBox lifeExpensesMainPane;
     private ArrayList<Button> currentOptions;
@@ -42,7 +43,6 @@ public class LifeExpensesController implements FXMLIRRepresentable {
 
     private void startDialogue(){
         VBox startVBox = new VBox();
-        startVBox.getStyleClass().add("options");
 
         Label startText = new Label("Welcome Sir/Madam. This view contains a simple calculator that aids people to" +
                 " decide the range of rent that they should search for. It is important to calculate certain factors as" +
@@ -56,6 +56,8 @@ public class LifeExpensesController implements FXMLIRRepresentable {
         startVBox.getChildren().addAll(startText, startButton);
 
         lifeExpensesMainPane.getChildren().add(startVBox);
+        lifeExpensesMainPane.getStyleClass().add("innerPane");
+
     }
 
     private void onStartAction(ActionEvent actionEvent){

@@ -2,13 +2,19 @@ package com.example.london_property_market.UI;
 
 import com.example.london_property_market.UI.LifeExpense.LifeExpensesController;
 import com.example.london_property_market.UI.Map.MapController;
+import javafx.animation.FadeTransition;
+import javafx.animation.Transition;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -48,9 +54,14 @@ public class MainViewer extends Application {
 
         scene = new Scene(mainPane);
 
+        FadeTransition trans = new FadeTransition(Duration.millis(500), mainPane);
+        trans.setFromValue(0);
+        trans.setToValue(1.0);
+
         stage.setTitle("London Property Viewer");
         stage.setScene(scene);
         stage.show();
+        trans.play();
     }
 
     /**
@@ -70,6 +81,7 @@ public class MainViewer extends Application {
     public static void setCenterLayout(int direction){
 
         if (screenRegister.get(VIEW_POINTER+direction) instanceof FXMLIRRepresentable) {
+
             mainPane.setCenter(((FXMLIRRepresentable) screenRegister.get(VIEW_POINTER + direction)).initialize());
             updatePanels();
         }else
@@ -115,5 +127,12 @@ public class MainViewer extends Application {
             if (panel instanceof FXMLIRRepresentable)
                 ((FXMLIRRepresentable) panel).onChangeInformation();
 
+    }
+
+    private static Node createLoading() {
+        BorderPane pane = new BorderPane();
+        pane.setCenter(new Label("Loading..."));
+
+        return pane;
     }
 }

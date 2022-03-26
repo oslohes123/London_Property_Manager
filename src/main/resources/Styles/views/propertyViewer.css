@@ -8,12 +8,14 @@ VBox {
     -fx-background-color: white;
     -fx-background-radius: 10px;
     -fx-border-radius: 10px;
-
+    -fx-text-fill: purple;
     -fx-font-weight: bold;
 
 }
 VBox:hover {
     -fx-background-color: rgba(128, 0, 128, 0.8);
+    -fx-text-fill: white;
     -fx-cursor: hand;
 
 }
+
