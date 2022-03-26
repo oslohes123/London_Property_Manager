@@ -19,7 +19,7 @@
          <children>
             <ImageView fitHeight="255.0" fitWidth="385.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../Explanation.gif" />
+                  <Image url="@../Mainviewer%20explanation.gif" />
                </image>
             </ImageView>
             <ImageView fitHeight="254.0" fitWidth="379.0" pickOnBounds="true" preserveRatio="true">
