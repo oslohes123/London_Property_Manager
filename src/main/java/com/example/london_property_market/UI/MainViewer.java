@@ -129,10 +129,5 @@ public class MainViewer extends Application {
 
     }
 
-    private static Node createLoading() {
-        BorderPane pane = new BorderPane();
-        pane.setCenter(new Label("Loading..."));
 
-        return pane;
-    }
 }

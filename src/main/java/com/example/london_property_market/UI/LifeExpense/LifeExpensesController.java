@@ -3,7 +3,6 @@ package com.example.london_property_market.UI.LifeExpense;
 import com.example.london_property_market.UI.FXMLIRRepresentable;
 import com.example.london_property_market.UI.LifeExpense.Services.CostTypes;
 import javafx.event.ActionEvent;
-import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -15,7 +14,6 @@ import java.util.Comparator;
 
 public class LifeExpensesController implements FXMLIRRepresentable {
 
-    private ScrollPane outerPane;
     private LifeExpensesModel model;
     private VBox lifeExpensesMainPane;
     private ArrayList<Button> currentOptions;
@@ -28,7 +26,6 @@ public class LifeExpensesController implements FXMLIRRepresentable {
 
     }
     @Override
-    
     public Pane initialize() {
         lifeExpensesMainPane = new VBox();
         lifeExpensesMainPane.getStyleClass().addAll("mainVBox", "innerPane");
@@ -45,6 +42,7 @@ public class LifeExpensesController implements FXMLIRRepresentable {
 
     private void startDialogue(){
         VBox startVBox = new VBox();
+        startVBox.getStyleClass().add("options");
 
         Label startText = new Label("Welcome Sir/Madam. This page contains a simple calculator that aids people to" +
                 " decide the range of rent that they should search for. It is important to calculate certain factors as" +
@@ -58,7 +56,6 @@ public class LifeExpensesController implements FXMLIRRepresentable {
         startVBox.getChildren().addAll(startText, startButton);
 
         lifeExpensesMainPane.getChildren().add(startVBox);
-
     }
 
     private void onStartAction(ActionEvent actionEvent){

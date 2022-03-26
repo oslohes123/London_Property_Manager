@@ -7,12 +7,13 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="500.0" style="-fx-border-radius: 12;" styleClass="outerPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="500.0" prefWidth="900.0" style="-fx-border-radius: 12;" styleClass="outerPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <bottom>
       <Pane prefHeight="60.0" BorderPane.alignment="CENTER" />
    </bottom>
@@ -53,7 +54,7 @@
       </HBox>
    </top>
    <center>
-      <GridPane fx:id="propertyDisplayGrid" alignment="CENTER" hgap="10.0" style="-fx-padding: 10px; -fx-spacing: 8px;" styleClass="innerPane" vgap="10.0" BorderPane.alignment="CENTER">
+      <GridPane fx:id="propertyDisplayGrid" alignment="CENTER" hgap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-padding: 10px; -fx-spacing: 8px;" styleClass="innerPane" vgap="10.0" BorderPane.alignment="CENTER_LEFT">
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -67,6 +68,12 @@
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
+         <columnConstraints>
+            <ColumnConstraints minWidth="10.0" prefWidth="200.0" />
+            <ColumnConstraints minWidth="10.0" prefWidth="200.0" />
+            <ColumnConstraints minWidth="10.0" prefWidth="200.0" />
+            <ColumnConstraints minWidth="10.0" prefWidth="200.0" />
+         </columnConstraints>
       </GridPane>
    </center>
    <stylesheets>

@@ -44,20 +44,12 @@
 
 <BorderPane minHeight="-Infinity" minWidth="-Infinity" prefWidth="1000.0" styleClass="outerPane" stylesheets="@../Styles/views/mainStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.london_property_market.UI.Welcome.WelcomeController">
    <bottom>
-      <BorderPane prefHeight="1.0" prefWidth="108.0" style="-fx-padding: 8;" stylesheets="@../Styles/views/mainStyle.css" BorderPane.alignment="CENTER">
+      <BorderPane style="-fx-padding: 8;" BorderPane.alignment="CENTER">
          <right>
-            <Button fx:id="goMapButton" mnemonicParsing="false" onAction="#nextBtnOnAction" prefWidth="50.0" text="&gt;" BorderPane.alignment="CENTER">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Button>
+            <Button fx:id="goMapButton" mnemonicParsing="false" onAction="#nextBtnOnAction" prefWidth="50.0" text="&gt;" BorderPane.alignment="CENTER" />
          </right>
          <left>
-            <Button fx:id="goMapButton1" mnemonicParsing="false" onAction="#previousBtnOnAction" prefWidth="50.0" text="&lt;" BorderPane.alignment="CENTER">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Button>
+            <Button fx:id="goMapButton1" mnemonicParsing="false" onAction="#previousBtnOnAction" prefWidth="50.0" text="&lt;" BorderPane.alignment="CENTER" />
          </left>
       </BorderPane>
    </bottom>

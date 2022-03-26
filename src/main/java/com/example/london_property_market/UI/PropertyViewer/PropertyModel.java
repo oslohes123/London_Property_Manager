@@ -109,29 +109,24 @@ public class PropertyModel {
 
             propertyData.setUserData(validProperties.getInt("id"));
             propertyData.setOnMouseClicked(e -> showAllData((int) propertyData.getUserData()));
-            propertyData.setMaxWidth(Integer.MAX_VALUE);
+            propertyData.setMaxSize(Integer.MAX_VALUE, Integer.MAX_VALUE);
 
 
 
             //http://tutorials.jenkov.com/jdbc/resultset.html
-            Label dataLabel = new Label(
-                    "Host Name: " + validProperties.getString("host_name")
-                            + "\nBorough: " + validProperties.getString("neighbourhood")
-                            + "\nPrice Per Night: " + validProperties.getInt("price")
-                            + "\nNumber of Reviews: " + validProperties.getInt("number_of_reviews")
-                            + "\nMinimum stay (nights): " + validProperties.getInt("minimum_nights")
-            );
+            Label hostName, borough, price, reviews, minStay;
+            hostName = new Label("Host Name: " + validProperties.getString("host_name"));
+            hostName.setWrapText(true);
+
+            borough = new Label("Borough: " + validProperties.getString("neighbourhood"));
+            price = new Label("Price Per Night: " + validProperties.getInt("price"));
+            reviews = new Label("Number of Reviews: " + validProperties.getInt("number_of_reviews"));
+            minStay = new Label("Min stay (nights): " + validProperties.getInt("minimum_nights"));
+
             propertyData.setUserData(validProperties.getInt("id"));
             propertyData.setOnMouseClicked(e -> showAllData((int) propertyData.getUserData()));
 
-
-
-            //dataLabel.setStyle("-fx-text-fill: white; -fx-font-weight: bold;");
-            dataLabel.setId("colouredLabel");
-
-
-
-            propertyData.getChildren().addAll(dataLabel);
+            propertyData.getChildren().addAll(hostName, borough, price, reviews, minStay);
             properties.add(propertyData);
         }
         return properties;

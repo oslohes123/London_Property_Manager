@@ -65,6 +65,8 @@ public class PropertyController {
         fxmlLoader.setController(this);
         Parent root = fxmlLoader.load();
 
+        propertyDisplayGrid.setMaxSize(Integer.MAX_VALUE, Integer.MAX_VALUE);
+
         Scene scene = new Scene(root);
         model = new PropertyModel(boroughs, minPrice, maxPrice);
         stage = new Stage();
@@ -216,6 +218,8 @@ public class PropertyController {
             if (sortedProperties != null) {
                 clearDisplayBoxes();
                 addPropertiesToViewer(sortedProperties);
+                previousProperties.setDisable(true);
+                nextProperties.setDisable(false);
             }
         }
         catch (SQLException ex)

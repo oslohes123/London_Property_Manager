@@ -1,8 +1,6 @@
-
-
 VBox {
     -fx-padding: 8px;
-    -fx-spacing: 2px;
+    -fx-spacing: 5px;
 
     -fx-border-color: purple;
     -fx-background-color: white;

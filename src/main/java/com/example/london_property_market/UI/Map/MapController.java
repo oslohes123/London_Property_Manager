@@ -93,7 +93,6 @@ public class MapController implements FXMLIRRepresentable {
     @Override
     public BorderPane initialize() {
         BorderPane mainPane = new BorderPane();
-        mainPane.getStylesheets().add("Styles/views/mainStyle.css");
         mainPane.getStyleClass().add("innerPane");
 
         ArcGISRuntimeEnvironment.setApiKey(ARCGIS_API_KEY);

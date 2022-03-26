@@ -21,7 +21,7 @@ Button {
     -fx-background-color: white;
     -fx-background-radius: 10px;
     -fx-text-fill: purple;
-    -fx-font-size: 12px;
+    -fx-font-size: 15px;
     -fx-font-weight: bold;
 }
 Button:hover{
@@ -29,7 +29,6 @@ Button:hover{
     -fx-border-color: white;
     -fx-border-radius: 10px;
     -fx-text-fill: white;
-
     -fx-cursor: hand;
 }
 
@@ -40,4 +39,5 @@ Button:hover{
 
 ComboBox {
     -fx-background-color: white;
+
 }
