@@ -17,7 +17,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="London_Property_Market" options="--add-exports javafx.graphics/com.sun.javafx.geom=ALL-UNNAMED" />
-      <module name="London_Property_Marketplace" options="--add-exports javafx.graphics/com.sun.javafx.geom=ALL-UNNAMED" />
+      <module name="London_Property_Marketplace" options="" />
     </option>
   </component>
 </project>

@@ -1,0 +1,28 @@
+.label{
+    -fx-font-size: 14px;
+    -fx-label-padding: 13px;
+    -fx-font-family: Tahoma;
+}
+
+.text-field{
+    -fx-max-width: 200px;
+}
+
+.mainVBox{
+    -fx-spacing: 10px;
+}
+
+.serviceTab{
+    -fx-spacing: 10px;
+    -fx-alignment: center;
+}
+
+.options{
+    -fx-spacing: 10px;
+    -fx-alignment: center;
+}
+.button{
+    -fx-font-size: 14px;
+    -fx-background-color: #54aaba;
+    -fx-text-fill: #fff;
+}
