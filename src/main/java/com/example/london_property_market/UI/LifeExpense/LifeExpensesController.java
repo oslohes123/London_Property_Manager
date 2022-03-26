@@ -12,19 +12,28 @@ import org.apache.commons.lang3.math.NumberUtils;
 import java.util.ArrayList;
 import java.util.Comparator;
 
+/**
+ *
+ * This class represent the UI part of the life expense calculator. It contains all the aspects of the calculator's UI.
+ *
+ * @author Yousef Altaher
+ * @version 26-03-2022
+ */
 public class LifeExpensesController implements FXMLIRRepresentable {
 
+    // The model for the calculator
     private LifeExpensesModel model;
+    // The main panel for the UI
     private VBox lifeExpensesMainPane;
+    // The list of the references of the buttons for the current service. Needed to disable selection.
     private ArrayList<Button> currentOptions;
+    // The text field for entering the budget
     private TextField budgetTextField;
-    private double maximumBudget;
 
-    public static void main(String[] args) {
-        LifeExpensesController lec = new LifeExpensesController();
-        lec.initialize();
-
-    }
+    /**
+     * This method initialize the calculator UI part with its all necessary information.
+     * @return The pane that contains the UI elements.
+     */
     @Override
     public Pane initialize() {
         lifeExpensesMainPane = new VBox();
@@ -40,6 +49,9 @@ public class LifeExpensesController implements FXMLIRRepresentable {
         return lifeExpensesMainPane;
     }
 
+    /**
+     * This method starts the dialogue of the calcultor.
+     */
     private void startDialogue(){
         VBox startVBox = new VBox();
         startVBox.getStyleClass().add("options");
@@ -51,14 +63,18 @@ public class LifeExpensesController implements FXMLIRRepresentable {
                 " Start button");
         startText.setWrapText(true);
         Button startButton = new Button("Start");
-        startButton.setOnAction(this::onStartAction);
+        startButton.setOnAction(this::onBudgetStartAction);
 
         startVBox.getChildren().addAll(startText, startButton);
 
         lifeExpensesMainPane.getChildren().add(startVBox);
     }
 
-    private void onStartAction(ActionEvent actionEvent){
+    /**
+     * This method starts the budget part of the calculator in the dialogue
+     * @param actionEvent actionEvent
+     */
+    private void onBudgetStartAction(ActionEvent actionEvent){
 
         ((Button) actionEvent.getSource()).setDisable(true);
 
@@ -77,12 +93,16 @@ public class LifeExpensesController implements FXMLIRRepresentable {
 
     }
 
+    /**
+     * This method performs the start of the dialogue part that contains the services and their usage
+     * @param actionEvent actionEvent
+     */
     private void onServiceStartAction(ActionEvent actionEvent){
 
         if (isValidBudget()) {
             ((Button) actionEvent.getSource()).setDisable(true);
 
-            maximumBudget = Double.parseDouble(budgetTextField.getText());
+            model.setMaximumBudget(Double.parseDouble(budgetTextField.getText()));
             budgetTextField.setDisable(true);
             if (model.nextService())
                 lifeExpensesMainPane.getChildren().add(getNextDialogue());
@@ -91,6 +111,9 @@ public class LifeExpensesController implements FXMLIRRepresentable {
         }
     }
 
+    /**
+     * This method invokes the appropriate response when the user enters an invalid budget
+     */
     private void invalidErrorHandler(){
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Invalid budget");
@@ -99,11 +122,20 @@ public class LifeExpensesController implements FXMLIRRepresentable {
         alert.show();
     }
 
-    //https://www.baeldung.com/java-check-string-number
+    /**
+     * This method validate if the entered budget is a valid numerical number
+     *
+     * Reference: https://www.baeldung.com/java-check-string-number
+     * @return true if the budget is a positive number, false otherwise
+     */
     private boolean isValidBudget(){
         return NumberUtils.isCreatable(budgetTextField.getText()) && Double.parseDouble(budgetTextField.getText()) > 0;
     }
 
+    /**
+     * This method perform the UI actions of adding the next dialogue from the calculator.
+     * @return the layout that contains the new UI elements for the calculator
+     */
     private VBox getNextDialogue(){
 
         VBox serviceTab = new VBox();
@@ -132,6 +164,10 @@ public class LifeExpensesController implements FXMLIRRepresentable {
         return serviceTab;
     }
 
+    /**
+     * This method model the changes that occurred from the user's selection of an option for a service
+     * @param actionEvent actionEvent
+     */
     private void selectedOptionOnAction(ActionEvent actionEvent){
         model.setSelectedOption((CostTypes) ((Button) actionEvent.getSource()).getProperties().get("cost"));
         currentOptions.forEach(i -> i.setDisable(true));
@@ -143,6 +179,9 @@ public class LifeExpensesController implements FXMLIRRepresentable {
             finalAction();
     }
 
+    /**
+     * This method represent the final action that is performed by the calculator. I.e, when everything is finished.
+     */
     private void finalAction(){
 
         VBox finalVBox = new VBox();
@@ -153,8 +192,7 @@ public class LifeExpensesController implements FXMLIRRepresentable {
         + " for the above services");
 
         Label finalCostRecommendation = new Label("We recommend that you spend at most "
-                + (((int) ((maximumBudget-model.getAddedCost())*100))/100.0) + " in rent");
-
+                + model.getRecommendedBudget() + " in rent");
 
         Button resetButton = new Button("Start Again");
         resetButton.setOnAction(this::resetButton);
@@ -163,12 +201,20 @@ public class LifeExpensesController implements FXMLIRRepresentable {
         lifeExpensesMainPane.getChildren().add(finalVBox);
     }
 
+    /**
+     * This method perform the reset functionality of the calculator
+     * @param actionEvent actionEvent
+     */
     private void resetButton(ActionEvent actionEvent){
         lifeExpensesMainPane.getChildren().clear();
         model.resetModelPointer();
         startDialogue();
     }
 
+    /**
+     * This method is invoked when a change occurs on the main controller. This method is empty as there is no need
+     * in the meanwhile to implement it as there currently no effects on it.
+     */
     @Override
     public void onChangeInformation() {
 
