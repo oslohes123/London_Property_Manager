@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane styleClass="outerPane" stylesheets="@../Styles/views/mainStyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <left>
       <VBox alignment="CENTER" prefHeight="332.0" prefWidth="137.0" BorderPane.alignment="CENTER">
          <opaqueInsets>
@@ -18,17 +18,17 @@
       </VBox>
    </left>
    <bottom>
-      <HBox alignment="CENTER" prefHeight="68.0" prefWidth="600.0" style="-fx-background-color: grey;" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER" prefHeight="68.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="sendButton" mnemonicParsing="false" onMouseClicked="#sendClicked" text="Send" />
          </children>
       </HBox>
    </bottom>
    <center>
-      <AnchorPane prefHeight="279.0" prefWidth="463.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="280.0" prefWidth="460.0" styleClass="innerPane" BorderPane.alignment="CENTER">
          <children>
-            <TextField fx:id="emailTextField" layoutX="86.0" layoutY="107.0" prefHeight="25.0" prefWidth="167.0" promptText="Enter your email here" />
-            <TextField fx:id="nameTextField" layoutX="86.0" layoutY="150.0" prefHeight="25.0" prefWidth="167.0" promptText="Enter your name here" />
+            <TextField fx:id="emailTextField" layoutX="86.0" layoutY="107.0" prefHeight="25.0" prefWidth="167.0" promptText="Enter your email here" style="-fx-background-color: white; -fx-border-color: purple; -fx-border-radius: 4;" />
+            <TextField fx:id="nameTextField" layoutX="86.0" layoutY="150.0" prefHeight="25.0" prefWidth="167.0" promptText="Enter your name here" style="-fx-background-color: white; -fx-border-color: purple; -fx-border-radius: 4;" />
             <Text layoutX="45.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" wrappingWidth="47.13671875" />
             <Text layoutX="45.0" layoutY="167.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" wrappingWidth="38.13671875" />
          </children>

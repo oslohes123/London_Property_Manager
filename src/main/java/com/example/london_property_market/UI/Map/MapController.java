@@ -84,6 +84,7 @@ public class MapController implements FXMLIRRepresentable {
     // The map model
     private MapModel mapModel;
 
+
     /**
      * This method initialize the map view with its necessary objects. The use of a different method other than the constructor
      * serve as a generalization, as it will ease the creating of views from mainView.
@@ -93,6 +94,8 @@ public class MapController implements FXMLIRRepresentable {
     @Override
     public BorderPane initialize() {
         BorderPane mainPane = new BorderPane();
+        mainPane.getStyleClass().add("innerPane");
+
         ArcGISRuntimeEnvironment.setApiKey(ARCGIS_API_KEY);
 
         mapModel = new MapModel();
@@ -136,15 +139,15 @@ public class MapController implements FXMLIRRepresentable {
         statsSelectionType.getStyleClass().add("selectionType");
 
         //https://stackoverflow.com/questions/29616246/how-to-bind-inverse-boolean-javafx
-        viewBoroughs = new Button("View multiple boroughs");
+        //
+        viewBoroughs = new Button("View boroughs");
         viewBoroughs.setOnAction(this::openPropertyViewer);
-        viewBoroughs.getStyleClass().add("controlButtons");
+        viewBoroughs.getStyleClass().addAll("controlButtons", "innerPaneButton");
         viewBoroughs.disableProperty().bind(propertySelectionType.selectedProperty().not());
 
         openStats = new Button("Statistics");
         openStats.setOnAction(this::openStatsWindow);
-        openStats.disableProperty().bind(statsSelectionType.selectedProperty().not());
-        openStats.getStyleClass().add("controlButtons");
+        openStats.getStyleClass().addAll("controlButtons", "innerPaneButton");
 
 
         headerControl.getChildren().addAll(propertySelectionType, viewBoroughs, statsSelectionType, openStats);
@@ -179,8 +182,21 @@ public class MapController implements FXMLIRRepresentable {
      *
      * @param boroughName borough name
      */
+
     private void openPropertyViewer(String boroughName) {
 
+            HashSet<String> borough = new HashSet<>();
+            borough.add(boroughName);
+            try {
+            PropertyController viewProperties = new PropertyController(borough, MainModel.getMinAmount(), MainModel.getMaxAmount());
+            Stage stage = viewProperties.getStage();
+            stage.show();
+
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
     private void noBoroughsSelected() {

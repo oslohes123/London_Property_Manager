@@ -8,7 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -17,8 +17,8 @@ import javafx.event.ActionEvent;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -30,13 +30,12 @@ import java.util.Set;
  * @author Shaheer Effandi (K21013734)
  */
 public class PropertyController {
-    @FXML
-    public HBox topPropertyDisplayBox;
-    @FXML private HBox botPropertyDisplayBox;
+    @FXML private GridPane propertyDisplayGrid;
     @FXML private Button nextProperties;
     @FXML private Button previousProperties;
-    @FXML ComboBox sortByCombo;
+    @FXML private ComboBox<String> sortByCombo;
 
+    //The number of properties that will be shown on a page at a time
     public static final int PROPERTIES_PER_PAGE = 8;
     private PropertyModel model;
 
@@ -44,12 +43,15 @@ public class PropertyController {
     private int beginningPointer;
     private int endPointer;
 
-    private Scene scene;
     private Stage stage;
     private List<VBox> properties;
 
     /**
-     * Constructor for DisplayView Class
+     * Constructor for DisplayView Class, Loads the FXML file and initialises
+     * the model and the stage.
+     * Sets the Actions for each of the @FXML variables and adds options to the
+     * comboBox
+     *
      *
      * @param boroughs the selected boroughs
      * @param minPrice the minimum price per night for a property
@@ -61,10 +63,11 @@ public class PropertyController {
         FXMLLoader fxmlLoader = new FXMLLoader(url);
         //https://ifelse.info/questions/46749/problem-loading-fxml-file
         fxmlLoader.setController(this);
-
         Parent root = fxmlLoader.load();
 
-        scene = new Scene(root);
+        propertyDisplayGrid.setMaxSize(Integer.MAX_VALUE, Integer.MAX_VALUE);
+
+        Scene scene = new Scene(root);
         model = new PropertyModel(boroughs, minPrice, maxPrice);
         stage = new Stage();
 
@@ -80,33 +83,47 @@ public class PropertyController {
 
     }
 
+    /**
+     * Iterates through a list of VBoxes a constant number of them to the page
+     * Set pointers so that the next and previous buttons are able to show the properties
+     * @param propertyBoxes a list of properties
+     * @throws SQLException
+     */
     private void addPropertiesToViewer(List<VBox> propertyBoxes) throws SQLException
     {
         properties = propertyBoxes;
         beginningPointer = 0;
+        int counter = 0;
 
         properties.forEach(a -> a.setPadding(new Insets(20)));
 
         for(VBox property: properties) {
 
-            if(topPropertyDisplayBox.getChildren().size() != PROPERTIES_PER_PAGE/2) {
-                topPropertyDisplayBox.getChildren().add(property);
+            if(counter < PROPERTIES_PER_PAGE/2) {
+                propertyDisplayGrid.add(property, counter %(PROPERTIES_PER_PAGE / 2), 0);
             }
 
-            else if (botPropertyDisplayBox.getChildren().size() != PROPERTIES_PER_PAGE/2) {
-                botPropertyDisplayBox.getChildren().add(property);
+            else if (counter < PROPERTIES_PER_PAGE) {
+                propertyDisplayGrid.add(property, counter %(PROPERTIES_PER_PAGE / 2), 1);
             }
 
             else {
                 endPointer = PROPERTIES_PER_PAGE;
                 return;
             }
+            counter ++;
         }
 
         //if there are no more properties, the number of properties
         nextProperties.setDisable(true);
     }
 
+    /**
+     * If this button is enabled, it will show the previous properties in the list.
+     * If we press the previousProperties button, it means that after clicking, the
+     * nextProperties button must be enabled
+     * @param event
+     */
     public void viewPrevious(ActionEvent event)
     {
         clearDisplayBoxes();
@@ -128,6 +145,11 @@ public class PropertyController {
         addPropertiesToDisplay();
     }
 
+    /**
+     * If this button is enabled, it will show the next properties in the list.
+     * If we press the nextProperties button, it means that after clicking, the
+     * previousProperties button must be enabled
+    */
     public void viewNext(ActionEvent event)
     {
         clearDisplayBoxes();
@@ -150,17 +172,28 @@ public class PropertyController {
         addPropertiesToDisplay();
     }
 
+    /**
+     * A method that adds properties to a gridPane to display.
+     * Used to reduce duplicate code
+     */
     private void addPropertiesToDisplay() {
+        int counter = 0;
         for (int i = beginningPointer; i < endPointer; i++) {
-            if(topPropertyDisplayBox.getChildren().size() != PROPERTIES_PER_PAGE/2) {
-                topPropertyDisplayBox.getChildren().add(properties.get(i));
+            if(counter < PROPERTIES_PER_PAGE/2) {
+                propertyDisplayGrid.add(properties.get(i), counter %(PROPERTIES_PER_PAGE / 2), 0);
             }
-            else if(botPropertyDisplayBox.getChildren().size() != PROPERTIES_PER_PAGE) {
-                botPropertyDisplayBox.getChildren().add(properties.get(i));
+
+            else if (counter < PROPERTIES_PER_PAGE) {
+                propertyDisplayGrid.add(properties.get(i), counter %(PROPERTIES_PER_PAGE / 2), 1);
             }
+            counter ++;
         }
+
     }
 
+    /**
+     * Adds all sortBy options to the ComboBox
+     */
     private void setSortByCombo()
     {
         sortByCombo.getItems().addAll(
@@ -172,15 +205,21 @@ public class PropertyController {
     }
 
 
-
+    /**
+     * When an option in the ComboBox is selected, the Pane is emptied
+     * and the model gets a list of VBoxes with properties sorted by the selected criteria
+     * this list is then passed into the addPropertiesToViewer method
+     * @param event
+     */
     private void sortProperties(Event event)  {
 
         try {
-            System.out.println("This Has Been Called");
-            List<VBox> sortedProperties = model.sortBy((String) sortByCombo.getValue());
+            List<VBox> sortedProperties = model.sortBy(sortByCombo.getValue());
             if (sortedProperties != null) {
                 clearDisplayBoxes();
                 addPropertiesToViewer(sortedProperties);
+                previousProperties.setDisable(true);
+                nextProperties.setDisable(false);
             }
         }
         catch (SQLException ex)
@@ -189,16 +228,21 @@ public class PropertyController {
         }
     }
 
+    /**
+     * Clears the gridPane so that different properties can be added
+     */
     private void clearDisplayBoxes()
     {
-        topPropertyDisplayBox.getChildren().clear();
-        botPropertyDisplayBox.getChildren().clear();
+        propertyDisplayGrid.getChildren().clear();
     }
 
-    public Stage getStage()
-    {
+    /**
+     * An accessor method used so that the Map page can
+     * open a new window that shows data for all the properties
+     * that fit the criteria
+     * @return stage
+    */
+    public Stage getStage() {
         return stage;
     }
-
-
 }
