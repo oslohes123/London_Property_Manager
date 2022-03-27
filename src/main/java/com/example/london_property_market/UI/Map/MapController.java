@@ -77,7 +77,6 @@ public class MapController implements FXMLIRRepresentable {
 
     // The header controls - the selectors for the type and statistics with the button for properties
     private ToggleSwitch propertySelectionType;
-    private ToggleSwitch statsSelectionType;
     private Button viewBoroughs;
     private Button openStats;
 
@@ -135,9 +134,6 @@ public class MapController implements FXMLIRRepresentable {
         propertySelectionType = new ToggleSwitch("Enable selection of multiple boroughs");
         propertySelectionType.getStyleClass().add("selectionType");
 
-        statsSelectionType = new ToggleSwitch("View statistics from selected borough");
-        statsSelectionType.getStyleClass().add("selectionType");
-
         //https://stackoverflow.com/questions/29616246/how-to-bind-inverse-boolean-javafx
         //
         viewBoroughs = new Button("View boroughs");
@@ -150,7 +146,7 @@ public class MapController implements FXMLIRRepresentable {
         openStats.getStyleClass().addAll("controlButtons", "innerPaneButton");
 
 
-        headerControl.getChildren().addAll(propertySelectionType, viewBoroughs, statsSelectionType, openStats);
+        headerControl.getChildren().addAll(propertySelectionType, viewBoroughs, openStats);
         return headerControl;
     }
 
@@ -217,9 +213,6 @@ public class MapController implements FXMLIRRepresentable {
      */
     private void openStatsWindow(ActionEvent actionEvent) {
         try {
-
-
-            if (statsSelectionType.isSelected()) {
                 FXMLLoader statsLoader = new FXMLLoader(getClass().getResource("/views/StatsView.fxml"));
                 Parent root = statsLoader.load();
 
@@ -231,15 +224,10 @@ public class MapController implements FXMLIRRepresentable {
                 stage.setTitle("Statistics");
                 stage.setScene(statsScene);
                 stage.show();
-                // pass the hashset itself
-            } else {
-                // pass null, which will indicate *
 
-            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
 
     }
 
