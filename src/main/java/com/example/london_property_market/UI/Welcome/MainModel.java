@@ -9,10 +9,16 @@ import com.example.london_property_market.Loader.CsvLoader;
 
 public class MainModel {
 
+    //List of values that will be set in the combo Box
     private List<String> values;
+    //Min and max amounts that are chosen in the combo drop down
     private static int minAmount;
     private static int maxAmount;
 
+    /**
+     * Initialises the min and max Amount fields
+     * Adds the combo box values to the values list
+     */
     public MainModel() {
 
         comboBoxValues();
@@ -20,6 +26,9 @@ public class MainModel {
         maxAmount = comboBoxMaxValue();
     }
 
+    /**
+     * @return the values that will be set in the ComboBox
+     */
     public List<String> getCombValues() {
         return values;
     }
@@ -59,19 +68,33 @@ public class MainModel {
             e.printStackTrace();
         }
 
-
-
         return maxPrice;
     }
 
+    /**
+     * Sets the maxAmount field to the chosen value
+     * @param maxAmount the chosen combo box value
+     */
     public void setMaxAmount(String maxAmount) {
      this.maxAmount = getAmounts(maxAmount);
     }
 
+    /**
+     * Sets the minAmount field to the chosen value
+     * @param minAmount the chosen combo box value
+     */
     public void setMinAmount(String minAmount){
         this.minAmount = getAmounts(minAmount);
     }
 
+    /**
+     * Checks if the user has chosen "MAX" as the combo value
+     * If so it wil return the max price, else it will return
+     * the value chosen
+     *
+     * @param input the chosen combo box value
+     * @return the corresponding price as an int
+     */
     private int getAmounts(String input){
         if (input.equals("MAX"))
             return comboBoxMaxValue();

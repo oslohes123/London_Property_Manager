@@ -27,7 +27,11 @@ public class WelcomeController implements Initializable {
 
     private MainModel core;
 
-
+    /**
+     * Creates the ComboBox values and sets the default values to 0 and MAX
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -40,17 +44,33 @@ public class WelcomeController implements Initializable {
         maxComboBox.setValue("MAX");
     }
 
+    /**
+     * sets the Minimum Price in the Main Model to the comboBox value
+     * @param actionEvent
+     */
     @FXML
     public void getMinValue(ActionEvent actionEvent) {
         core.setMinAmount(minComboBox.getValue());
         setColors();
     }
 
+    /**
+     * Sets the Maximum Price in the Main Model to the combo box value
+     * @param actionEvent
+     */
     @FXML
     public void getMaxValue(ActionEvent actionEvent) {
         core.setMaxAmount(maxComboBox.getValue());
         setColors();
     }
+
+    /**
+     * Used to advance through the program to different pages
+     * Checks if the combo box values are correct and if there is another
+     * page to display before displaying the page
+     *
+     * @param actionEvent
+     */
     @FXML
     public void nextBtnOnAction(ActionEvent actionEvent){
         if (!core.isValidValues()){
@@ -63,6 +83,14 @@ public class WelcomeController implements Initializable {
 
         }
     }
+
+    /**
+     * Used to go back to previous pages
+     * Checks if the combo box values are correct and if there is another
+     * page to display before displaying the page
+     *
+     * @param actionEvent
+     */
     @FXML
     public void previousBtnOnAction(ActionEvent actionEvent){
         if (!core.isValidValues()){
