@@ -23,6 +23,9 @@ import java.util.Iterator;
 /**
  * This class represents the main UI class of the application. This class acts as the main viewer (manager) for the
  * panels that are on the main panel.
+ *
+ * @author Yousef Altaher, K20047484
+ * @version 27-03-2022
  */
 public class MainViewer extends Application {
 

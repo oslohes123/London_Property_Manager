@@ -26,7 +26,6 @@ public class MainModel {
 
     /**
      * A function to generate a price range that can be chosen by the user.
-     * @return Returns a list of strings which represent the price range
      */
     public void comboBoxValues() {
         List<String> values = new ArrayList<>();
@@ -81,13 +80,26 @@ public class MainModel {
 
     }
 
+    /**
+     * This method checks if the valeus for the combo boxes are valid
+     * @return true the values are valid, false otherwise
+     */
     public boolean isValidValues(){
-        return maxAmount > minAmount;
+        return maxAmount >= minAmount;
     }
 
+    /**
+     * This method returns the minimum amount
+     * @return the minimum amount
+     */
     public static int getMinAmount(){
         return minAmount;
     }
+
+    /**
+     * This method returns the maximum amount
+     * @return the maximum amount
+     */
     public static int getMaxAmount(){
         return maxAmount;
     }
