@@ -30,6 +30,7 @@ public class getContactedController implements Initializable {
 
     private Stage stage;
     private ResultSet propertyData;
+    private String propertyName;
 
     public getContactedController(int propertyID) {
         try{
@@ -40,8 +41,10 @@ public class getContactedController implements Initializable {
             
             Scene scene = new Scene(root);
             stage = new Stage();
+
             while(propertyData.next()){
-                stage.setTitle(propertyData.getString("name"));
+                propertyName = propertyData.getString("name");
+                stage.setTitle(propertyName);
             }
 
             stage.setScene(scene);
@@ -63,17 +66,15 @@ public class getContactedController implements Initializable {
 
     @FXML
     public void sendClicked(MouseEvent mouseEvent) throws SQLException {
-        String property = "";
 
         try {
             InternetAddress emailAddr = new InternetAddress(emailTextField.getText());
             emailAddr.validate();
 
-            while(propertyData.next()){
-                property = propertyData.getString("name");
-            }
+            SendPropertyInquire.sendContact(emailTextField.getText(),nameTextField.getText(), propertyName);
+            closingAction();
+            stage.close();
 
-            SendPropertyInquire.sendContact(emailTextField.getText(),nameTextField.getText(),property);
         } catch (AddressException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Wrong email type");
@@ -83,5 +84,15 @@ public class getContactedController implements Initializable {
         }
 
 
+    }
+
+
+    private void closingAction(){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle(propertyName);
+        alert.setHeaderText("Thank you for contacting S.T.A.Y property viewer about the selected property. We will contact" +
+                " you within our working days");
+        alert.setContentText("We will contact you as soon as possible");
+        alert.show();
     }
 }
