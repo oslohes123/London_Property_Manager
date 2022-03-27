@@ -21,6 +21,7 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class getContactedController implements Initializable {
+
     @FXML
     public Button sendButton;
     @FXML
@@ -86,6 +87,9 @@ public class getContactedController implements Initializable {
     }
 
 
+    /**
+     * This method handles the successful sending of data by the user.
+     */
     private void closingAction(){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(propertyName);
