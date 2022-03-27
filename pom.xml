@@ -216,7 +216,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>com.example.london_property_market.Main</mainClass>
+                    <mainClass>com.example.london_property_market.UI.MainViewer</mainClass>
                 </configuration>
             </plugin>
             <plugin>
@@ -236,7 +236,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                               com.example.london_property_market.Main
+                                com.example.london_property_market.UI.MainViewer
                             </mainClass>
                         </configuration>
                     </execution>
@@ -255,7 +255,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <!-- change this to your main class -->
-                            <mainClass> com.example.london_property_market.Main</mainClass>
+                            <mainClass> com.example.london_property_market.UI.MainViewer</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -269,7 +269,7 @@
                     <archive>
                         <manifest>
                             <!-- change this to your main class -->
-                            <mainClass> com.example.london_property_market.Main</mainClass>
+                            <mainClass> com.example.london_property_market.UI.MainViewer</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

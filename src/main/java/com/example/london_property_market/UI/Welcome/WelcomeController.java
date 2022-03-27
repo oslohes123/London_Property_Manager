@@ -1,23 +1,18 @@
 package com.example.london_property_market.UI.Welcome;
 
-import com.example.london_property_market.Main;
 import com.example.london_property_market.UI.MainViewer;
-import com.example.london_property_market.UI.Welcome.MainModel;
 import com.example.london_property_market.Loader.AirbnbDataLoader;
 import com.example.london_property_market.Loader.AirbnbListing;
-import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.event.ActionEvent;
-import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.concurrent.TimeUnit;
 
 
 public class WelcomeController implements Initializable{

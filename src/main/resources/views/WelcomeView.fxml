@@ -37,9 +37,9 @@
                   <Image url="@../Mainviewer%20explanation.gif" />
                </image>
             </ImageView>
-            <ImageView fitHeight="254.0" fitWidth="329.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="228.0" fitWidth="385.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../emptyImage.png" />
+                  <Image url="@../Map%20explanation.gif" />
                </image>
             </ImageView>
          </children>
