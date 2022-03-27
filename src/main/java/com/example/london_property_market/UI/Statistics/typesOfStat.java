@@ -1,5 +1,15 @@
 package com.example.london_property_market.UI.Statistics;
 
+/**
+ * Represents statistics that can be represented in the program
+ * Each constant in the enum is a view in the database
+ * ID is for looping purposes
+ * The name is used as the title
+ *
+ * To add a statistic
+ * Create the view in the database online
+ * Add a constant in the enum with ids and names to automatically include them in the program.
+ */
 public enum typesOfStat {
     avg_reviews_per_property_view(0,"Average number of reviews per property"),
     number_of_properties_available_view(1,"number of properties available"),
@@ -9,6 +19,8 @@ public enum typesOfStat {
     avg_price_per_min_stay(5, "Average price Per minimum stay"),
     cheapest_property_view(6,"Cheapest property per minimum stay"),
     best_seller(7,"Best sellers for these neighbourhood");
+
+
 
     /**
      * id allows looping
