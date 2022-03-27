@@ -20,16 +20,15 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 /**
- * @auther Ashley Tyagi K21008496
- *
- * v1
- */
-
-
-
-/**
  * This controls the statistics window
+ *
+ * @auther Ashley Tyagi K21008496
+ * @version 27/03/2022
+ *
  */
+
+
+
 public class StatisticsController implements Initializable {
 
     @FXML

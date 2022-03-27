@@ -2,24 +2,21 @@ package com.example.london_property_market.UI.Statistics;
 
 import com.example.london_property_market.Loader.CsvLoader;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+
 import java.sql.ResultSet;
 import java.util.Iterator;
 import java.util.List;
-/**
- * @auther Ashley Tyagi K21008496
- *
- * v1
- */
-
-
-
 
 /**
  * Stats model, I am going to attempt to create all the SQL statements in
  * separate SQL files so that this file does not get "clogged up"
+ *
+ * @auther Ashley Tyagi K21008496, Tom Hurford - k21002432
+ * @version 27/03/2022
+ *
  */
+
+
 public class StatisticsModel {
 
     private final CsvLoader sql;

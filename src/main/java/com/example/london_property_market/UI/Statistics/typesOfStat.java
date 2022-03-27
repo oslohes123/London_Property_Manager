@@ -1,11 +1,4 @@
 package com.example.london_property_market.UI.Statistics;
-/**
- * @auther Ashley Tyagi K21008496
- *
- * v1
- */
-
-
 
 
 /**
@@ -17,6 +10,9 @@ package com.example.london_property_market.UI.Statistics;
  * To add a statistic
  * Create the view in the database online
  * Add a constant in the enum with ids and names to automatically include them in the program.
+ *
+ * @auther Ashley Tyagi K21008496
+ * @version 27/03/2022
  */
 public enum typesOfStat {
     avg_reviews_per_property_view(0,"Average number of reviews per property"),

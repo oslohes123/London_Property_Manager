@@ -1,13 +1,4 @@
 package com.example.london_property_market.UI.PropertyViewer.PropertyData.getContacted;
-/**
- * @auther Ashley Tyagi K21008496
- *
- * v1
- */
-
-
-
-
 
 import com.example.london_property_market.UI.PropertyViewer.PropertyData.PropertyDataModel;
 import javafx.fxml.FXML;
@@ -31,9 +22,13 @@ import java.util.ResourceBundle;
 
 
 /**
- * The controller for the getContacted window
+ * Get contacted controller
+ *
+ * @auther Ashley Tyagi K21008496
+ * @version 27/03/2022
+ *
  */
-public class getContactedController implements Initializable {
+public class getContactedController  {
 
     @FXML
     public Button sendButton;
@@ -72,13 +67,12 @@ public class getContactedController implements Initializable {
 
     }
 
+    /**
+     *
+     * @return Returns the stage
+     */
     public Stage getStage()  {
         return stage;
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
     }
 
     /**
@@ -92,10 +86,16 @@ public class getContactedController implements Initializable {
         try {
             InternetAddress emailAddr = new InternetAddress(emailTextField.getText());
             emailAddr.validate();
+            if ("".equals(nameTextField.getText())){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Please enter a name");
+                alert.show();
+            }else{
+                SendPropertyInquire.sendContact(emailTextField.getText(),nameTextField.getText(), propertyName);
+                closingAction();
+                stage.close();
+            }
 
-            SendPropertyInquire.sendContact(emailTextField.getText(),nameTextField.getText(), propertyName);
-            closingAction();
-            stage.close();
 
         } catch (AddressException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
