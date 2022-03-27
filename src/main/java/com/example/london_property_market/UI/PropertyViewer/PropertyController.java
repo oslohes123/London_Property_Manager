@@ -27,7 +27,9 @@ import java.util.Set;
  * that are in one of the selected boroughs, and is within
  * the selected price range.
  * These values will be passed in by the map page.
+ *
  * @author Shaheer Effandi (K21013734)
+ * @version 27/03/2022
  */
 public class PropertyController {
     @FXML private GridPane propertyDisplayGrid;

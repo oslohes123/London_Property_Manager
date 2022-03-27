@@ -10,6 +10,7 @@ import java.sql.ResultSet;
  * from the Csv File
  *
  * @author Shaheer Effandi (K21013734)
+ * @version 27/03/2022
  */
 public class PropertyDataModel {
 

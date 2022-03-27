@@ -20,6 +20,7 @@ import java.sql.SQLException;
  * for a single selected property.
  *
  * @author Shaheer Effandi (K21013734)
+ * @version 27/03/2022
  */
 public class PropertyDataController {
 
