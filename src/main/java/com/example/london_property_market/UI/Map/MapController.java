@@ -18,9 +18,11 @@ import com.esri.arcgisruntime.mapping.view.GraphicsOverlay;
 import com.esri.arcgisruntime.mapping.view.MapView;
 import com.esri.arcgisruntime.symbology.*;
 import com.example.london_property_market.UI.FXMLIRRepresentable;
+import com.example.london_property_market.UI.MainViewer;
 import com.example.london_property_market.UI.PropertyViewer.PropertyController;
 import com.example.london_property_market.UI.Welcome.MainModel;
 import com.example.london_property_market.UI.Statistics.StatisticsController;
+import com.example.london_property_market.UI.Welcome.WelcomeController;
 import com.google.gson.JsonParser;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -156,10 +158,16 @@ public class MapController implements FXMLIRRepresentable {
      * @param actionEvent actionEvent
      */
     private void openPropertyViewer(ActionEvent actionEvent) {
+
         try {
             if (selectedBoroughs.size() == 0) {
                 noBoroughsSelected();
-            } else {
+            }
+            else if (MainModel.getMaxAmount() <= MainModel.getMinAmount())
+            {
+                WelcomeController.priceError();
+            }
+            else {
                 PropertyController viewProperties = new PropertyController(selectedBoroughs, MainModel.getMinAmount(), MainModel.getMaxAmount());
                 Stage stage = viewProperties.getStage();
                 stage.show();
@@ -184,9 +192,15 @@ public class MapController implements FXMLIRRepresentable {
             HashSet<String> borough = new HashSet<>();
             borough.add(boroughName);
             try {
-            PropertyController viewProperties = new PropertyController(borough, MainModel.getMinAmount(), MainModel.getMaxAmount());
-            Stage stage = viewProperties.getStage();
-            stage.show();
+                if (MainModel.getMaxAmount() <= MainModel.getMinAmount())
+                {
+                    WelcomeController.priceError();
+                }
+                else {
+                    PropertyController viewProperties = new PropertyController(borough, MainModel.getMinAmount(), MainModel.getMaxAmount());
+                    Stage stage = viewProperties.getStage();
+                    stage.show();
+                }
 
         }
         catch (Exception e)

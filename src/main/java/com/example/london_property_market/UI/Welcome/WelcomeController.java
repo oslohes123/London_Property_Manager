@@ -91,10 +91,10 @@ public class WelcomeController implements Initializable{
         }
     }
 
-    private void priceError(){
+    public static void priceError(){
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Pricing mismatch");
-        alert.setHeaderText("The current Min: " + core.getMinAmount()  + " The current max: " + core.getMaxAmount());
+        alert.setHeaderText("The current Min: " + MainModel.getMinAmount()  + " The current max: " + MainModel.getMaxAmount());
         alert.setContentText("Select a min price that is less than the max price");
         alert.show();
     }
