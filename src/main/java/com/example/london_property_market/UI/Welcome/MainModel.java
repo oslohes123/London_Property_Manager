@@ -7,6 +7,14 @@ import java.util.List;
 
 import com.example.london_property_market.Loader.CsvLoader;
 
+/**
+ * The model class for Main Viewer. Mainly deals with calculating
+ * the combo box values as well as storing them so that they can
+ * be used later
+ *
+ * @author Ashley Tyagi K21008496, Shaheer Effandi K21013734
+ * @version 27/03/2022
+ */
 public class MainModel {
 
     //List of values that will be set in the combo Box

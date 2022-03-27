@@ -11,7 +11,13 @@ import javafx.event.ActionEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-
+/**
+ * Controller class for the welcome page. Contains the onAction methods
+ * for the buttons and the combo boxes.
+ *
+ * @author Ashley Tyagi K21008496
+ * @version 27/03/2022
+ */
 public class WelcomeController implements Initializable {
 
     private final String COMBO_BOX_CSS_CLASS = "combo";
