@@ -89,8 +89,7 @@ public class PropertyController {
      * @param propertyBoxes a list of properties
      * @throws SQLException
      */
-    private void addPropertiesToViewer(List<VBox> propertyBoxes) throws SQLException
-    {
+    private void addPropertiesToViewer(List<VBox> propertyBoxes) throws SQLException {
         properties = propertyBoxes;
         beginningPointer = 0;
         int counter = 0;
@@ -123,8 +122,7 @@ public class PropertyController {
      * nextProperties button must be enabled
      * @param event
      */
-    public void viewPrevious(ActionEvent event)
-    {
+    public void viewPrevious(ActionEvent event)  {
         clearDisplayBoxes();
         //if we click the view previous button, that means there are methods ahead
         nextProperties.setDisable(false);
@@ -149,8 +147,7 @@ public class PropertyController {
      * If we press the nextProperties button, it means that after clicking, the
      * previousProperties button must be enabled
     */
-    public void viewNext(ActionEvent event)
-    {
+    public void viewNext(ActionEvent event)  {
         clearDisplayBoxes();
 
         previousProperties.setDisable(false);
@@ -193,8 +190,7 @@ public class PropertyController {
     /**
      * Adds all sortBy options to the ComboBox
      */
-    private void setSortByCombo()
-    {
+    private void setSortByCombo()  {
         sortByCombo.getItems().addAll(
                 "Alphabetic: A-Z",
                 "Alphabetic: Z-A",
@@ -230,8 +226,7 @@ public class PropertyController {
     /**
      * Clears the gridPane so that different properties can be added
      */
-    private void clearDisplayBoxes()
-    {
+    private void clearDisplayBoxes()  {
         propertyDisplayGrid.getChildren().clear();
     }
 

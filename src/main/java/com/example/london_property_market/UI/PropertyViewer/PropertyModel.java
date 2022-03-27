@@ -47,8 +47,7 @@ public class PropertyModel {
      * @param minPrice the minimum price per night for a property
      * @param maxPrice the maximum price per night for a property
      */
-    public PropertyModel (Set<String> boroughs , int minPrice, int maxPrice)
-    {
+    public PropertyModel (Set<String> boroughs , int minPrice, int maxPrice)  {
         this.boroughs = boroughs ;
         this.minPrice = minPrice;
         this.maxPrice = maxPrice;
@@ -76,8 +75,7 @@ public class PropertyModel {
      * and returned to the getProperties() query
      * @return WHERE clause string containing all selected boroughs
      */
-    private String getBoroughFilterQuery()
-    {
+    private String getBoroughFilterQuery()  {
         String whereClause = "";
         for (Iterator<String> it = boroughs.iterator(); it.hasNext(); ) {
             String borough = it.next();
@@ -204,8 +202,7 @@ public class PropertyModel {
      * concatenating all borough names
      * @return the title of property viewer page
      */
-    public String createStageTitle()
-    {
+    public String createStageTitle()  {
         String title = "validProperties: ";
         for (String borough: boroughs) {
             title += borough + ", ";
@@ -218,8 +215,7 @@ public class PropertyModel {
      * Adds all the sortBy options to the HashMap and maps them
      * to their corresponding SQL ORDER BY statement.
      */
-    private void setSortCriteria()
-    {
+    private void setSortCriteria()  {
         sortCriteria.put("Alphabetic: A-Z", "host_name ASC");
         sortCriteria.put("Alphabetic: Z-A", "host_name DESC");
         sortCriteria.put("Price: Low-High", "price ASC");

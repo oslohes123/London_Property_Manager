@@ -120,8 +120,7 @@ public class PropertyDataController {
      * open a new window that shows data for a particular property
      * @return stage
      */
-    public Stage getStage()
-    {
+    public Stage getStage()  {
         return stage;
     }
 }

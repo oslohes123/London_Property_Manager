@@ -5,9 +5,13 @@ import java.sql.*;
 import java.util.Arrays;
 
 /**
- * http://www.h2database.com/html/tutorial.html#csv
+ * This class represent a loader that load the property database from its online location.
+ *
+ * Reference: http://www.h2database.com/html/tutorial.html#csv
+ * Author: h2database, n.d
  *
  * @author Tom Hurford - k21002432
+ * @version 27-03-2022
  */
 public final class CsvLoader {
     private final String DATABASE_URL = "jdbc:h2:file:" +

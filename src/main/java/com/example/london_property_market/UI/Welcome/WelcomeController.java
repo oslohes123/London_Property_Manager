@@ -12,7 +12,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 
-public class WelcomeController implements Initializable{
+public class WelcomeController implements Initializable {
 
     private final String COMBO_BOX_CSS_CLASS = "combo";
 

@@ -54,8 +54,7 @@ public class getContactedController implements Initializable {
 
     }
 
-    public Stage getStage()
-    {
+    public Stage getStage()  {
         return stage;
     }
 
