@@ -88,7 +88,7 @@ public class getContactedController implements Initializable {
 
 
     private void closingAction(){
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(propertyName);
         alert.setHeaderText("Thank you for contacting S.T.A.Y property viewer about the selected property. We will contact" +
                 " you within our working days");
