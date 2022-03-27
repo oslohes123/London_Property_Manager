@@ -93,6 +93,11 @@ public class PropertyDataController {
         dataPage.getChildren().addAll(name, data, getContactedButton);
     }
 
+    /**
+     * Creates a new window where the user can contact the property Owner
+     * @param id The id of the property
+     */
+
     private void getContactedOpener(int id){
         try{
             getContactedController contactedController = new getContactedController(id);

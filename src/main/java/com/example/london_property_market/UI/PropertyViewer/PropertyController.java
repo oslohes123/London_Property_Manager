@@ -95,7 +95,6 @@ public class PropertyController {
         beginningPointer = 0;
         int counter = 0;
 
-        properties.forEach(a -> a.setPadding(new Insets(20)));
 
         for(VBox property: properties) {
 

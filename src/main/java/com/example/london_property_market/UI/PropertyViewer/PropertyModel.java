@@ -3,6 +3,7 @@ package com.example.london_property_market.UI.PropertyViewer;
 import com.example.london_property_market.Loader.CsvLoader;
 import com.example.london_property_market.UI.PropertyViewer.PropertyData.PropertyDataController;
 import com.example.london_property_market.UI.PropertyViewer.PropertyData.getContacted.getContactedController;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
@@ -58,7 +59,7 @@ public class PropertyModel {
     /**
      * Creates the SQL query based on the arguments passed
      * when creating the class
-     * @return ResultSet every tuple that fits the criteria
+     * @return every tuple that fits the criteria
      */
     private ResultSet getProperties() {
         return loader.executeQuery(
@@ -73,7 +74,7 @@ public class PropertyModel {
      * Creates part of the "WHERE" clause in the SQL statement
      * The name of each selected borough is added to the query
      * and returned to the getProperties() query
-     * @return
+     * @return WHERE clause string containing all selected boroughs
      */
     private String getBoroughFilterQuery()
     {
@@ -96,7 +97,7 @@ public class PropertyModel {
      * When one of the VBoxes are clicked, a new window opens with the data for that
      * property
      * @param validProperties
-     * @return properties A list of VBoxes with the data from the SQL query
+     * @return A list of VBoxes with the data from the SQL query
      * @throws SQLException
      */
     public List<VBox> getPropertyBoxes(ResultSet validProperties) throws SQLException {
@@ -110,8 +111,6 @@ public class PropertyModel {
             propertyData.setUserData(validProperties.getInt("id"));
             propertyData.setOnMouseClicked(e -> showAllData((int) propertyData.getUserData()));
             propertyData.setMaxSize(Integer.MAX_VALUE, Integer.MAX_VALUE);
-
-
 
             //http://tutorials.jenkov.com/jdbc/resultset.html
             Label hostName, borough, price, reviews, minStay;
@@ -136,7 +135,7 @@ public class PropertyModel {
      * An overloaded version of the method that is used when the
      * page is loaded up initially.
      * The resulting set has no sorting filters applied
-     * @return properties A list of VBoxes with the data from the SQL query
+     * @return A list of VBoxes with the data from the SQL query
      * @throws SQLException
      */
     public List<VBox> getPropertyBoxes() throws SQLException {
@@ -147,7 +146,7 @@ public class PropertyModel {
     /**
      * Will open a new window which contains all the details about
      * the selected property
-     * @param id used in an SQL query to get data about the property
+     * @param id the ID of the property
      */
     private void showAllData(int id) {
         try {
@@ -171,7 +170,7 @@ public class PropertyModel {
      * Uses the sortCriterias HashMap to create the ORDER BY clause
      *
      * @param sortBy the selected sortBy option
-     * @return properties A list of VBoxes with the data from the SQL query
+     * @return A list of VBoxes with the data from the SQL query
      * @throws SQLException
      */
     public List<VBox> sortBy(String sortBy) throws SQLException {
@@ -187,8 +186,8 @@ public class PropertyModel {
     /**
      * An overloaded version of the getProperties method that
      * also includes an ORDER BY clause
-     * @param sortBy
-     * @return ResultSet the set of tuples that match the criteria
+     * @param sortBy the chosen sort option
+     * @return the set of tuples that match the criteria
      */
     private ResultSet getProperties(String sortBy) {
         return loader.executeQuery(
@@ -203,7 +202,7 @@ public class PropertyModel {
     /**
      * Using the set "boroughs", a title for page is created by
      * concatenating all borough names
-     * @return title the title of property viewer page
+     * @return the title of property viewer page
      */
     public String createStageTitle()
     {
