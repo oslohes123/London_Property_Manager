@@ -18,6 +18,7 @@ import javafx.event.ActionEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -63,6 +64,8 @@ public class PropertyController {
         //https://ifelse.info/questions/46749/problem-loading-fxml-file
         fxmlLoader.setController(this);
         Parent root = fxmlLoader.load();
+
+        propertyDisplayGrid.setMaxSize(Integer.MAX_VALUE, Integer.MAX_VALUE);
 
         Scene scene = new Scene(root);
         model = new PropertyModel(boroughs, minPrice, maxPrice);
@@ -215,6 +218,8 @@ public class PropertyController {
             if (sortedProperties != null) {
                 clearDisplayBoxes();
                 addPropertiesToViewer(sortedProperties);
+                previousProperties.setDisable(true);
+                nextProperties.setDisable(false);
             }
         }
         catch (SQLException ex)
@@ -237,10 +242,7 @@ public class PropertyController {
      * that fit the criteria
      * @return stage
     */
-    public Stage getStage()
-    {
+    public Stage getStage() {
         return stage;
     }
-
-
 }

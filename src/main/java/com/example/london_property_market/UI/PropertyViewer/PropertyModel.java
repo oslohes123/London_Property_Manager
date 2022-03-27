@@ -2,9 +2,8 @@ package com.example.london_property_market.UI.PropertyViewer;
 
 import com.example.london_property_market.Loader.CsvLoader;
 import com.example.london_property_market.UI.PropertyViewer.PropertyData.PropertyDataController;
-import com.example.london_property_market.UI.PropertyViewer.getContacted.getContactedController;
+import com.example.london_property_market.UI.PropertyViewer.PropertyData.getContacted.getContactedController;
 import javafx.scene.control.Button;
-
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -107,30 +106,27 @@ public class PropertyModel {
         {
 
             VBox propertyData = new VBox();
+
+            propertyData.setUserData(validProperties.getInt("id"));
+            propertyData.setOnMouseClicked(e -> showAllData((int) propertyData.getUserData()));
+            propertyData.setMaxSize(Integer.MAX_VALUE, Integer.MAX_VALUE);
+
+
+
+            //http://tutorials.jenkov.com/jdbc/resultset.html
+            Label hostName, borough, price, reviews, minStay;
+            hostName = new Label("Host Name: " + validProperties.getString("host_name"));
+            hostName.setWrapText(true);
+
+            borough = new Label("Borough: " + validProperties.getString("neighbourhood"));
+            price = new Label("Price Per Night: " + validProperties.getInt("price"));
+            reviews = new Label("Number of Reviews: " + validProperties.getInt("number_of_reviews"));
+            minStay = new Label("Min stay (nights): " + validProperties.getInt("minimum_nights"));
+
             propertyData.setUserData(validProperties.getInt("id"));
             propertyData.setOnMouseClicked(e -> showAllData((int) propertyData.getUserData()));
 
-            //http://tutorials.jenkov.com/jdbc/resultset.html
-            Label hostName, neighbourhood, price, numberOfReviews, minNumberOfNights;
-
-            Button seeMoreButton = new Button();
-            Button getContactedButton = new Button();
-            hostName = new Label("Host Name: " + validProperties.getString("host_name"));
-            neighbourhood = new Label("Borough: " + validProperties.getString("neighbourhood"));
-            price = new Label("Price Per Night: " + validProperties.getInt("price"));
-            numberOfReviews = new Label("Number of Reviews: " + validProperties.getInt("number_of_reviews"));
-            minNumberOfNights = new Label("Minimum stay (nights): " + validProperties.getInt("minimum_nights"));
-
-
-            seeMoreButton.setUserData(validProperties.getInt("id"));
-            seeMoreButton.setOnAction(e -> showAllData((int) seeMoreButton.getUserData()));
-            seeMoreButton.setText("More Details");
-
-            getContactedButton.setUserData(validProperties.getInt("id"));
-            getContactedButton.setOnAction(e -> getContactedOpener((int) getContactedButton.getUserData()));
-            getContactedButton.setText("Get Contacted");
-
-            propertyData.getChildren().addAll(hostName, neighbourhood, price, numberOfReviews, minNumberOfNights, seeMoreButton,getContactedButton);
+            propertyData.getChildren().addAll(hostName, borough, price, reviews, minStay);
             properties.add(propertyData);
         }
         return properties;
@@ -166,17 +162,6 @@ public class PropertyModel {
         }
     }
 
-    private void getContactedOpener(int id){
-        try{
-            getContactedController contactedController = new getContactedController(id);
-            Stage stage = contactedController.getStage();
-            stage.show();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-
-    }
 
 
     /**
@@ -242,4 +227,6 @@ public class PropertyModel {
         sortCriteria.put("Price: High-Low", "price DESC");
         sortCriteria.put("Number of Reviews", "number_of_reviews DESC");
     }
+
+
 }

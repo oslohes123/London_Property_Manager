@@ -11,3 +11,8 @@ VBox {
     -fx-font-weight: bold;
 
 }
+
+.contactButton {
+    -fx-border-color: purple;
+    -fx-border-radius: 10px;
+}

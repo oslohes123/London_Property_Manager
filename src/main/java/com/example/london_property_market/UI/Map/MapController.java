@@ -77,7 +77,6 @@ public class MapController implements FXMLIRRepresentable {
 
     // The header controls - the selectors for the type and statistics with the button for properties
     private ToggleSwitch propertySelectionType;
-    private ToggleSwitch statsSelectionType;
     private Button viewBoroughs;
     private Button openStats;
 
@@ -94,6 +93,8 @@ public class MapController implements FXMLIRRepresentable {
     @Override
     public BorderPane initialize() {
         BorderPane mainPane = new BorderPane();
+        mainPane.getStyleClass().add("innerPane");
+
         ArcGISRuntimeEnvironment.setApiKey(ARCGIS_API_KEY);
 
         mapModel = new MapModel();
@@ -133,22 +134,19 @@ public class MapController implements FXMLIRRepresentable {
         propertySelectionType = new ToggleSwitch("Enable selection of multiple boroughs");
         propertySelectionType.getStyleClass().add("selectionType");
 
-        statsSelectionType = new ToggleSwitch("View statistics from selected borough");
-        statsSelectionType.getStyleClass().add("selectionType");
-
         //https://stackoverflow.com/questions/29616246/how-to-bind-inverse-boolean-javafx
-        viewBoroughs = new Button("View multiple boroughs");
+        //
+        viewBoroughs = new Button("View boroughs");
         viewBoroughs.setOnAction(this::openPropertyViewer);
-        viewBoroughs.getStyleClass().add("controlButtons");
+        viewBoroughs.getStyleClass().addAll("controlButtons", "innerPaneButton");
         viewBoroughs.disableProperty().bind(propertySelectionType.selectedProperty().not());
 
         openStats = new Button("Statistics");
         openStats.setOnAction(this::openStatsWindow);
-        openStats.disableProperty().bind(statsSelectionType.selectedProperty().not());
-        openStats.getStyleClass().add("controlButtons");
+        openStats.getStyleClass().addAll("controlButtons", "innerPaneButton");
 
 
-        headerControl.getChildren().addAll(propertySelectionType, viewBoroughs, statsSelectionType, openStats);
+        headerControl.getChildren().addAll(propertySelectionType, viewBoroughs, openStats);
         return headerControl;
     }
 
@@ -180,8 +178,21 @@ public class MapController implements FXMLIRRepresentable {
      *
      * @param boroughName borough name
      */
+
     private void openPropertyViewer(String boroughName) {
 
+            HashSet<String> borough = new HashSet<>();
+            borough.add(boroughName);
+            try {
+            PropertyController viewProperties = new PropertyController(borough, MainModel.getMinAmount(), MainModel.getMaxAmount());
+            Stage stage = viewProperties.getStage();
+            stage.show();
+
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
     private void noBoroughsSelected() {
@@ -202,9 +213,6 @@ public class MapController implements FXMLIRRepresentable {
      */
     private void openStatsWindow(ActionEvent actionEvent) {
         try {
-
-
-            if (statsSelectionType.isSelected()) {
                 FXMLLoader statsLoader = new FXMLLoader(getClass().getResource("/views/StatsView.fxml"));
                 Parent root = statsLoader.load();
 
@@ -216,15 +224,10 @@ public class MapController implements FXMLIRRepresentable {
                 stage.setTitle("Statistics");
                 stage.setScene(statsScene);
                 stage.show();
-                // pass the hashset itself
-            } else {
-                // pass null, which will indicate *
 
-            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
 
     }
 

@@ -1,7 +1,6 @@
 package com.example.london_property_market.UI.Welcome;
 
 import com.example.london_property_market.UI.MainViewer;
-import com.example.london_property_market.UI.Welcome.MainModel;
 import com.example.london_property_market.Loader.AirbnbDataLoader;
 import com.example.london_property_market.Loader.AirbnbListing;
 import javafx.fxml.FXML;
@@ -10,6 +9,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.event.ActionEvent;
+
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -65,6 +65,7 @@ public class WelcomeController implements Initializable{
             paneError();
         }else{
             MainViewer.setCenterLayout(1);
+
         }
     }
     @FXML
@@ -73,7 +74,8 @@ public class WelcomeController implements Initializable{
             priceError();
         }
         else if (!MainViewer.isNextPointerChangeValid(-1)){
-            paneError();
+            System.exit(0);
+            //paneError();
         }else{
             MainViewer.setCenterLayout(-1);
         }
@@ -81,12 +83,12 @@ public class WelcomeController implements Initializable{
 
     private void setColors(){
         if (core.isValidValues()) {
-            MainViewer.setMainStyleSheet("combo/validCombo.css");
+            MainViewer.setMainStyleSheet("Styles/combo/validCombo.css", minComboBox, maxComboBox);
             MainViewer.updatePanels();
-        }else {
-            MainViewer.setMainStyleSheet("combo/invalidCombo.css");
-        }
 
+        }else {
+            MainViewer.setMainStyleSheet("Styles/combo/invalidCombo.css", minComboBox, maxComboBox);
+        }
     }
 
     private void priceError(){
