@@ -19,7 +19,17 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
+/**
+ * @auther Ashley Tyagi K21008496
+ *
+ * v1
+ */
 
+
+
+/**
+ * This controls the statistics window
+ */
 public class StatisticsController implements Initializable {
 
     @FXML

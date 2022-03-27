@@ -1,4 +1,13 @@
 package com.example.london_property_market.UI.PropertyViewer.PropertyData.getContacted;
+/**
+ * @auther Ashley Tyagi K21008496
+ *
+ * v1
+ */
+
+
+
+
 
 import com.example.london_property_market.UI.PropertyViewer.PropertyData.PropertyDataModel;
 import javafx.fxml.FXML;
@@ -20,6 +29,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+
+/**
+ * The controller for the getContacted window
+ */
 public class getContactedController implements Initializable {
 
     @FXML
@@ -33,6 +46,10 @@ public class getContactedController implements Initializable {
     private ResultSet propertyData;
     private String propertyName;
 
+    /**
+     * Sets up the new iwindow and sets up the initial stat to be shown
+     * @param propertyID The property to get the stats of
+     */
     public getContactedController(int propertyID) {
         try{
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("views/sendInfo.fxml"));
@@ -64,6 +81,11 @@ public class getContactedController implements Initializable {
 
     }
 
+    /**
+     * Runs when the sendButton is clicked in the getContacted panel
+     * @param mouseEvent
+     * @throws SQLException
+     */
     @FXML
     public void sendClicked(MouseEvent mouseEvent) throws SQLException {
 
