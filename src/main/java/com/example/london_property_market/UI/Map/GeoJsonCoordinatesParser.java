@@ -16,6 +16,7 @@ public class GeoJsonCoordinatesParser {
      * methodology was chosen as ArcGIS does not include multiPolygons. This method returns the parts based on the
      * formatted geojson file.
      * Reference: https://stackoverflow.com/questions/28977308/read-all-lines-with-bufferedreader
+     * Author: Russel Yang, date: Nov 3, 2016
      * @param coordinatesFilePath the path of the borough file.
      * @return collection of parts, which every part is a collection of points that forms a polygon.
      */
@@ -53,6 +54,7 @@ public class GeoJsonCoordinatesParser {
      * This method returns the name of the borough in the specified file. The name of the borough is in the geojson file,
      * which this method extracts.
      * Reference: https://stackoverflow.com/questions/28977308/read-all-lines-with-bufferedreader
+     * Author: Russel Yang, date: Nov 3, 2016
      * @param fileName the name of the file
      * @return the name of the borough
      */

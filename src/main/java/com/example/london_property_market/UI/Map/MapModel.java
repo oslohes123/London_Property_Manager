@@ -77,6 +77,7 @@ public class MapModel {
     /**
      * This method returns a list that contains the file names in the geojson folder
      * REFERENCE: https://stackoverflow.com/questions/28985379/java-how-to-read-folder-and-list-files-in-that-folder-in-jar-environment-instead
+     *  Author Boris the Spider, date: Mar 11, 2015
      * @return a list that contains the file names in the geojson folder
      */
     protected String[] getAllGeoJsonResources(){

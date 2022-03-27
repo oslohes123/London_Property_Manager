@@ -126,6 +126,7 @@ public class LifeExpensesController implements FXMLIRRepresentable {
      * This method validate if the entered budget is a valid numerical number
      *
      * Reference: https://www.baeldung.com/java-check-string-number
+     * Author: baeldung, date: October 10, 2021
      * @return true if the budget is a positive number, false otherwise
      */
     private boolean isValidBudget(){

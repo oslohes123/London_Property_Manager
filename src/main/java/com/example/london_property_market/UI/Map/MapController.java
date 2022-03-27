@@ -50,6 +50,7 @@ import java.util.Stack;
  * This class represents the map controller, which represents the second panel.
  * <p>
  * Reference: https://developers.arcgis.com/java/api-reference/reference/
+ * Author: ArcGIS, date: n.d
  * Note that a common reference to all ArcGIS functionality is their API reference, which is only written here to reduce
  * redundancy since it almost was used in all of this class. But this reference was not used for the creating of this class,
  * but for the functionality that involves specific actions that are related to the ArcGIS map.
@@ -249,6 +250,7 @@ public class MapController implements FXMLIRRepresentable {
     /**
      * This method draws the boundaries of london on the map based on the files that are specified on the mapModel.
      * Reference: https://developers.arcgis.com/java/maps-2d/tutorials/add-a-point-line-and-polygon/
+     * Author: ArcGIS, date: n.d
      */
     private void drawBoroughsBoundariesFromFolder() {
         GraphicsOverlay graphicsOverlay = new GraphicsOverlay();
@@ -276,6 +278,7 @@ public class MapController implements FXMLIRRepresentable {
      * to locate the attributes and to understand their mechanism.
      * <p>
      * References: https://www.youtube.com/watch?v=bLUwuK5ZpHM&t=1585s
+     * Authors:  Esri Events, Mark Barid, Jonathan Lavi, date: Apr 25, 2020
      *
      * @param graphicsOverlay the overlay that the labels will be added to
      */
@@ -300,7 +303,7 @@ public class MapController implements FXMLIRRepresentable {
      * This method takes the mouse input of the user and color the borough that the user has selected.
      * <p>
      * References: https://developers.arcgis.com/java/sample-code/show-callout/, https://www.youtube.com/watch?v=bLUwuK5ZpHM&t=1585s
-     *
+     * Authors: Arcgis website n.d . Esri Events, Mark Barid, Jonathan Lavi, date: Apr 25, 2020
      * @param mouseEvent mouseEvent
      */
     private void onMouseClick(MouseEvent mouseEvent) {
@@ -339,6 +342,7 @@ public class MapController implements FXMLIRRepresentable {
     /**
      * This method perform the task of updating the landmarks that indicates properties on the map.
      * Reference: https://www.youtube.com/watch?v=bLUwuK5ZpHM&t=1585s
+     * Authors:  Esri Events, Mark Barid, Jonathan Lavi, date: Apr 25, 2020
      */
     @Override
     public void onChangeInformation() {

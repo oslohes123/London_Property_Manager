@@ -21,7 +21,8 @@ public class SendPropertyInquire {
      * This method contacts the server side of the program with the user's information to perform the functionality
      * of contacting
      *
-     * Reference: https://www.edureka.co/community/6308/java-sending-http-parameters-via-post-method-easily
+     * Reference: https://www.edureka.co/community/6308/java-sending-http-parameters-via-post-method-easily,
+     * Authour: Rishabh Pathak, date: Jun 7, 2018
      * @param email user's email
      * @param name user's name
      * @param property user's selected property
