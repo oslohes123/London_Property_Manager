@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.london_property_market.Loader.AirbnbListing;
 import com.example.london_property_market.Loader.CsvLoader;
 
 public class MainModel {

@@ -13,6 +13,7 @@ import java.sql.ResultSet;
  */
 public class PropertyDataModel {
 
+    // The loader class for properties
     private static final CsvLoader loader = new CsvLoader();
 
     /**

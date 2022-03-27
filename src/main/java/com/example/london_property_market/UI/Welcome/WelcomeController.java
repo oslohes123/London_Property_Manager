@@ -1,8 +1,6 @@
 package com.example.london_property_market.UI.Welcome;
 
 import com.example.london_property_market.UI.MainViewer;
-import com.example.london_property_market.Loader.AirbnbDataLoader;
-import com.example.london_property_market.Loader.AirbnbListing;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -11,14 +9,11 @@ import javafx.scene.control.ComboBox;
 import javafx.event.ActionEvent;
 
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 
 public class WelcomeController implements Initializable{
 
-    private AirbnbDataLoader dataLoader = new AirbnbDataLoader();
-    private List<AirbnbListing> propertyData;
     private final String COMBO_BOX_CSS_CLASS = "combo";
 
     @FXML
@@ -35,7 +30,7 @@ public class WelcomeController implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //propertyData = dataLoader.listDataLoader();
+
         core = new MainModel();
         minComboBox.getItems().addAll(core.getCombValues());
         maxComboBox.getItems().addAll(core.getCombValues());
@@ -74,13 +69,15 @@ public class WelcomeController implements Initializable{
             priceError();
         }
         else if (!MainViewer.isNextPointerChangeValid(-1)){
-            System.exit(0);
-            //paneError();
+            paneError();
         }else{
             MainViewer.setCenterLayout(-1);
         }
     }
 
+    /**
+     * This method updates the colors of the combo boxes
+     */
     private void setColors(){
         if (core.isValidValues()) {
             MainViewer.setMainStyleSheet("Styles/combo/validCombo.css", minComboBox, maxComboBox);
@@ -91,6 +88,9 @@ public class WelcomeController implements Initializable{
         }
     }
 
+    /**
+     * This method alerts the user of an error on price selection
+     */
     public static void priceError(){
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Pricing mismatch");
@@ -99,6 +99,9 @@ public class WelcomeController implements Initializable{
         alert.show();
     }
 
+    /**
+     * This method alert the user incorrect traversing of the program
+     */
     private void paneError(){
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Pane error");

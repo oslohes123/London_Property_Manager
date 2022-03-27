@@ -1,6 +1,6 @@
 package com.example.london_property_market.Loader;
-import javax.swing.plaf.nimbus.State;
-import javax.xml.transform.Result;
+
+
 import java.sql.*;
 import java.util.Arrays;
 
