@@ -34,4 +34,14 @@
          </children>
       </AnchorPane>
    </center>
+   <right>
+      <VBox alignment="CENTER" prefHeight="332.0" prefWidth="137.0" BorderPane.alignment="CENTER">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </VBox>
+   </right>
+   <top>
+      <HBox alignment="CENTER" prefHeight="68.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
+   </top>
 </BorderPane>
