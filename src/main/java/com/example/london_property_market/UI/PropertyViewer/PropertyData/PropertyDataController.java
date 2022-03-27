@@ -69,6 +69,11 @@ public class PropertyDataController {
         name = new Label(propertyData.getString("name"));
         name.getStyleClass().add("propertyName");
 
+        String lastReview = propertyData.getString("last_review");
+
+        if (lastReview == null)
+            lastReview = "No previous reviews";
+
         data = new Label();
         data.setText(
                 "Host Name: " + propertyData.getString("host_name")
@@ -77,7 +82,7 @@ public class PropertyDataController {
                 + "\nPrice: " + propertyData.getInt("price")
                 + "\nMinimum Stay: " + propertyData.getInt("minimum_nights")
                 + "\nNumber of Review: " + propertyData.getInt("number_of_reviews")
-                + "\nLast Review: " + propertyData.getString("last_review")
+                + "\nLast Review: " + lastReview
                 + "\nAverage reviews per month: " + propertyData.getDouble("reviews_per_month")
                 + "\nNumber of Property listings by this Host: " + propertyData.getInt("calculated_host_listings_count")
                 + "\nNumber of available days: " + propertyData.getInt("availability_365")
