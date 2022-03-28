@@ -134,11 +134,12 @@ public class MapController implements FXMLIRRepresentable {
 
         //https://github.com/controlsfx/controlsfx
         //https://controlsfx.github.io/javadoc/11.1.1/org.controlsfx.controls/org/controlsfx/control/ToggleSwitch.html
+        //Author: controlsfx, n.d
         propertySelectionType = new ToggleSwitch("Enable selection of multiple boroughs");
         propertySelectionType.getStyleClass().add("selectionType");
 
         //https://stackoverflow.com/questions/29616246/how-to-bind-inverse-boolean-javafx
-        //
+        //Author: James_D, date: Apr 13, 2015
         viewBoroughs = new Button("View boroughs");
         viewBoroughs.setOnAction(this::openPropertyViewer);
         viewBoroughs.getStyleClass().addAll("controlButtons", "innerPaneButton");
