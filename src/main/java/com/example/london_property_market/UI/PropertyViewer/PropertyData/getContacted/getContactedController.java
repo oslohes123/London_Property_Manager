@@ -51,7 +51,9 @@ public class getContactedController  {
             fxmlLoader.setController(this);
             Parent root = fxmlLoader.load();
             propertyData = PropertyDataModel.getPropertyData(propertyID);
-            
+
+            dataDisclaimerAction();
+
             Scene scene = new Scene(root);
             stage = new Stage();
 
@@ -118,6 +120,17 @@ public class getContactedController  {
         alert.setHeaderText("Thank you for contacting S.T.A.Y property viewer about the selected property. We will contact" +
                 " you within our working days");
         alert.setContentText("We will contact you as soon as possible");
+        alert.show();
+    }
+
+    /**
+     * This method handles the data policy disclaimer of the contact viewer.
+     */
+    private void dataDisclaimerAction(){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(propertyName);
+        alert.setHeaderText("DISCLAIMER: Although the program contains personal user data input, the data is not stored in any way and it is only used to send an email.  The panel is only meant to be a future extenet in a commercial program.\n");
+        alert.setContentText("");
         alert.show();
     }
 }
