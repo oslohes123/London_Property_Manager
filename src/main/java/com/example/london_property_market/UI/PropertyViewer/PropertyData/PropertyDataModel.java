@@ -1,6 +1,6 @@
 package com.example.london_property_market.UI.PropertyViewer.PropertyData;
 
-import com.example.london_property_market.Loader.CsvLoader;
+import com.example.london_property_market.Loader.DataBaseLoader;
 
 import java.sql.ResultSet;
 
@@ -15,7 +15,7 @@ import java.sql.ResultSet;
 public class PropertyDataModel {
 
     // The loader class for properties
-    private static final CsvLoader loader = new CsvLoader();
+    private static final DataBaseLoader loader = new DataBaseLoader();
 
     /**
      * Uses a query to get the data of a particular property

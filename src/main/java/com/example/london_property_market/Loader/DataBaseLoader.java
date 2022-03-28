@@ -13,7 +13,7 @@ import java.util.Arrays;
  * @author Tom Hurford - k21002432
  * @version 27-03-2022
  */
-public final class CsvLoader {
+public final class DataBaseLoader {
     private final String DATABASE_URL = "jdbc:h2:file:" +
             "./src/main/resources/database/Locations";
 
@@ -22,7 +22,7 @@ public final class CsvLoader {
     private static boolean created = false;
     private Connection con;
 
-    public CsvLoader(){
+    public DataBaseLoader(){
         if(!created){
             created = true;
         }

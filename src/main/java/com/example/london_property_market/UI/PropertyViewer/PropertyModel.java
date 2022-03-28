@@ -1,10 +1,7 @@
 package com.example.london_property_market.UI.PropertyViewer;
 
-import com.example.london_property_market.Loader.CsvLoader;
+import com.example.london_property_market.Loader.DataBaseLoader;
 import com.example.london_property_market.UI.PropertyViewer.PropertyData.PropertyDataController;
-import com.example.london_property_market.UI.PropertyViewer.PropertyData.getContacted.getContactedController;
-import javafx.geometry.Insets;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -38,7 +35,7 @@ public class PropertyModel {
     */
     public static HashMap<String, String> sortCriteria;
     //The SQL loader itself
-    public static final CsvLoader loader = new CsvLoader();
+    public static final DataBaseLoader loader = new DataBaseLoader();
 
     /**
      * Takes the users filter selections and stores them so that they can be

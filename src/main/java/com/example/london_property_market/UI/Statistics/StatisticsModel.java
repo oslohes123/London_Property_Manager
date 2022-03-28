@@ -1,6 +1,6 @@
 package com.example.london_property_market.UI.Statistics;
 
-import com.example.london_property_market.Loader.CsvLoader;
+import com.example.london_property_market.Loader.DataBaseLoader;
 
 
 import java.sql.ResultSet;
@@ -19,7 +19,7 @@ import java.util.List;
 
 public class StatisticsModel {
 
-    private final CsvLoader sql;
+    private final DataBaseLoader sql;
     private final List<String> boroughs;
     private typesOfStat counter;
 
@@ -30,7 +30,7 @@ public class StatisticsModel {
      * @param boroughs The list of boroughs
      */
     public StatisticsModel(List<String> boroughs){
-        sql = new CsvLoader();
+        sql = new DataBaseLoader();
         this.boroughs = boroughs;
         counter = typesOfStat.avg_reviews_per_property_view;
     }

@@ -3,7 +3,7 @@ package com.example.london_property_market.UI.Map;
 import com.esri.arcgisruntime.geometry.Point;
 import com.esri.arcgisruntime.geometry.Polygon;
 import com.esri.arcgisruntime.mapping.view.Graphic;
-import com.example.london_property_market.Loader.CsvLoader;
+import com.example.london_property_market.Loader.DataBaseLoader;
 import com.example.london_property_market.UI.Welcome.MainModel;
 import com.sun.javafx.geom.Line2D;
 import org.apache.commons.lang3.tuple.ImmutablePair;
@@ -50,8 +50,8 @@ public class MapModel {
         double minSearchAmount = MainModel.getMinAmount();
         double maxSearchAmount = MainModel.getMaxAmount();
 
-        CsvLoader csvLoader = new CsvLoader();
-        ResultSet resultedLocations = csvLoader.executeQuery("SELECT longitude, latitude FROM airbnb_locations WHERE price >=" + minSearchAmount + " AND price <=" + maxSearchAmount);
+        DataBaseLoader dataBaseLoader = new DataBaseLoader();
+        ResultSet resultedLocations = dataBaseLoader.executeQuery("SELECT longitude, latitude FROM airbnb_locations WHERE price >=" + minSearchAmount + " AND price <=" + maxSearchAmount);
 
         try {
             resultedLocations.next(); // To skip the header

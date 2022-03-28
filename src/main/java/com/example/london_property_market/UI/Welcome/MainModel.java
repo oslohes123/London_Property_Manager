@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.london_property_market.Loader.CsvLoader;
+import com.example.london_property_market.Loader.DataBaseLoader;
 
 /**
  * The model class for Main Viewer. Mainly deals with calculating
@@ -63,7 +63,7 @@ public class MainModel {
         int maxPrice = -1;
 
         try {
-            CsvLoader loader = new CsvLoader();
+            DataBaseLoader loader = new DataBaseLoader();
             ResultSet rs = loader.executeQuery(
                     "SELECT MAX(price) AS maxPrice FROM airbnb_locations; "
             );

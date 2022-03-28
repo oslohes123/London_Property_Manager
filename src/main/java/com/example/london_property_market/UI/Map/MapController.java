@@ -316,14 +316,13 @@ public class MapController implements FXMLIRRepresentable {
             Point projectedPoint = (Point) GeometryEngine.project(mapPoint, SpatialReferences.getWgs84());
             Pair<String, String> boroughInfo = mapModel.getBoroughName(projectedPoint.getX(), projectedPoint.getY(), polygons);
 
-            // check if the user is on single or multiple borough mode
-            if (!propertySelectionType.isSelected()) {
-                openPropertyViewer(boroughInfo.getRight());
-            } else {
+            // Important as users may click a location outside london
+            if (boroughInfo.getLeft() != null && boroughInfo.getRight() != null) {
 
-                // Important as users may click a location outside london
-                if (boroughInfo.getLeft() != null && boroughInfo.getRight() != null) {
-
+                // check if the user is on single or multiple borough mode
+                if (!propertySelectionType.isSelected()) {
+                    openPropertyViewer(boroughInfo.getRight());
+                } else {
                     // change fill when clicked
                     if (JsonParser.parseString(polygons.get(boroughInfo.getLeft()).getSymbol().toJson()).getAsJsonObject().get("type").getAsString().equals("esriSLS")) {
                         polygons.get(boroughInfo.getLeft()).setSymbol(new SimpleFillSymbol(SimpleFillSymbol.Style.SOLID, mapModel.generateRandomHexWithOpacity(Opacity.DEFAULT_FILL_OPACITY), new SimpleLineSymbol(SimpleLineSymbol.Style.SOLID, mapModel.generateRandomHexWithOpacity(Opacity.ZERO_OPACITY), 2)));
@@ -332,8 +331,9 @@ public class MapController implements FXMLIRRepresentable {
                         polygons.get(boroughInfo.getLeft()).setSymbol(new SimpleLineSymbol(SimpleLineSymbol.Style.SOLID, mapModel.generateRandomHexWithOpacity(Opacity.ZERO_OPACITY), 3));
                         selectedBoroughs.remove(boroughInfo.getRight());
                     }
-                }
 
+
+                }
             }
 
         }
