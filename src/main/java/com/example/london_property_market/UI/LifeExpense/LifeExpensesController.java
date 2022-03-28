@@ -76,6 +76,7 @@ public class LifeExpensesController implements FXMLIRRepresentable {
      */
     private void onBudgetStartAction(ActionEvent actionEvent){
 
+        lifeExpensesMainPane.getChildren().clear();
         ((Button) actionEvent.getSource()).setDisable(true);
 
         VBox budgetVBox = new VBox();
@@ -98,7 +99,7 @@ public class LifeExpensesController implements FXMLIRRepresentable {
      * @param actionEvent actionEvent
      */
     private void onServiceStartAction(ActionEvent actionEvent){
-
+        lifeExpensesMainPane.getChildren().clear();
         if (isValidBudget()) {
             ((Button) actionEvent.getSource()).setDisable(true);
 
