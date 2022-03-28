@@ -99,8 +99,9 @@ public class LifeExpensesController implements FXMLIRRepresentable {
      * @param actionEvent actionEvent
      */
     private void onServiceStartAction(ActionEvent actionEvent){
-        lifeExpensesMainPane.getChildren().clear();
+
         if (isValidBudget()) {
+            lifeExpensesMainPane.getChildren().clear();
             ((Button) actionEvent.getSource()).setDisable(true);
 
             model.setMaximumBudget(Double.parseDouble(budgetTextField.getText()));
