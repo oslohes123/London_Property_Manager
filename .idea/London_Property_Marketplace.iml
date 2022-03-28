@@ -25,7 +25,6 @@
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.openjfx:javafx-media:11.0.2" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.openjfx:javafx-fxml:linux:11.0.2" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.openjfx:javafx-media:linux:11.0.2" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Maven: org.openjfx:javafx-media:win:11.0.2" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.openjfx:javafx-media:mac:11.0.2" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.openjfx:javafx-controls:linux:11.0.2" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.openjfx:javafx-base:linux:11.0.2" level="project" />
