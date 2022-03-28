@@ -22,7 +22,8 @@ public class SendPropertyInquire {
      * of contacting
      *
      * Reference: https://www.edureka.co/community/6308/java-sending-http-parameters-via-post-method-easily,
-     * Authour: Rishabh Pathak, date: Jun 7, 2018
+     * https://stackoverflow.com/questions/4205980/java-sending-http-parameters-via-post-method-easily
+     * Author: Rishabh Pathak, date: Jun 7, 2018. Author: Imaskar, May 4, 2018
      * @param email user's email
      * @param name user's name
      * @param property user's selected property
@@ -49,6 +50,9 @@ public class SendPropertyInquire {
             try (DataOutputStream wr = new DataOutputStream(httpURLConnection.getOutputStream())) {
                 wr.write(postData);
             }
+
+            // Necessary to work
+            httpURLConnection.getResponseCode();
 
         } catch (IOException e) {
             return false;
